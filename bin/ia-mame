@@ -7,8 +7,15 @@ declare rootpath=$(readlink -f `dirname $0`)
 declare libpath="$rootpath/../lib"
 declare iamamejar="$rootpath/../target/ia-mame-1.0-SNAPSHOT.jar"
 declare configfile="$rootpath/../etc/ia-mame.properties"
+declare dry_run=0
+
+if [[ "$1" == "--dry-run" ]]; then
+    dry_run=1
+    shift 1
+fi
 
 java -classpath "$libpath/*:$iamamejar" \
     -Diamame.configfile="$configfile" \
+    -Diamame.dryrun=$dry_run \
     org.tibennetwork.iamame.IaMame \
     $@

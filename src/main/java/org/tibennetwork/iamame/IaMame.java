@@ -139,13 +139,15 @@ public class IaMame
 
         }
 
-        // Launch Mame
-        try {
-            mame.execute(mameArgs.getRawArgs());
-        } catch (IOException | InterruptedException e) {
-            IaMame.errorAndExit(
-                "An error occured while trying to execute Mame: " 
-                    + e.getMessage());
+        // Launch Mame if not in dry-run mode
+        if (System.getProperties().getProperty("iamame.dryrun").equals("0")) {
+            try {
+                mame.execute(mameArgs.getRawArgs());
+            } catch (IOException | InterruptedException e) {
+                IaMame.errorAndExit(
+                    "An error occured while trying to execute Mame: " 
+                        + e.getMessage());
+            }
         }
 
     }
