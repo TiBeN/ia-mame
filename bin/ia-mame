@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# ia-mame startup bash script
+
+declare rootpath=$(readlink -f `dirname $0`)
+
+declare libpath="$rootpath/../lib"
+declare iamamejar="$rootpath/../target/ia-mame-1.0-SNAPSHOT.jar"
+declare configfile="$rootpath/../etc/ia-mame.properties"
+
+java -classpath "$libpath/*:$iamamejar" \
+    -Diamame.configfile="$configfile" \
+    org.tibennetwork.iamame.IaMame \
+    $@
