@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.tibennetwork.iamame.mame.Software;
 
-public class MessPceCd extends SoftwareListCollectionItem {
+public class MessChdPceCd extends SoftwareListCollectionItem {
 
     private String softwareFileUrlPattern 
         = "http://archive.org/download/MESS_0.149_CHD_pcecd/" 
             + "MESS_0.149_CHD_pcecd.zip/MESS_0.149_CHD_pcecd/%1$s/%2$s.chd";
 
-    public MessPceCd (List<File> romsPaths, File writableRomPath) {
+    public MessChdPceCd (List<File> romsPaths, File writableRomPath) {
         super(romsPaths, writableRomPath);
     }
 
