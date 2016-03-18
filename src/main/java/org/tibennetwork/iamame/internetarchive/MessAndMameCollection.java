@@ -11,6 +11,7 @@ import org.tibennetwork.iamame.internetarchive.collectionitem.MachineRomsCollect
 import org.tibennetwork.iamame.internetarchive.collectionitem.MameRoms;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessBios;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPceCd;
+import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPsx;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessSoftwareListRoms;
 import org.tibennetwork.iamame.internetarchive.collectionitem.SoftwareFileNotFoundInCollectionException;
 import org.tibennetwork.iamame.internetarchive.collectionitem.SoftwareListCollectionItem;
@@ -50,6 +51,10 @@ public class MessAndMameCollection {
         this.softwareCollectionItems.put(
             "pcecd", 
             new MessChdPceCd(romsPaths, writableRomPath));
+
+        this.softwareCollectionItems.put(
+            "psx", 
+            new MessChdPsx(romsPaths, writableRomPath));
 
     }
 
