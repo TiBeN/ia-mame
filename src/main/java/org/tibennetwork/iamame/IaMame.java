@@ -76,14 +76,34 @@ public class IaMame
 
         try {
             mameArgs = new MameArguments(mf, sr, args);
-        } catch (InvalidMameArgumentsException
-                | IOException
-                | InterruptedException e) {
+            downloadFilesIfNeeded(mameArgs, mame);
+        } catch (InvalidMameArgumentsException e) {
+            IaMame.warn(
+            "An error occured while trying to parse command line: " 
+                + e.getMessage());
+        } catch (IOException | InterruptedException e) {
             IaMame.errorAndExit(
-                "An error occued while trying to parse command line: " 
+                "An error occured while trying to parse command line: " 
                     + e.getMessage());
         }
 
+        // Launch Mame if not in dry-run mode
+        if (System.getProperties().getProperty("iamame.dryrun").equals("0")) {
+            try {
+                mame.execute(args);
+            } catch (IOException | InterruptedException e) {
+                IaMame.errorAndExit(
+                    "An error occured while trying to execute Mame: " 
+                        + e.getMessage());
+            }
+        }
+
+    }
+
+    private static void downloadFilesIfNeeded (
+            MameArguments mameArgs, 
+            MameRuntime mame) {
+    
         if (!mameArgs.containsCommand() && mameArgs.hasMachine()) {
 
             Machine machine = mameArgs.getMachine();
@@ -94,7 +114,7 @@ public class IaMame
                     mame.getRomsPaths(),
                     mame.getWritableRomPath());
             } catch (NoWritableRomPathException e) {
-                IaMame.errorAndExit(e.getMessage());
+                IaMame.warn(e.getMessage());
             }
 
             if (!machine.areRomFilesAvailable(mame.getRomsPaths())) {
@@ -108,7 +128,7 @@ public class IaMame
                 try {
                     mamc.download(machine);
                 } catch (MachineRomFileNotFoundInCollection e) {
-                    IaMame.errorAndExit(e.getMessage());
+                    IaMame.warn(e.getMessage());
                 }
             } 
 
@@ -128,7 +148,7 @@ public class IaMame
                         try {
                             mamc.download(s);
                         } catch (SoftwareFileNotFoundInCollectionException e) {
-                            IaMame.errorAndExit(e.getMessage());
+                            IaMame.warn(e.getMessage());
                         }
 
                     }
@@ -138,23 +158,16 @@ public class IaMame
             }
 
         }
-
-        // Launch Mame if not in dry-run mode
-        if (System.getProperties().getProperty("iamame.dryrun").equals("0")) {
-            try {
-                mame.execute(mameArgs.getRawArgs());
-            } catch (IOException | InterruptedException e) {
-                IaMame.errorAndExit(
-                    "An error occured while trying to execute Mame: " 
-                        + e.getMessage());
-            }
-        }
-
+    
     }
 
     public static void errorAndExit (String message) {
         System.err.println("ERROR: " + message);
         System.exit(1);
+    }
+
+    public static void warn (String message) {
+        System.err.println("WARN: " + message);
     }
 
 }

@@ -47,13 +47,13 @@ public class MameArguments {
 
     private String[] rawArgs;
 
-    private CommandLine commandLine;
+    private CommandLine commandLine = null;
 
     private MachineRepository machineRepository;
 
     private SoftwareRepository softwareRepository;
 
-    private Machine machine;
+    private Machine machine = null;
 
     private List<Software> softwares = new ArrayList<>();
 
