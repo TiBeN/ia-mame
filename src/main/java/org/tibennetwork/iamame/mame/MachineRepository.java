@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.DataBindingException;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -56,18 +57,18 @@ public class MachineRepository {
         String[] mameCommandLine = {"-listxml", machineName};
         InputStream is;
 
+        MameXmlContainer ms = null;
+
         try {
             is = this.mame.executeAndReturnStdoutAsInputStream(
                     mameCommandLine);
-        } catch (MameExecutionException e) {
+            ms = JAXB.unmarshal(is, MameXmlContainer.class);
+        } catch (MameExecutionException | DataBindingException e) {
             throw new MachineDoesntExistException(
                 String.format("The machine '%s' doesn't exist or is not " 
                         + "supported by the provided Mame version",
                     machineName));
         }
-
-        // Bouger cette classe ici en interne
-        MameXmlContainer ms = JAXB.unmarshal(is, MameXmlContainer.class);
 
         for (Machine m: ms.getMachines()) {
             if (m.getName().equals(machineName)) {
