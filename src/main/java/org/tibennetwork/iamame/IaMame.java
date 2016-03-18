@@ -114,12 +114,12 @@ public class IaMame
                     mame.getRomsPaths(),
                     mame.getWritableRomPath());
             } catch (NoWritableRomPathException e) {
-                IaMame.warn(e.getMessage());
+                IaMame.errorAndExit(e.getMessage());
             }
 
             if (!machine.areRomFilesAvailable(mame.getRomsPaths())) {
 
-                System.out.println(String.format(
+                IaMame.info(String.format(
                     "Download from archive.org missing " 
                         + "rom files: %s for machine \"%s\"", 
                     machine.getMissingRomFiles(mame.getRomsPaths()), 
@@ -140,7 +140,7 @@ public class IaMame
                     if (!s.isRegularFile()
                            && !s.isAvailable(mame.getRomsPaths())) {
 
-                        System.out.println(String.format(
+                        IaMame.info(String.format(
                             "Download from archive.org missing " 
                                 + "software file: %s)",
                             s));
@@ -168,6 +168,10 @@ public class IaMame
 
     public static void warn (String message) {
         System.err.println("WARN: " + message);
+    }
+
+    public static void info (String message) {
+        System.out.println("INFO: " + message);
     }
 
 }
