@@ -14,6 +14,7 @@ import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCdi;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPceCd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPsx;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdSaturn;
+import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdSegaCd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessSoftwareListRoms;
 import org.tibennetwork.iamame.internetarchive.collectionitem.SoftwareFileNotFoundInCollectionException;
 import org.tibennetwork.iamame.internetarchive.collectionitem.SoftwareListCollectionItem;
@@ -65,6 +66,10 @@ public class MessAndMameCollection {
         this.softwareCollectionItems.put(
             "saturn", 
             new MessChdSaturn(romsPaths, writableRomPath));
+
+        this.softwareCollectionItems.put(
+            "segacd", 
+            new MessChdSegaCd(romsPaths, writableRomPath));
 
     }
 
