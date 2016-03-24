@@ -30,12 +30,15 @@ will store downloaded files on the first writable found.
 The `hash` path parameter is important too because IaMame relies on its
 content.
 
-Compilation
------------
+Installation
+------------
 
-As it is still under development there are no releases version for now. 
+Simply download the release tarball, then unzip it.
 
-So the only way to is to build from sources using Maven:
+
+### Compilation from the sources
+
+The compilation requires Maven.
 
 - git clone this repository:
 
