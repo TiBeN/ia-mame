@@ -55,8 +55,9 @@ IaMame deduces your rompath and other needed configuration by using the
 mame executable.
 
 So be sure mame works as expected before trying iamame, especially be sure
-one of the paths on the rompaths directive is writable. The downloaded roms
-will be stored into
+one of the paths on the rompath directive is writable. The downloaded roms
+will be stored into this path. If there are many, it will store on the
+first found.
 
 Finally, uses it like a normal mame execution:
 
