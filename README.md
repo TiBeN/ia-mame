@@ -20,8 +20,9 @@ It works on Linux, should work on Mac and is planned for Windows.
 Prerequisites
 -------------
 
-A copy of Mame 0.161 or more recent must be available and configured on your 
-computer. 
+- Java 1.7+
+
+- Mame 0.161+
 
 Be sure your Mame copy works as expected before trying IaMame, especially 
 be sure that one of the paths on the rompath parameter is writable. IaMame 
