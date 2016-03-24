@@ -2,11 +2,11 @@
 #
 # ia-mame startup bash script
 
-declare rootpath=$(readlink -f `dirname $0`)
+declare root_path=$(readlink -f `dirname $0`)
 
-declare libpath="$rootpath/../lib"
-declare iamamejar="$rootpath/../target/ia-mame-1.0-SNAPSHOT.jar"
-declare configfile="${XDG_CONFIG_HOME:-"$HOME"}/ia-mame/config"
+declare lib_path="$root_path/../lib"
+declare ia_mame_jar="$root_path/../target/ia-mame-1.0-SNAPSHOT.jar"
+declare config_file="${XDG_CONFIG_HOME:-"$HOME"}/ia-mame/config"
 declare dry_run=0
 
 if [[ "$1" == "--dry-run" ]]; then
@@ -14,8 +14,8 @@ if [[ "$1" == "--dry-run" ]]; then
     shift 1
 fi
 
-java -classpath "$libpath/*:$iamamejar" \
-    -Diamame.configfile="$configfile" \
+java -classpath "$lib_path/*:$ia_mame_jar" \
+    -Diamame.configfile="$config_file" \
     -Diamame.dryrun=$dry_run \
     org.tibennetwork.iamame.IaMame \
     $@
