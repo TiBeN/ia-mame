@@ -13,10 +13,9 @@ list version differences issues between the collection and the Mame executable
 on some other (psx, saturn..) which i need to address.
 
 The goal of `ia-mame` is to be totally transparent. So simply tell it where is
-your mame executable on a configuration file and use it like the real mame. 
+your mame executable and use it like the real mame. 
 
-It works for Linux and should on Windows and Mac but i have not tested for
-now.
+It works on Linux, should work on Mac and is planned for Windows.
 
 Prerequisites
 -------------
@@ -24,9 +23,9 @@ Prerequisites
 A copy of Mame 0.161 or more recent must be available and configured on your 
 computer. 
 
-Be sure mame works as expected before trying IaMame, especially be sure
-that one of the paths on the rompath parameter is writable. IaMame will
-store downloaded files on the first writable found.
+Be sure your Mame copy works as expected before trying IaMame, especially 
+be sure that one of the paths on the rompath parameter is writable. IaMame 
+will store downloaded files on the first writable found.
 
 The `hash` path parameter is important too because IaMame relies on its
 content.
@@ -60,9 +59,7 @@ IaMame will find it itself if its name matches `mame[64][.exe]`
 Otherwise, you can edit the file `etc/config` and set the `mame.binary` 
 parameter to the absolute path of your mame executable.
 
-There is no need to configure anything else but the underlying Mame itself.
-IaMame deduces your rompath and other needed configuration by using the
-mame executable.
+There is no need to configure anything else.
 
 Usage
 -----
