@@ -69,7 +69,7 @@ Examples:
 $ ./bin/ia-mame sf2
 INFO: Download from archive.org missing rom files: [sf2] for machine "Street Fighter II: The World Warrior (World 910522)"
 
-# Let's try Columns on the genesis
+# Let's try Columns on the sega master system:
 $ ./bin/ia-mame genesis columns
 INFO: Download from archive.org missing rom files: [sms] for machine "Master System II"
 INFO: Download from archive.org missing software file: Software: [device: sms_cart, name: Columns (Euro, USA, Bra, Kor) (columns), publisher: Sega, machine: Master System II])
