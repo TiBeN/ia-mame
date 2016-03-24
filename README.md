@@ -61,7 +61,7 @@ first found.
 
 Finally, uses it like a normal mame execution:
 
-Usage: ia-mame <normal-mame-command-line-arguments>
+Usage: ia-mame \<normal-mame-command-line-arguments\>
 
 Examples:
 ```
