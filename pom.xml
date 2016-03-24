@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ia-mame</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/TiBeN/ia-mame</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -19,6 +19,14 @@
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <finalName>ia-mame</finalName>
                 </configuration>
             </plugin>
             <!-- Copy all dependencies on the lib directory when "package"-->
@@ -37,6 +45,23 @@
                             <outputDirectory>${project.basedir}/lib</outputDirectory>
                             <overWriteIfNewer>true</overWriteIfNewer>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Create binary release -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <descriptor>src/assembly/release.xml</descriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-archive</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

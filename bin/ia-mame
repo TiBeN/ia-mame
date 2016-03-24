@@ -5,7 +5,7 @@
 declare root_path=$(readlink -f `dirname $0`)
 
 declare lib_path="$root_path/../lib"
-declare ia_mame_jar="$root_path/../target/ia-mame-1.0-SNAPSHOT.jar"
+declare ia_mame_jar="$root_path/../target/ia-mame.jar"
 declare config_file="$root_path/config"
 declare dry_run=0
 
