@@ -31,25 +31,28 @@ store downloaded files on the first writable found.
 The `hash` path parameter is important too because IaMame relies on its
 content.
 
-Compile, config, and use
-------------------------
+Compilation
+-----------
 
 As it is still under development there are no releases version for now. 
-So the only way to test is build from sources using Maven:
+
+So the only way to is to build from sources using Maven:
 
 - git clone this repository:
 
-```
+```bash
 $ git clone https://github.com/TiBeN/ia-mame
 ```
 
 - Build and package using maven:
-```
+
+```bash
 $ cd /path/to/ia-mame
 $ mvn package
 ```
 
-- Tell it where is your mame executable:
+Configuration
+-------------
 
 If Mame is available on your $PATH environment var, there is nothing to do, 
 IaMame will find it itself if its name matches `mame[64][.exe]` 
@@ -61,20 +64,22 @@ There is no need to configure anything else but the underlying Mame itself.
 IaMame deduces your rompath and other needed configuration by using the
 mame executable.
 
-Finally, uses it like a normal mame execution:
+Usage
+-----
 
-Usage: ia-mame \<normal-mame-command-line-arguments\>
+Use it exactly the way you use Mame.
 
-Examples:
-```
-# Let's try Street Fighter 2
+- Let's try Street Fighter 2 arcade board:
+
+```bash
 $ ./bin/ia-mame sf2
 INFO: Download from archive.org missing rom files: [sf2] for machine "Street Fighter II: The World Warrior (World 910522)"
+```
 
-# Let's try Columns on the sega master system:
+- Let's try Columns on the sega master system:
+
+```bash
 $ ./bin/ia-mame sms columns
 INFO: Download from archive.org missing rom files: [sms] for machine "Master System II"
 INFO: Download from archive.org missing software file: Software: [device: sms_cart, name: Columns (Euro, USA, Bra, Kor) (columns), publisher: Sega, machine: Master System II])
 ```
-
-
