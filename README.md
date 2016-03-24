@@ -33,8 +33,9 @@ content.
 Installation
 ------------
 
-Simply download the release tarball, then unzip it.
-
+Simply download the 
+[release tarball](https://github.com/TiBeN/ia-mame/releases/latest), then 
+unzip it.
 
 ### Compilation from the sources
 
