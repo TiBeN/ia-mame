@@ -1,0 +1,5 @@
+# ia-mame configuration file
+
+# Set the absolute path of the mame executable 
+# here
+mame.binary = /path/to/mame

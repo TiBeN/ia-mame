@@ -1,5 +1,6 @@
 package org.tibennetwork.iamame;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -22,42 +23,15 @@ import org.tibennetwork.iamame.mame.SoftwareRepository;
 public class IaMame
 {
     
-    /**
-     * Reads configuration file and store parameters on the 
-     * system properties under the `iamame` namespace
-     */
-    static {
-        
-        if(!System.getProperties().containsKey("iamame.configfile")) {
-            IaMame.errorAndExit("iamame.configfile System property not set");
-        }
-
-        String configFilePath 
-            = System.getProperties().getProperty("iamame.configfile");
-        
-        try {
-            Properties configProperties = new Properties();
-            configProperties.load(new FileInputStream( configFilePath ));
-
-            for (Map.Entry<Object,Object> p : configProperties.entrySet()) {
-                System.getProperties().setProperty(
-                    "iamame." + p.getKey(), 
-                    (String) p.getValue());
-            }
-
-        } catch (IOException e) {
-            IaMame.errorAndExit( 
-                String.format("Filename: %s not found or can't be read", 
-                    configFilePath));
-        }
-
-    }
 
     /**
      * ia-mame command-line entry-point
      */
     public static void main (String[] args)
     {
+
+        IaMame.initConfiguration();            
+
         MameArguments mameArgs = null;
         MameRuntime mame = null;
 
@@ -97,6 +71,68 @@ public class IaMame
                         + e.getMessage());
             }
         }
+
+    }
+
+    /**
+     * Reads configuration file and store parameters on the 
+     * system properties under the `iamame` namespace
+     */
+    public static void initConfiguration() {
+        
+        // Read and parse configuration file if exists
+        if (System.getProperties().containsKey("iamame.configfile")) {
+
+            String configFilePath 
+                = System.getProperty("iamame.configfile");
+
+            try {
+                Properties configProperties = new Properties();
+                configProperties.load(new FileInputStream( configFilePath ));
+
+                for (Map.Entry<Object,Object> p : configProperties.entrySet()) {
+                    System.getProperties().setProperty(
+                        "iamame." + p.getKey(), 
+                        (String) p.getValue());
+                }
+
+            } catch (IOException e) {
+                // There is no problem here.
+                // We'll use default values
+            }
+
+        }
+
+        // Search for Mame binary path on the configuration
+        // and test if exists
+        if (System.getProperties().containsKey("iamame.mame.binary")) {
+            String mameBinaryPath 
+                = System.getProperty("iamame.mame.binary");
+
+            File mameBinary = new File(mameBinaryPath);
+            if (mameBinary.exists() && mameBinary.canExecute()) {
+                return;
+            }
+        }
+
+        // Search for Mame binary on the PATH Environment variable
+        String pathEnvVar = System.getenv("PATH");
+        String[] possibleBinaryNames 
+            = {"mame", "mame64", "mame.exe", "mame64.exe"};
+
+        for (String p : pathEnvVar.split(":")) {
+            for (String b: possibleBinaryNames) {
+                String mbp = p + File.separator + b;
+                File mb = new File(mbp);
+                if (mb.exists() && mb.canExecute()) {
+                    System.setProperty("iamame.mame.binary", mbp);
+                    return;
+                }
+            }
+
+        }
+        
+        IaMame.errorAndExit("Mame executable as not been found.");
 
     }
 

@@ -6,7 +6,7 @@ declare rootpath=$(readlink -f `dirname $0`)
 
 declare libpath="$rootpath/../lib"
 declare iamamejar="$rootpath/../target/ia-mame-1.0-SNAPSHOT.jar"
-declare configfile="$rootpath/../etc/ia-mame.properties"
+declare configfile="${XDG_CONFIG_HOME:-"$HOME"}/ia-mame/config"
 declare dry_run=0
 
 if [[ "$1" == "--dry-run" ]]; then
