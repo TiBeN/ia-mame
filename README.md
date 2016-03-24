@@ -18,6 +18,19 @@ your mame executable on a configuration file and use it like the real mame.
 It works for Linux and should on Windows and Mac but i have not tested for
 now.
 
+Prerequisites
+-------------
+
+A copy of Mame 0.161 or more recent must be available and configured on your 
+computer. 
+
+Be sure mame works as expected before trying IaMame, especially be sure
+that one of the paths on the rompath parameter is writable. IaMame will
+store downloaded files on the first writable found.
+
+The `hash` path parameter is important too because IaMame relies on its
+content.
+
 Compile, config, and use
 ------------------------
 
@@ -36,28 +49,17 @@ $ cd /path/to/ia-mame
 $ mvn package
 ```
 
-- Tell it where is your mame executable
+- Tell it where is your mame executable:
 
-This is done through a small config file in your home folder:
+If Mame is available on your $PATH environment var, there is nothing to do, 
+IaMame will find it itself if its name matches `mame[64][.exe]` 
 
-```
-$ cd /path/to/ia-mame
-$ mkdir $HOME/.config/ia-mame
-$ cp ./doc/ia-mame-config-example $HOME/.config/ia-mame/config
-```
-
-Edit this file and set the `mame.binary` parameter to the absolute path
-of your mame executable. If your mame executable can be found on your $PATH
-environment there is no need to create this config file.
+Otherwise, you can edit the file `etc/config` and set the `mame.binary` 
+parameter to the absolute path of your mame executable.
 
 There is no need to configure anything else but the underlying Mame itself.
 IaMame deduces your rompath and other needed configuration by using the
 mame executable.
-
-So be sure mame works as expected before trying iamame, especially be sure
-one of the paths on the rompath directive is writable. The downloaded roms
-will be stored into this path. If there are many, it will store on the
-first found.
 
 Finally, uses it like a normal mame execution:
 
