@@ -14,6 +14,7 @@ import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCdi;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdMegaCd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdNeoCd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPceCd;
+import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPippin;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPsx;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdSaturn;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdSegaCd;
@@ -80,6 +81,10 @@ public class MessAndMameCollection {
         this.softwareCollectionItems.put(
             "megacd", 
             new MessChdMegaCd(romsPaths, writableRomPath));
+
+        this.softwareCollectionItems.put(
+            "pippin", 
+            new MessChdPippin(romsPaths, writableRomPath));
     }
 
     /**

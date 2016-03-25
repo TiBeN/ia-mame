@@ -3,6 +3,7 @@ CHANGELOG
 
 Current
 
+-   Added support for MESS 0.149 CHD: Pippin collection
 -   Added support for MESS 0.149 CHD: MegaCD collection
 -   Fixed wrong config file path
 -   Added this CHANGELOG
