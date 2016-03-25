@@ -1,8 +1,7 @@
 TODO
 ====
 
--   Write README.md
--   Create a zipped package release version 
+-   Add batch launcher for Windows
 -   Improve the compatibility of CHD software Collections when used with 
     a different version of Mame than the collection 
     (embed software list hashs matching the version?)
