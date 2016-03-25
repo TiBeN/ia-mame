@@ -3,8 +3,9 @@ CHANGELOG
 
 Current
 
--   Added this CHANGELOG
+-   Added support for MESS 0.149 CHD: MegaCD collection
 -   Fixed wrong config file path
+-   Added this CHANGELOG
 
 0.1
 
