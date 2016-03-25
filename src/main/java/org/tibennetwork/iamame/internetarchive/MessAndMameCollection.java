@@ -12,6 +12,7 @@ import org.tibennetwork.iamame.internetarchive.collectionitem.MameRoms;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessBios;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCdi;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdMegaCd;
+import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdMegaCdJpn;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdNeoCd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPceCd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPippin;
@@ -85,6 +86,10 @@ public class MessAndMameCollection {
         this.softwareCollectionItems.put(
             "pippin", 
             new MessChdPippin(romsPaths, writableRomPath));
+
+        this.softwareCollectionItems.put(
+            "megacdj", 
+            new MessChdMegaCdJpn(romsPaths, writableRomPath));
     }
 
     /**
