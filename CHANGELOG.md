@@ -3,7 +3,8 @@ CHANGELOG
 
 Current
 
-- Added this CHANGELOG
+-   Added this CHANGELOG
+-   Fixed wrong config file path
 
 0.1
 
