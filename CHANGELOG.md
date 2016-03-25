@@ -4,6 +4,9 @@ CHANGELOG
 Current
 -------
 
+0.2
+---
+
 -   Added support for MESS 0.149 CHD: CDTV collection
 -   Added support for MESS 0.149 CHD: Cd32 collection
 -   Added support for MESS 0.149 CHD: MegaCD (jpn) collection
