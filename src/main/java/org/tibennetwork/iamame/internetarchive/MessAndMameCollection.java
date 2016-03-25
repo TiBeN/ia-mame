@@ -10,6 +10,7 @@ import org.tibennetwork.iamame.internetarchive.collectionitem.FileNotFoundInColl
 import org.tibennetwork.iamame.internetarchive.collectionitem.MachineRomsCollectionItem;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MameRoms;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessBios;
+import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCd32;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCdi;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdMegaCd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdMegaCdJpn;
@@ -90,6 +91,10 @@ public class MessAndMameCollection {
         this.softwareCollectionItems.put(
             "megacdj", 
             new MessChdMegaCdJpn(romsPaths, writableRomPath));
+
+        this.softwareCollectionItems.put(
+            "cd32", 
+            new MessChdCd32(romsPaths, writableRomPath));
     }
 
     /**

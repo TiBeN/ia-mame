@@ -2,7 +2,9 @@ CHANGELOG
 =========
 
 Current
+-------
 
+-   Added support for MESS 0.149 CHD: Cd32 collection
 -   Added support for MESS 0.149 CHD: MegaCD (jpn) collection
 -   Added support for MESS 0.149 CHD: Pippin collection
 -   Added support for MESS 0.149 CHD: MegaCD collection
@@ -10,6 +12,7 @@ Current
 -   Added this CHANGELOG
 
 0.1
+---
 
 -   Initial Release
 -   Launcher for Linux
