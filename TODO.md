@@ -8,3 +8,5 @@ TODO
 -   Make support of command line options set by user when querying the rompath
 -   Add support for Mame CHD collections
 -   Add some kind of progress bar during the download
+-   Do some pretty basic GUI to ease the use on Windows or by users not 
+    confortable with command line
