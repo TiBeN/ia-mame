@@ -10,3 +10,4 @@ TODO
 -   Add some kind of progress bar during the download
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
+-   IaMame Launcher: conditionnaly point iamame.jar to target/ dir
