@@ -8,9 +8,10 @@ not found on the rompath directory before execution.
 No needs to have Gigas of roms collections on your drive anymore.
 
 *It is still under development* but actualy works for Mame roms, softwarelist roms
-and some cd-rom CHD collections (pcecd, neocd, segacd). I'm facing software 
-list version differences issues between the collection and the Mame executable 
-on some other (psx, saturn..) which i need to address.
+and most of cd-rom CHD collections. I'm facing issues on some CHD collections 
+(pxs, saturn) due to version differences between the collection and the 
+Mame executable. It is especially true if the delta of the version is high.
+(PSX CHDs will work great using Mame v0.161 but not with 0.170 for example)
 
 The goal of `ia-mame` is to be totally transparent. So simply tell it where is
 your mame executable and use it like the real mame. 
