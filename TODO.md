@@ -11,3 +11,5 @@ TODO
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
 -   IaMame Launcher: conditionnaly point iamame.jar to target/ dir
+-   Support for auto-completion
+-   Create deb/rpm/msi distributions packages
