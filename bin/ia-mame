@@ -8,14 +8,21 @@ declare lib_path="$root_path/../lib"
 declare ia_mame_jar="$root_path/../target/ia-mame.jar"
 declare config_file="$root_path/../etc/config"
 declare dry_run=0
+declare debug=0
 
 if [[ "$1" == "--dry-run" ]]; then
     dry_run=1
     shift 1
 fi
 
+if [[ "$1" == "--debug" ]]; then
+    debug=1
+    shift 1
+fi
+
 java -classpath "$lib_path/*:$ia_mame_jar" \
     -Diamame.configfile="$config_file" \
     -Diamame.dryrun=$dry_run \
+    -Diamame.debug=$debug \
     org.tibennetwork.iamame.IaMame \
     $@

@@ -22,7 +22,6 @@ import org.tibennetwork.iamame.mame.SoftwareRepository;
 
 public class IaMame
 {
-    
 
     /**
      * ia-mame command-line entry-point
@@ -62,7 +61,7 @@ public class IaMame
         }
 
         // Launch Mame if not in dry-run mode
-        if (System.getProperties().getProperty("iamame.dryrun").equals("0")) {
+        if (System.getProperty("iamame.dryrun").equals("0")) {
             try {
                 mame.execute(args);
             } catch (IOException | InterruptedException e) {
@@ -97,8 +96,9 @@ public class IaMame
                 }
 
             } catch (IOException e) {
-                // There is no problem here.
-                // We'll use default values
+                IaMame.debug(String.format(
+                    "Configuration file not found: %s",
+                    configFilePath));
             }
 
         }
@@ -109,14 +109,23 @@ public class IaMame
             String mameBinaryPath 
                 = System.getProperty("iamame.mame.binary");
 
+            IaMame.debug(String.format("Try to find Mame at: %s", 
+                mameBinaryPath));
             File mameBinary = new File(mameBinaryPath);
             if (mameBinary.exists() && mameBinary.canExecute()) {
+                IaMame.debug(String.format(
+                    "Mame binary found: %s", 
+                    mameBinaryPath));
                 return;
             }
         }
 
         // Search for Mame binary on the PATH Environment variable
         String pathEnvVar = System.getenv("PATH");
+                IaMame.debug(String.format(
+                    "Search for Mame binary on $PATH: %s", 
+                    pathEnvVar));
+
         String[] possibleBinaryNames 
             = {"mame", "mame64", "mame.exe", "mame64.exe"};
 
@@ -126,6 +135,7 @@ public class IaMame
                 File mb = new File(mbp);
                 if (mb.exists() && mb.canExecute()) {
                     System.setProperty("iamame.mame.binary", mbp);
+                    IaMame.debug(String.format("Mame binary found: %s", mbp));
                     return;
                 }
             }
@@ -200,6 +210,13 @@ public class IaMame
     public static void errorAndExit (String message) {
         System.err.println("ERROR: " + message);
         System.exit(1);
+    }
+
+    public static void debug (String message) {
+        if (System.getProperties().containsKey("iamame.debug")
+                && System.getProperty("iamame.debug").equals("1")) {
+            System.err.println("DEBUG: " + message);
+        }
     }
 
     public static void warn (String message) {
