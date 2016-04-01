@@ -13,3 +13,7 @@ TODO
 -   IaMame Launcher: conditionnaly point iamame.jar to target/ dir
 -   Support for auto-completion
 -   Create deb/rpm/msi distributions packages
+-   Remove the configuration file and define mame.binary using environment
+    variable instead.
+-   Change the cwd to the Mame binary folder while executing Mame from Java
+    to better handle mame.ini default paths 
