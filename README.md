@@ -16,7 +16,7 @@ Mame executable. It is especially true if the delta of the version is high.
 The goal of `ia-mame` is to be totally transparent. So simply tell it where is
 your mame executable and use it like the real mame. 
 
-It works on Linux, should work on Mac and is planned for Windows.
+It works on Linux, Windows, and should work on Mac but it has not been tested.
 
 Prerequisites
 -------------
@@ -70,19 +70,33 @@ There is no need to configure anything else.
 Usage
 -----
 
-Use it exactly the way you use Mame.
+Use it exactly the way you use the original Mame command-line. 
+Launchers are available on the `bin`path. 
+Linux users must use `ia-mame` launcher whereas Windows users must use 
+`ia-mame.bat`. 
 
-- Let's try Street Fighter 2 arcade board:
+- Let's try the original arcade version of Street Fighter 2:
 
 ```bash
 $ ./bin/ia-mame sf2
 INFO: Download from archive.org missing rom files: [sf2] for machine "Street Fighter II: The World Warrior (World 910522)"
 ```
 
-- Let's try Columns on the sega master system:
+- Let's try Columns on the Sega Master System:
 
 ```bash
 $ ./bin/ia-mame sms columns
 INFO: Download from archive.org missing rom files: [sms] for machine "Master System II"
 INFO: Download from archive.org missing software file: Software: [device: sms_cart, name: Columns (Euro, USA, Bra, Kor) (columns), publisher: Sega, machine: Master System II])
 ```
+
+If you feels not confortable with the Mame command line, i suggest you to
+become familiar with it by reading the official 
+[documentation](http://docs.mamedev.org/). The original [MESS
+documentation](http://www.mess.org/mess/howto) can be pretty useful too to 
+better understand the softwarelist mechanism and knowing which `<system>` 
+and `<software>` names to type. Mess is now merged Mame but was previously the 
+console/computer part of Mame. 
+What's more, i'm planning to do a very rudimentary GUI to simplify things a
+little for users which do not like command line, especially on Windows
+environment.
