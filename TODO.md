@@ -18,4 +18,5 @@ TODO
     to better handle mame.ini default paths 
 -   Handle the configuration parameters (ie rompath and so one) set from
     the command line too.
--  Create simple screencast to demonstrate usage
+-   Try to create the rompath if it doesnt exist on the disk
+-   Create simple screencast to demonstrate usage
