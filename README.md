@@ -95,8 +95,9 @@ become familiar with it by reading the official
 [documentation](http://docs.mamedev.org/). The original [MESS
 documentation](http://www.mess.org/mess/howto) can be pretty useful too to 
 better understand the softwarelist mechanism and knowing which `<system>` 
-and `<software>` names to type. Mess is now merged Mame but was previously the 
-console/computer part of Mame. 
+and `<software>` names to type. Mess is now merged with Mame but was 
+previously the console/computer part of Mame. 
+
 What's more, i'm planning to do a very rudimentary GUI to simplify things a
 little for users which do not like command line, especially on Windows
 environment.
