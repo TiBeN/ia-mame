@@ -4,6 +4,8 @@ CHANGELOG
 Current
 -------
 
+-   Added batch launcher for Windows
+
 0.2
 ---
 

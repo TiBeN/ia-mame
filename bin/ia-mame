@@ -5,6 +5,10 @@
 declare root_path=$(readlink -f `dirname $0`)
 
 declare lib_path="$root_path/../lib"
+
+# The following is only needed when executing from 
+# the sources tree, the jar beeing made available on the lib
+# folder on the release tarball
 declare ia_mame_jar="$root_path/../target/ia-mame.jar"
 declare config_file="$root_path/../etc/config"
 declare dry_run=0

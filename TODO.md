@@ -1,7 +1,6 @@
 TODO
 ====
 
--   Add batch launcher for Windows
 -   Improve the compatibility of CHD software Collections when used with 
     a different version of Mame than the collection 
     (embed software list hashs matching the version?)
@@ -17,3 +16,6 @@ TODO
     variable instead.
 -   Change the cwd to the Mame binary folder while executing Mame from Java
     to better handle mame.ini default paths 
+-   Handle the configuration parameters (ie rompath and so one) set from
+    the command line too.
+-  Create simple screencast to demonstrate usage

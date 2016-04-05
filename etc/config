@@ -1,5 +1,7 @@
 # ia-mame configuration file
 
 # Set the absolute path of the mame executable 
-# here
-mame.binary = /path/to/mame
+# here. 
+# Windows users must escape antislash chars example:
+# mame.binary = C:\\Users\\tiben\\mame\\mame.exe
+mame.binary = C:\\Users\\tiben\\mame\\mame.exe
