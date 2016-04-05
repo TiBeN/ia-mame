@@ -7,7 +7,8 @@ Mess and Mame collections](https://archive.org/details/messmame) if they are
 not found on the rompath directory before execution.
 No needs to have Gigas of roms collections on your drive anymore.
 
-*It is still under development* but actualy works for Mame roms, softwarelist roms
+**It is still under development** but actualy works for Mame roms, softwarelist 
+roms
 and most of cd-rom CHD collections. I'm facing issues on some CHD collections 
 (pxs, saturn) due to version differences between the collection and the 
 Mame executable. It is especially true if the delta of the version is high.
