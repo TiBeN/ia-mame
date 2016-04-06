@@ -30,9 +30,6 @@ Be sure your Mame copy works as expected before trying IaMame, especially
 be sure that one of the paths on the rompath parameter is writable. IaMame 
 will store downloaded files on the first writable found.
 
-The `hash` path parameter is important too because IaMame relies on its
-content.
-
 Installation
 ------------
 
