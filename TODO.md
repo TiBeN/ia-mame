@@ -14,9 +14,8 @@ TODO
 -   Create deb/rpm/msi distributions packages
 -   Remove the configuration file and define mame.binary using environment
     variable instead.
--   Change the cwd to the Mame binary folder while executing Mame from Java
-    to better handle mame.ini default paths 
 -   Handle the configuration parameters (ie rompath and so one) set from
     the command line too.
 -   Try to create the rompath if it doesnt exist on the disk
 -   Create simple screencast to demonstrate usage
+-   Reduce the line size of the INFO traces

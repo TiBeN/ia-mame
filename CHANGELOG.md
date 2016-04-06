@@ -4,6 +4,9 @@ CHANGELOG
 Current
 -------
 
+-   Now support paths relatives to mame binary on the mame configuration
+    (which is the case on unmodified MAME installations) and set the cwd to
+    the folder containing the MAME binary when executing it. 
 -   Added batch launcher for Windows
 
 0.2

@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.cli.ParseException;
+import org.tibennetwork.iamame.IaMame;
 import org.tibennetwork.iamame.internetarchive.NoWritableRomPathException;
 
 /**
@@ -19,13 +20,26 @@ import org.tibennetwork.iamame.internetarchive.NoWritableRomPathException;
  */
 public class MameRuntime {
 
+    /**
+     * The path of the Mame binary executable
+     */
     private String binPath;
+
+    /**
+     * Directory containing the Mame 
+     * executable
+     */
+    private String binDirectory;
 
     private List<File> romsPaths;
 
     public MameRuntime (String binPath) 
             throws IOException, InterruptedException, ParseException {
         this.binPath = binPath;
+        this.binDirectory = new File(binPath).getParent();
+        IaMame.debug(String.format(
+            "Mame binary directory: %s", 
+            this.binDirectory));
         this.getRomsPathsFromBinary();
     }
   
@@ -47,6 +61,7 @@ public class MameRuntime {
         args.addAll(Arrays.asList(rawArgs));
         
         ProcessBuilder builder = new ProcessBuilder(args);
+        builder.directory(new File(this.binDirectory));
         builder.inheritIO();
         Process mameProcess = builder.start();
         mameProcess.waitFor();
@@ -60,6 +75,7 @@ public class MameRuntime {
         args.addAll(Arrays.asList(rawArgs));
         
         ProcessBuilder builder = new ProcessBuilder(args);
+        builder.directory(new File(this.binDirectory));
         Process mameProcess = builder.start();
     
         return mameProcess.getInputStream();
@@ -78,6 +94,7 @@ public class MameRuntime {
         args.addAll(Arrays.asList(rawArgs));
         
         ProcessBuilder builder = new ProcessBuilder(args);
+        builder.directory(new File(this.binDirectory));
         Process mameProcess = builder.start();
 
         BufferedReader mameRuntimeStdout = new BufferedReader(
@@ -139,6 +156,13 @@ public class MameRuntime {
 
             Matcher m = p.matcher(s);
             if (m.matches()) {
+
+                // Change temporary the current working dir
+                // to mame binary directory to find paths relative to 
+                // it
+                String originalCwd = System.getProperty("user.dir");
+                System.setProperty("user.dir", this.binDirectory);
+
                 for(String path : m.group(1).split(";")) {
 
                     // Handle $HOME syntax
@@ -146,11 +170,17 @@ public class MameRuntime {
                         System.getProperty("user.home"));
 
                     File dir = new File(path);
-                    
+
+                    dir = new File(dir.getAbsolutePath());
                     if(dir.isDirectory()) {
+                        IaMame.debug("rompath found: " + dir);
                         this.romsPaths.add(dir);
                     }
                 }
+
+                // Revert back the original cwd
+                System.setProperty("user.dir", originalCwd);
+
                 break;
             }
         }
