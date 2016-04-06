@@ -99,3 +99,6 @@ previously the console/computer part of Mame.
 What's more, i'm planning to do a very rudimentary GUI to simplify things a
 little for users which do not like command line, especially on Windows
 environment.
+
+I have not tested now but IaMame should be compatible with frontends, the
+usage command line beeing the same as the original Mame.
