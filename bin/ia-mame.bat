@@ -30,7 +30,5 @@ SET args=
     GOTO loop
 :endloop
 
-echo %args%
-
 java -classpath "%lib_path%\*;%ia_mame_jar%" -Diamame.configfile="%config_file%" -Diamame.dryrun="%dry_run%" -Diamame.debug=%debug% org.tibennetwork.iamame.IaMame %args%
 
