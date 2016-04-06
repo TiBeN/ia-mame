@@ -4,4 +4,5 @@
 # here. 
 # Windows users must escape antislash chars example:
 # mame.binary = C:\\Users\\tiben\\mame\\mame.exe
-mame.binary = C:\\Users\\tiben\\mame\\mame.exe
+
+mame.binary = /path/to/mame
