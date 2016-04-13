@@ -19,3 +19,4 @@ TODO
 -   Try to create the rompath if it doesnt exist on the disk
 -   Create simple screencast to demonstrate usage
 -   Reduce the line size of the INFO traces
+-   Add travisCI indicator
