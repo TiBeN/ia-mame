@@ -29,7 +29,7 @@ public class IaMame
     public static void main (String[] args)
     {
 
-        IaMame.initConfiguration();            
+        IaMame.initConfiguration();
 
         MameArguments mameArgs = null;
         MameRuntime mame = null;
