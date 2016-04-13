@@ -29,7 +29,7 @@
                     <finalName>ia-mame</finalName>
                 </configuration>
             </plugin>
-            <!-- Copy all dependencies on the lib directory when "package"-->
+            <!-- Copy all dependencies on the lib directory when "package" -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -89,6 +89,12 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
