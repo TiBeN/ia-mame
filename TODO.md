@@ -20,3 +20,5 @@ TODO
 -   Create simple screencast to demonstrate usage
 -   Reduce the line size of the INFO traces
 -   Add travisCI indicator
+-   Rethink the packaging/distribution following the Alda and Clojure build
+    tool 'Boot' projects as examples.
