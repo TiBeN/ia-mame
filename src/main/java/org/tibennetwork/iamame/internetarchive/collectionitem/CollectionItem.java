@@ -1,12 +1,13 @@
 package org.tibennetwork.iamame.internetarchive.collectionitem;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-
-import org.apache.commons.io.FileUtils;
 
 /**
  * Item (ie subcollection) of the Internet Archive 
@@ -41,11 +42,38 @@ public abstract class CollectionItem {
                 .initCause(e);
         }
 
+        // Create containing directories if needed
+        destination.getParentFile().mkdirs();
+
+        InputStream urlInputStream = null;
+        OutputStream destinationOutputStream = null;
+
         try {
-            FileUtils.copyURLToFile(romFile, destination);
+        
+            urlInputStream = romFile.openStream();
+            destinationOutputStream 
+                = new FileOutputStream(destination);
+        
+            int readBytes = 0;
+            int downloadedBytes = 0; // Accumulated read bytes
+
+            byte[] bytes = new byte[1024];
+
+            while ((readBytes = urlInputStream.read(bytes)) != -1) {
+                downloadedBytes += readBytes;
+                destinationOutputStream.write(bytes, 0, readBytes);
+                System.out.print(String.format(
+                    "Downloading %skB / ??kB, progress: ??\r",
+                    (downloadedBytes / 1024)));
+            }
+
+            urlInputStream.close();
+            destinationOutputStream.close();
+
         } catch (IOException e) {
             throw (RuntimeException) new RuntimeException()
                 .initCause(e);
+        
         }
 
         // Instead of returning a 4xx error when the file didn't exists

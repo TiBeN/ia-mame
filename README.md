@@ -78,6 +78,8 @@ Linux users must use `ia-mame` launcher whereas Windows users must use
 ```bash
 $ ./bin/ia-mame sf2
 INFO: Download from archive.org missing rom files: [sf2] for machine "Street Fighter II: The World Warrior (World 910522)"
+Downloading 668kB / ??kB, progress: ??
+# Mame is launched when download is finished
 ```
 
 - Let's try Columns on the Sega Master System:
@@ -85,7 +87,10 @@ INFO: Download from archive.org missing rom files: [sf2] for machine "Street Fig
 ```bash
 $ ./bin/ia-mame sms columns
 INFO: Download from archive.org missing rom files: [sms] for machine "Master System II"
+Downloading 25kB / ??kB, progress: ??
 INFO: Download from archive.org missing software file: Software: [device: sms_cart, name: Columns (Euro, USA, Bra, Kor) (columns), publisher: Sega, machine: Master System II])
+Downloading 4kB / ??kB, progress: ??
+# Mame is launched when downloading is finished
 ```
 
 If you feels not confortable with the Mame command line, i suggest you to

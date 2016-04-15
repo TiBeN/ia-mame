@@ -4,6 +4,11 @@ CHANGELOG
 Current
 -------
 
+-   Added a downloading counter progression
+
+0.3
+---
+
 -   Now support paths relatives to mame binary on the mame configuration
     (which is the case on unmodified MAME installations) and set the cwd to
     the folder containing the MAME binary when executing it. 
