@@ -14,7 +14,6 @@ SET root_path=%~dp0
 SET ia_mame_jar=%root_path%..\target\ia-mame.jar
 
 SET lib_path=%root_path%..\lib
-SET config_file=%root_path%..\etc\config
 SET dry_run=0
 SET debug=0
 
@@ -30,5 +29,5 @@ SET args=
     GOTO loop
 :endloop
 
-java -classpath "%lib_path%\*;%ia_mame_jar%" -Diamame.configfile="%config_file%" -Diamame.dryrun="%dry_run%" -Diamame.debug=%debug% org.tibennetwork.iamame.IaMame %args%
+java -classpath "%lib_path%\*;%ia_mame_jar%" -Diamame.dryrun="%dry_run%" -Diamame.debug=%debug% org.tibennetwork.iamame.IaMame %args%
 

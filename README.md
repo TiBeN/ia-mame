@@ -33,10 +33,22 @@ will store downloaded files on the first writable found.
 Installation
 ------------
 
-Simply download the 
-[release tarball](https://github.com/TiBeN/ia-mame/releases/latest), then 
-unzip it.
+- Make sure you have Java 7+ and Mame somewhere on your drive.
 
+- Make sure your Vanilla Mame copy works as expected
+
+- Make the Mame rompath writable if it is not, or tweak the Mame
+  'rompath' parameter on the mame.ini to add a writable one.
+
+- Download the 
+  [release tarball](https://github.com/TiBeN/ia-mame/releases/latest) and 
+  unzip it somewhere.
+
+- IaMame needs to know where is your Mame executable. You can make it 
+  available from your $PATH environment, IaMame will find it itself if its 
+  name matches something like mame[64][.exe]. Otherwise, you can set it
+  using the $MAME_EXEC environment variable.
+ 
 ### Compilation from the sources
 
 The compilation requires Maven.
@@ -54,43 +66,39 @@ $ cd /path/to/ia-mame
 $ mvn package
 ```
 
-Configuration
--------------
-
-If Mame is available on your $PATH environment var, there is nothing to do, 
-IaMame will find it itself if its name matches `mame[64][.exe]` 
-
-Otherwise, you can edit the file `etc/config` and set the `mame.binary` 
-parameter to the absolute path of your mame executable.
-
-There is no need to configure anything else.
-
 Usage
 -----
 
-Use it exactly the way you use the original Mame command-line. 
-Launchers are available on the `bin`path. 
-Linux users must use `ia-mame` launcher whereas Windows users must use 
-`ia-mame.bat`. 
+IaMame is a wrapper and works like the original Mame. Just tell it where
+is your mame executable if not available on your PATH and use it like the
+real Mame.
 
-- Let's try the original arcade version of Street Fighter 2:
+### Linux and MacOs
 
-```bash
-$ ./bin/ia-mame sf2
-INFO: Download from archive.org missing rom files: [sf2] for machine "Street Fighter II: The World Warrior (World 910522)"
+```
+# Let's try Street Fighter 2 arcade board
+$ cd /path/to/ia-mame/bin
+$ export MAME_EXEC=/path/to/mame64
+$ ia-mame sf2
+INFO: Download from archive.org missing rom files: [sf2] for machine "Stree...
 Downloading 668kB / ??kB, progress: ??
-# Mame is launched when download is finished
+
+# Mame is launched when downloadsfinished
 ```
 
-- Let's try Columns on the Sega Master System:
+### Windows 
 
-```bash
-$ ./bin/ia-mame sms columns
-INFO: Download from archive.org missing rom files: [sms] for machine "Master System II"
+```
+# Let's try Columns on the Sega Master System
+C:\> cd \path\to\ia-mame\bin
+C:\> SET MAME_EXEC=C:\path\to\your\Mame
+C:\> ia-mame.bat sms columns
+INFO: Download from archive.org missing rom files: [sms] for machine "Master..
 Downloading 25kB / ??kB, progress: ??
-INFO: Download from archive.org missing software file: Software: [device: sms_cart, name: Columns (Euro, USA, Bra, Kor) (columns), publisher: Sega, machine: Master System II])
+INFO: Download from archive.org missing software file: Software: [device: sms_cart, name: Columns (Eu...
 Downloading 4kB / ??kB, progress: ??
-# Mame is launched when downloading is finished
+
+# Mame is launched when downloads finished
 ```
 
 If you feels not confortable with the Mame command line, i suggest you to

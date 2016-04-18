@@ -1,11 +1,9 @@
 package org.tibennetwork.iamame;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 import org.apache.commons.cli.ParseException;
 import org.tibennetwork.iamame.internetarchive.MachineRomFileNotFoundInCollection;
@@ -29,14 +27,18 @@ public class IaMame
     public static void main (String[] args)
     {
 
-        IaMame.initConfiguration();
-
         MameArguments mameArgs = null;
         MameRuntime mame = null;
+        String mameBinary = null;       
 
         try {
-            mame = new MameRuntime(
-                System.getProperties().getProperty("iamame.mame.binary"));
+            mameBinary = IaMame.findMameBinary();
+        } catch (MameBinaryNotFoundException e) {
+            IaMame.errorAndExit(e.getMessage());
+        }
+
+        try {
+            mame = new MameRuntime(mameBinary);
 
         } catch (IOException | InterruptedException | ParseException e) {
             IaMame.errorAndExit(
@@ -74,75 +76,81 @@ public class IaMame
     }
 
     /**
-     * Reads configuration file and store parameters on the 
-     * system properties under the `iamame` namespace
+     * Find and return as String the path to the MAME executable
      */
-    public static void initConfiguration() {
-        
-        // Read and parse configuration file if exists
-        if (System.getProperties().containsKey("iamame.configfile")) {
+    public static String findMameBinary()
+            throws MameBinaryNotFoundException {
 
-            String configFilePath 
-                = System.getProperty("iamame.configfile");
-
-            try {
-                Properties configProperties = new Properties();
-                configProperties.load(new FileInputStream( configFilePath ));
-
-                for (Map.Entry<Object,Object> p : configProperties.entrySet()) {
-                    System.getProperties().setProperty(
-                        "iamame." + p.getKey(), 
-                        (String) p.getValue());
-                }
-
-            } catch (IOException e) {
-                IaMame.debug(String.format(
-                    "Configuration file not found: %s",
-                    configFilePath));
-            }
-
-        }
-
-        // Search for Mame binary path on the configuration
-        // and test if exists
-        if (System.getProperties().containsKey("iamame.mame.binary")) {
-            String mameBinaryPath 
-                = System.getProperty("iamame.mame.binary");
-
-            IaMame.debug(String.format("Try to find Mame at: %s", 
-                mameBinaryPath));
-            File mameBinary = new File(mameBinaryPath);
+        // Check the MAME_EXEC environment variable
+        String mameExecEnvVar = System.getenv("MAME_EXEC");
+        IaMame.debug(String.format("$MAME_EXEC: %s", mameExecEnvVar));
+        if (mameExecEnvVar != null) {
+            File mameBinary = new File(mameExecEnvVar);
             if (mameBinary.exists() && mameBinary.canExecute()) {
-                IaMame.debug(String.format(
-                    "Mame binary found: %s", 
-                    mameBinaryPath));
-                return;
+                IaMame.debug("MAME binary found on MAME_EXEC" 
+                    + " environment variable");
+                return mameExecEnvVar;
             }
         }
-
-        // Search for Mame binary on the PATH Environment variable
-        String pathEnvVar = System.getenv("PATH");
-                IaMame.debug(String.format(
-                    "Search for Mame binary on $PATH: %s", 
-                    pathEnvVar));
 
         String[] possibleBinaryNames 
-            = {"mame", "mame64", "mame.exe", "mame64.exe"};
+            = {"mame", "mame64", "mame.exe"};
+        String candidateMameBinaryPath;
+        File candidateMameBinary;
+        String containingJarPath = null;
+
+        // Search for mame binary on the directory containing the
+        // containing jar.         
+        try {
+            containingJarPath = new File(
+                IaMame.class
+                    .getProtectionDomain()
+                    .getCodeSource()
+                    .getLocation()
+                    .toURI()
+                    .getPath())
+                .getParent();
+            IaMame.debug(String.format(
+                "IaMame directory: %s",
+                containingJarPath));
+        } catch (URISyntaxException e) {
+            // If entering in, its a bug.
+            IaMame.debug(e.getMessage());
+        }
+
+        for (String b: possibleBinaryNames) {
+            candidateMameBinaryPath = containingJarPath + File.separator + b;
+            candidateMameBinary = new File(candidateMameBinaryPath);
+            if (candidateMameBinary.exists() 
+                    && candidateMameBinary.canExecute()) {
+                IaMame.debug(String.format(
+                    "Mame binary found on the same directory than IaMame: %s", 
+                    candidateMameBinaryPath));
+                return candidateMameBinaryPath;
+            }
+        }
+
+        // Search for Mame binary on the PATH environment variable
+        String pathEnvVar = System.getenv("PATH");
+        IaMame.debug(String.format("$PATH: %s", pathEnvVar));
 
         for (String p : pathEnvVar.split(":")) {
             for (String b: possibleBinaryNames) {
-                String mbp = p + File.separator + b;
-                File mb = new File(mbp);
-                if (mb.exists() && mb.canExecute()) {
-                    System.setProperty("iamame.mame.binary", mbp);
-                    IaMame.debug(String.format("Mame binary found: %s", mbp));
-                    return;
+                candidateMameBinaryPath = p + File.separator + b;
+                candidateMameBinary = new File(candidateMameBinaryPath);
+                if (candidateMameBinary.exists() 
+                        && candidateMameBinary.canExecute()) {
+                    IaMame.debug(String.format(
+                        "Mame binary found on $PATH : %s", 
+                        candidateMameBinaryPath));
+                    return candidateMameBinaryPath;
                 }
             }
 
         }
-        
-        IaMame.errorAndExit("Mame executable as not been found.");
+
+        throw new MameBinaryNotFoundException(
+            "MAME executable has not been found");
 
     }
 

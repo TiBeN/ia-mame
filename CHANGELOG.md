@@ -5,6 +5,8 @@ Current
 -------
 
 -   Added a downloading counter progression
+-   Removed the use of a configuration file and defined MAME\_EXEC env var
+    instead
 
 0.3
 ---

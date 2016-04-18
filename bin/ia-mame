@@ -10,7 +10,6 @@ declare lib_path="$root_path/../lib"
 # the sources tree, the jar beeing made available on the lib
 # folder on the release tarball
 declare ia_mame_jar="$root_path/../target/ia-mame.jar"
-declare config_file="$root_path/../etc/config"
 declare dry_run=0
 declare debug=0
 
@@ -25,7 +24,6 @@ if [[ "$1" == "--debug" ]]; then
 fi
 
 java -classpath "$lib_path/*:$ia_mame_jar" \
-    -Diamame.configfile="$config_file" \
     -Diamame.dryrun=$dry_run \
     -Diamame.debug=$debug \
     org.tibennetwork.iamame.IaMame \

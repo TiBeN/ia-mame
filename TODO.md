@@ -11,8 +11,6 @@ TODO
 -   IaMame Launcher: conditionnaly point iamame.jar to target/ dir
 -   Support for auto-completion
 -   Create deb/rpm/msi distributions packages
--   Remove the configuration file and define mame.binary using environment
-    variable instead.
 -   Handle the configuration parameters (ie rompath and so one) set from
     the command line too.
 -   Try to create the rompath if it doesnt exist on the disk
