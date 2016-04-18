@@ -94,7 +94,7 @@ INFO: Download from archive.org missing rom files: [sms] for machine
 Downloading 25kB / ??kB, progress: ??
 INFO: Download from archive.org missing software file: Software: [device:
 sms_cart, name: Columns (Eu...
-Downloading 4kB / ??kB, progress: ??)]"
+Downloading 4kB / ??kB, progress: ??
 ```
 
 If you feels not confortable with the Mame command line, i suggest you to
