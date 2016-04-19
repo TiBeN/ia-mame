@@ -16,7 +16,6 @@ TODO
 -   Try to create the rompath if it doesnt exist on the disk
 -   Create simple screencast to demonstrate usage
 -   Reduce the line size of the INFO traces
--   Add travisCI indicator
 -   Rethink the packaging/distribution following the Alda and Clojure build
     tool 'Boot' projects as examples.
 -   Get asynchronously the length of the download via the zipview 
