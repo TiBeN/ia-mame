@@ -87,11 +87,9 @@ C:\> cd \path\to\ia-mame\bin
 C:\> SET MAME_EXEC=C:\path\to\your\Mame
 C:\> ia-mame.bat sms columns
 
-INFO: Download from archive.org missing rom files: [sms] for machine
-"Master..
+INFO: Download from archive.org missing rom files: [sms] for machine "Master...
 Downloading 25kB / ??kB, progress: ??
-INFO: Download from archive.org missing software file: Software: [device:
-sms_cart, name: Columns (Eu...
+INFO: Download from archive.org missing software file: Software: [device: sms_cart...
 Downloading 4kB / ??kB, progress: ??
 ```
 
