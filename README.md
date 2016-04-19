@@ -1,6 +1,9 @@
 Ia Mame
 =======
 
+[![Build
+Status](https://travis-ci.org/TiBeN/ia-mame.svg?branch=master)](https://travis-ci.org/TiBeN/ia-mame)
+
 IaMame is a thin command line wrapper for the Mame Emulator which downloads
 automatically needed system roms and software from [The Internet Archive 
 Mess and Mame collections](https://archive.org/details/messmame) if they are 
