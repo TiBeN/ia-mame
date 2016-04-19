@@ -1,16 +1,15 @@
-Ia Mame
-=======
+IaMame
+======
 
 [![Build
 Status](https://travis-ci.org/TiBeN/ia-mame.svg?branch=master)](https://travis-ci.org/TiBeN/ia-mame)
 
-IaMame is a thin and transparent command line wrapper for the Mame Emulator 
-for Linux, OSX Windows which downloads automatically needed system roms and 
-softwares from [The Internet 
+IaMame is a thin Mame emulator command line wrapper which downloads 
+automatically needed system roms and softwares from [The Internet 
 Archive Mess and Mame collections](https://archive.org/details/messmame) 
 if they are missing on the rompath directory before launching Mame.
 
-No needs to have Gigas of roms collections on your drive anymore.
+No needs to have Gigas of roms collections on your drive anymore!
 
 Mame roms, softwarelist roms and most of cd-rom CHD collections are
 supported.
