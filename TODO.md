@@ -13,7 +13,6 @@ TODO
 -   Create deb/rpm/msi distributions packages
 -   Handle the configuration parameters (ie rompath and so one) set from
     the command line too.
--   Try to create the rompath if it doesnt exist on the disk
 -   Create simple screencast to demonstrate usage
 -   Reduce the line size of the INFO traces
 -   Rethink the packaging/distribution following the Alda and Clojure build
