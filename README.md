@@ -69,7 +69,7 @@ and will download them before launching Mame.
 
 Let's try Street Fighter 2 arcade board:
 
-```
+```bash
 $ cd /path/to/ia-mame/bin
 $ export MAME_EXEC=/path/to/mame64
 $ ia-mame sf2
@@ -82,7 +82,7 @@ Downloading 668kB / ??kB, progress: ??"
 
 Let's try Columns on the Sega Master System:
 
-```
+```batch
 C:\> cd \path\to\ia-mame\bin
 C:\> SET MAME_EXEC=C:\path\to\your\Mame
 C:\> ia-mame.bat sms columns
