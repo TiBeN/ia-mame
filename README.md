@@ -4,24 +4,16 @@ Ia Mame
 [![Build
 Status](https://travis-ci.org/TiBeN/ia-mame.svg?branch=master)](https://travis-ci.org/TiBeN/ia-mame)
 
-IaMame is a thin command line wrapper for the Mame Emulator which downloads
-automatically needed system roms and software from [The Internet Archive 
-Mess and Mame collections](https://archive.org/details/messmame) if they are 
-not found on the rompath directory before launching Mame.
+IaMame is a thin and transparent command line wrapper for the Mame Emulator 
+for Linux, OSX Windows which downloads automatically needed system roms and 
+softwares from [The Internet 
+Archive Mess and Mame collections](https://archive.org/details/messmame) 
+if they are missing on the rompath directory before launching Mame.
 
 No needs to have Gigas of roms collections on your drive anymore.
 
-It works for Mame roms, softwarelist roms and most of cd-rom CHD collections. 
-
-I'm facing issues on some CHD collections (psx, saturn) due to version 
-differences between the collection and the Mame executable. 
-It is especially true if the delta of the version is high.
-(PSX CHDs will work great using Mame v0.161 but not with 0.170 for example)
-
-The goal of `ia-mame` is to be totally transparent. So simply tell it where is
-your mame executable and use it like the real mame. 
-
-It works on Linux, Windows, and should work on Mac but has not been tested.
+Mame roms, softwarelist roms and most of cd-rom CHD collections are
+supported.
 
 Prerequisites
 -------------
@@ -35,10 +27,11 @@ Installation
 
 - Make sure you have Java 7+ and Mame 0.161+ somewhere on your drive.
 
-- Make sure your Mame copy works as expected
+- Make sure you have working copy of the Mame emulator which suits your 
+  operating system.
 
-- Make sure your Mame rompath is writable. If not, set it as writable or 
-  add a writable one using the Mame 'rompath' parameter of the `mame.ini`.
+- Make sure your Mame rompath is writable. If not, make it writable or 
+  add another writable one on the 'rompath' directive of the `mame.ini`.
 
 - Download the 
   [release tarball](https://github.com/TiBeN/ia-mame/releases/latest) and 
@@ -68,9 +61,11 @@ $ mvn package
 Usage
 -----
 
-IaMame works exactly like the original Mame.
+IaMame works exactly like the original Mame command line. Simply launch a
+game, ia-mame will take care to see what files are missing on your rompath
+and will download them before launching Mame.
 
-### Linux and MacOs
+### Linux, Os X
 
 Let's try Street Fighter 2 arcade board:
 
@@ -100,6 +95,9 @@ sms_cart, name: Columns (Eu...
 Downloading 4kB / ??kB, progress: ??
 ```
 
+Don't like command line ?
+-------------------------
+
 If you feels not confortable with the Mame command line, i suggest you to
 become familiar with it by reading the official 
 [documentation](http://docs.mamedev.org/). The original [MESS
@@ -114,3 +112,12 @@ environment.
 
 I have not tested now but IaMame should be compatible with frontends, the
 usage command line beeing the same as the original Mame.
+
+Known issues
+------------
+
+I'm facing issues on some CHD collections (psx, saturn) due to version 
+differences between the collection and the Mame executable. 
+It is especially true if the delta of the version is high.
+(PSX CHDs will work great using Mame v0.161 but not with 0.170 for example)
+
