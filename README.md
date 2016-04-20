@@ -14,6 +14,8 @@ No needs to have Gigas of roms collections on your drive anymore!
 Mame roms, softwarelist roms and most of cd-rom CHD collections are
 supported.
 
+![preview](./doc/screenshot.png)
+
 Prerequisites
 -------------
 
