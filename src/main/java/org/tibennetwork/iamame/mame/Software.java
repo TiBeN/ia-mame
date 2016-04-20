@@ -165,7 +165,6 @@ public class Software {
         for (File rp: romsPaths) {
             File softwareFile = new File(rp + File.separator + rfp);
             if(softwareFile.exists()) {
-                System.out.println(softwareFile);
                 return true;
             }
         }
