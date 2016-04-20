@@ -118,10 +118,13 @@ INFO: Download from archive.org missing software file: Software: [device: sms_ca
 Downloading 4kB / ??kB, progress: ??
 ```
 
-Java JAR
---------
+### Executable JAR
+------------------
 
-Alternatively, the provided jar can be used directly:
+Alternatively, the provided 
+[executable
+jar](https://github.com/TiBeN/ia-mame/releases/download/0.4/ia-mame.jar) 
+can be used directly:
 
 ```
 $ java -jar ia-mame.jar sf2
