@@ -119,7 +119,6 @@ Downloading 4kB / ??kB, progress: ??
 ```
 
 ### Executable JAR
-------------------
 
 Alternatively, the provided 
 [executable
