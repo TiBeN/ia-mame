@@ -12,6 +12,5 @@ TODO
 -   Handle the configuration parameters (ie rompath and so one) set from
     the command line too.
 -   Create simple screencast to demonstrate usage
--   Reduce the line size of the INFO traces
 -   Get asynchronously the length of the download via the zipview 
     (not given by archive.org via HTTP headers)
