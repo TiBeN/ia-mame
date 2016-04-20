@@ -32,9 +32,8 @@ Installation
 - Make sure your Mame rompath is writable. If not, make it writable or 
   add another writable one on the 'rompath' directive of the `mame.ini`.
 
-- Download the 
-  [release tarball](https://github.com/TiBeN/ia-mame/releases/latest) and 
-  unzip it somewhere.
+- Download the binary matching your OS on the 
+  [release page](https://github.com/TiBeN/ia-mame/releases/latest)
 
 - Tell IaMame where is your Mame executable by making it available on your 
   $PATH environment variable — its name must match mame[64][.exe] — or by 
@@ -57,6 +56,9 @@ $ cd /path/to/ia-mame
 $ mvn package
 ```
 
+The binary files ia-mame (Linux/OS X) and ia-mame.exe (Windows) and the
+executable jar are available on the `target` directory.
+
 Usage
 -----
 
@@ -69,7 +71,6 @@ and will download them before launching Mame.
 Let's try Street Fighter 2 arcade board:
 
 ```bash
-$ cd /path/to/ia-mame/bin
 $ export MAME_EXEC=/path/to/mame64
 $ ia-mame sf2
 
@@ -82,9 +83,8 @@ Downloading 668kB / ??kB, progress: ??"
 Let's try Columns on the Sega Master System:
 
 ```batch
-C:\> cd \path\to\ia-mame\bin
 C:\> SET MAME_EXEC=C:\path\to\your\Mame
-C:\> ia-mame.bat sms columns
+C:\> ia-mame.exe sms columns
 
 INFO: Download from archive.org missing rom files: [sms] for machine "Master...
 Downloading 25kB / ??kB, progress: ??
@@ -117,4 +117,3 @@ I'm facing issues on some CHD collections (psx, saturn) due to version
 differences between the collection and the Mame executable. 
 It is especially true if the delta of the version is high.
 (PSX CHDs will work great using Mame v0.161 but not with 0.170 for example)
-

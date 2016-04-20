@@ -63,7 +63,8 @@ public class IaMame
         }
 
         // Launch Mame if not in dry-run mode
-        if (System.getProperty("iamame.dryrun").equals("0")) {
+        String dryRun = System.getProperty("iamame.dryrun");
+        if (dryRun == null || !dryRun.equals("1")) {
             try {
                 mame.execute(args);
             } catch (IOException | InterruptedException e) {

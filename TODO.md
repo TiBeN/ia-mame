@@ -8,14 +8,10 @@ TODO
 -   Add support for Mame CHD collections
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
--   IaMame Launcher: conditionnaly point iamame.jar to target/ dir
 -   Support for auto-completion
--   Create deb/rpm/msi distributions packages
 -   Handle the configuration parameters (ie rompath and so one) set from
     the command line too.
 -   Create simple screencast to demonstrate usage
 -   Reduce the line size of the INFO traces
--   Rethink the packaging/distribution following the Alda and Clojure build
-    tool 'Boot' projects as examples.
 -   Get asynchronously the length of the download via the zipview 
     (not given by archive.org via HTTP headers)

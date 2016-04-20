@@ -29,53 +29,104 @@
                     <finalName>ia-mame</finalName>
                 </configuration>
             </plugin>
-            <!-- Copy all dependencies on the lib directory when "package" -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.10</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
                 <executions>
                     <execution>
-                        <id>copy-dependencies</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.tibennetwork.iamame.IaMame</mainClass>
+                    <systemProperties>
+                        <systemProperty>
+                            <key>iamame.debug</key>
+                            <value>1</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+            <!-- Create executable überjar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
+                <executions>
+                    <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.basedir}/lib</outputDirectory>
-                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.tibennetwork.iamame.IaMame</mainClass>
+                                </transformer>
+                            </transformers>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!-- Create binary release -->
+            <!-- Create Windows executable -->
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <descriptor>src/assembly/release.xml</descriptor>
-                </configuration>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.8</version>
                 <executions>
                     <execution>
-                        <id>create-archive</id>
+                        <id>l4j-clui</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>launch4j</goal>
                         </goals>
+                        <configuration>
+                            <headerType>console</headerType>
+                            <outfile>target/ia-mame.exe</outfile>
+                            <jar>target/ia-mame.jar</jar>
+                            <errTitle>ia-mame</errTitle>
+                            <classPath>
+                                <mainClass>org.tibennetwork.iamame.IaMame</mainClass>
+                                <addDependencies>false</addDependencies>
+                                <preCp>anything</preCp>
+                            </classPath>
+                            <jre>
+                                <minVersion>1.7.0</minVersion>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>0.0.0.1</fileVersion>
+                                <txtFileVersion>first</txtFileVersion>
+                                <fileDescription>IaMame executable</fileDescription>
+                                <copyright>github.com/TiBeN</copyright>
+                                <productVersion>0.0.${project.version}</productVersion>
+                                <txtProductVersion>${project.version}</txtProductVersion>
+                                <productName>IaMame</productName>
+                                <internalName>IaMame</internalName>
+                                <originalFilename>ia-mame.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!-- Delete the library directory when clean project -->
+            <!-- Create *nix executable -->
             <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
+                <groupId>org.skife.maven</groupId>
+                <artifactId>really-executable-jar-maven-plugin</artifactId>
+                <version>1.4.1</version>
                 <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${project.basedir}/lib</directory>
-                        </fileset>
-                    </filesets>
+                    <programFile>ia-mame</programFile>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>really-executable-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

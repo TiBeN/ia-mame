@@ -1,9 +1,11 @@
 CHANGELOG
 =========
 
-Current
--------
+0.4
+---
 
+-   Improved packaging: Now build ia-mame as a native exe binary file for 
+    window and self-contained executable script+jar for \*nix 
 -   Added a downloading counter progression
 -   Removed the use of a configuration file and defined MAME\_EXEC env var
     instead
