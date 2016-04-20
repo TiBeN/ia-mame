@@ -17,28 +17,53 @@ supported.
 Prerequisites
 -------------
 
-- Mame 0.161+
-
 - Java 1.7+
+
+- A version of Mame 0.161+ that suits your operating system. Make sure it
+  works properly before trying ia-mame
+
 
 Installation
 ------------
 
-- Make sure you have Java 7+ and Mame 0.161+ somewhere on your drive.
+### Linux / OS X
 
-- Make sure you have working copy of the Mame emulator which suits your 
-  operating system.
+- Make your rompath writable or add another writable one on the 'rompath' 
+  directive of `mame.ini`
 
-- Make sure your Mame rompath is writable. If not, make it writable or 
-  add another writable one on the 'rompath' directive of the `mame.ini`.
+  ```bash 
+  $ chmod +w /path/to/mame/roms
+  ```
 
-- Download the binary matching your OS on the 
-  [release page](https://github.com/TiBeN/ia-mame/releases/latest)
+- Install ia-mame and make it executable: 
+
+  ```bash 
+  $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/0.4/ia-mame
+  $ sudo chmod +x /usr/local/bin/ia-mame
+  ```
 
 - Tell IaMame where is your Mame executable by making it available on your 
   $PATH environment variable — its name must match mame[64][.exe] — or by 
-  setting it explicitly using the $MAME_EXEC environment variable.
- 
+  setting on your ~./bashrc, or somewhere else, the $MAME_EXEC environment 
+  variable:
+
+  ```bash
+  $ vim ~/.bashrc
+  export MAME_EXEC=/path/to/mame64
+  ```
+
+### Windows
+
+- Download
+  [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/0.4/ia-mame.exe) and place it on the folder where is your mame.exe
+
+You can alternatively place it somewhere else and use the $MAME\_EXEC env
+variable:
+
+```batch
+C:\> SET MAME_EXEC=C:\Users\tiben\mame\mame.exe
+```
+
 ### Compilation from the sources
 
 The compilation requires Maven.
@@ -71,7 +96,6 @@ and will download them before launching Mame.
 Let's try Street Fighter 2 arcade board:
 
 ```bash
-$ export MAME_EXEC=/path/to/mame64
 $ ia-mame sf2
 
 INFO: Download from archive.org missing rom files: [sf2] for machine "Stree...
@@ -80,16 +104,27 @@ Downloading 668kB / ??kB, progress: ??"
 
 ### Windows 
 
-Let's try Columns on the Sega Master System:
+Let's try Columns on the Sega Master System.
+
+Open a console `cmd`
 
 ```batch
-C:\> SET MAME_EXEC=C:\path\to\your\Mame
+C:\> cd \path\to\mame
 C:\> ia-mame.exe sms columns
 
 INFO: Download from archive.org missing rom files: [sms] for machine "Master...
 Downloading 25kB / ??kB, progress: ??
 INFO: Download from archive.org missing software file: Software: [device: sms_cart...
 Downloading 4kB / ??kB, progress: ??
+```
+
+Java JAR
+--------
+
+Alternatively, the provided jar can be used directly:
+
+```
+$ java -jar ia-mame.jar sf2
 ```
 
 Don't like command line ?
