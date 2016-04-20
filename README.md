@@ -161,3 +161,14 @@ I'm facing issues on some CHD collections (psx, saturn) due to version
 differences between the collection and the Mame executable. 
 It is especially true if the delta of the version is high.
 (PSX CHDs will work great using Mame v0.161 but not with 0.170 for example)
+
+Some screenshots
+----------------
+
+![preview2](./doc/screenshot2.png)
+
+![preview3](./doc/screenshot3.png)
+
+![preview4](./doc/screenshot4.png)
+
+![preview5](./doc/screenshot5.png)
