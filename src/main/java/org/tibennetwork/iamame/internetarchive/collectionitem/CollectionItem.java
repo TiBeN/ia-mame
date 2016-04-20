@@ -63,9 +63,11 @@ public abstract class CollectionItem {
                 downloadedBytes += readBytes;
                 destinationOutputStream.write(bytes, 0, readBytes);
                 System.out.print(String.format(
-                    "Downloading %skB / ??kB, progress: ??\r",
+                    "INFO: Downloading %skB / ??kB, progress: ??\r",
                     (downloadedBytes / 1024)));
             }
+
+            System.out.println("");
 
             urlInputStream.close();
             destinationOutputStream.close();

@@ -175,9 +175,10 @@ public class IaMame
             if (!machine.areRomFilesAvailable(mame.getRomsPaths())) {
 
                 IaMame.info(String.format(
-                    "Download from archive.org missing " 
-                        + "rom files: %s for machine \"%s\"", 
-                    machine.getMissingRomFiles(mame.getRomsPaths()), 
+                    "Download missing rom files: %s", 
+                    machine.getMissingRomFiles(mame.getRomsPaths())));
+
+                IaMame.info(String.format("Machine: %s", 
                     machine.getDescription()));
 
                 try {
@@ -196,9 +197,17 @@ public class IaMame
                            && !s.isAvailable(mame.getRomsPaths())) {
 
                         IaMame.info(String.format(
-                            "Download from archive.org missing " 
-                                + "software file: %s)",
-                            s));
+                            "Download missing software file: %s",
+                            s.getName()));
+
+                        IaMame.info(String.format("Name: %s", 
+                            s.getDescription()));
+
+                        IaMame.info(String.format("Publisher: %s", 
+                            s.getPublisher()));
+
+                        IaMame.info(String.format("Media interface: %s", 
+                            s.getMediaInterface()));
 
                         try {
                             mamc.download(s);

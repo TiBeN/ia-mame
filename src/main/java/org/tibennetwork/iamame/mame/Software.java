@@ -181,7 +181,7 @@ public class Software {
             : String.format(
                 "Software: [device: %s, name: %s (%s), publisher: %s, " 
                     + "machine: %s]", 
-                this.getMediaInterface(),    
+                this.getMediaInterface(),
                 this.description, 
                 this.name, 
                 this.publisher, 

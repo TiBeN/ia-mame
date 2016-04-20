@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Current
+-------
+
+-   Improved INFO traces format
+
 0.4
 ---
 

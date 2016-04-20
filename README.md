@@ -98,8 +98,9 @@ Let's try Street Fighter 2 arcade board:
 ```bash
 $ ia-mame sf2
 
-INFO: Download from archive.org missing rom files: [sf2] for machine "Stree...
-Downloading 668kB / ??kB, progress: ??"
+INFO: Download missing rom files: [sf2]
+INFO: Machine: Street Fighter II: The World Warrior (World 910522)
+INFO: Downloading 3468kB / ??kB, progress: ??
 ```
 
 ### Windows 
@@ -112,10 +113,14 @@ Open a console `cmd`
 C:\> cd \path\to\mame
 C:\> ia-mame.exe sms columns
 
-INFO: Download from archive.org missing rom files: [sms] for machine "Master...
-Downloading 25kB / ??kB, progress: ??
-INFO: Download from archive.org missing software file: Software: [device: sms_cart...
-Downloading 4kB / ??kB, progress: ??
+INFO: Download missing rom files: [sms]
+INFO: Machine: Master System II
+INFO: Downloading 78kB / ??kB, progress: ??
+INFO: Download missing software file: columns
+INFO: Name: Columns (Euro, USA, Bra, Kor)
+INFO: Publisher: Sega
+INFO: Media interface: sms_cart
+INFO: Downloading 25kB / ??kB, progress: ??
 ```
 
 ### Executable JAR
