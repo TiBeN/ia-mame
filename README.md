@@ -19,6 +19,7 @@ Prerequisites
 -------------
 
 - [Java](https://www.java.com/fr/download/) 1.7+. 
+
   Mac OS x Users: Some users reported issues to install Java Superior to 6. 
   If it is you case, read this [Stack Overflow 
 thread](http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6)
