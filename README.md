@@ -4,8 +4,9 @@ IaMame
 [![Build
 Status](https://travis-ci.org/TiBeN/ia-mame.svg?branch=master)](https://travis-ci.org/TiBeN/ia-mame)
 
-IaMame is a thin Mame emulator command line wrapper which downloads 
-automatically needed system roms and softwares from [The Internet 
+IaMame is a thin [Mame](http://mamedev.org/) emulator command line wrapper 
+which downloads automatically needed system roms and softwares from 
+[The Internet 
 Archive Mess and Mame collections](https://archive.org/details/messmame) 
 if they are missing on the rompath directory before launching Mame.
 
@@ -19,11 +20,10 @@ supported.
 Prerequisites
 -------------
 
-- Java 1.7+
+- [Java](https://www.java.com/fr/download/) 1.7+
 
-- A version of Mame 0.161+ that suits your operating system. Make sure it
-  works properly before trying ia-mame
-
+- A version of [Mame](http://mamedev.org/release.php) 0.161+ that suits your 
+  operating system. Make sure it works properly before trying ia-mame.
 
 Installation
 ------------
