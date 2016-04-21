@@ -9,7 +9,7 @@ TODO
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
 -   Support for auto-completion
--   Handle the configuration parameters (ie rompath and so one) set from
+-   Handle the configuration parameters (ie rompath and so on) set from
     the command line too.
 -   Create simple screencast to demonstrate usage
 -   Get asynchronously the length of the download via the zipview 
