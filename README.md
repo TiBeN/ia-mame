@@ -28,6 +28,9 @@ Installation
 
 ### Linux / OS X
 
+**OSX users**: i have no Mac and i have not tested on this system for now.
+An issue has already been reported. Let me now if it works or not for you. 
+
 - Make your rompath writable or add another writable one on the 'rompath' 
   directive of `mame.ini`
 
