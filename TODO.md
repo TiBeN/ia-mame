@@ -14,3 +14,6 @@ TODO
 -   Create simple screencast to demonstrate usage
 -   Get asynchronously the length of the download via the zipview 
     (not given by archive.org via HTTP headers)
+-   Distribute as a zipped package containing README + CHANGELOG etc. as
+    well
+-   Use packr to include JVM ?
