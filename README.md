@@ -18,7 +18,10 @@ supported.
 Prerequisites
 -------------
 
-- [Java](https://www.java.com/fr/download/) 1.7+
+- [Java](https://www.java.com/fr/download/) 1.7+. 
+  Mac OS x Users: Some users reported issues to install Java Superior to 6. 
+  If it is you case, read this [Stack Overflow 
+thread](http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6)
 
 - A version of [Mame](http://mamedev.org/release.php) 0.161+ that suits your 
   operating system. Make sure it works properly before trying ia-mame.
@@ -27,9 +30,6 @@ Installation
 ------------
 
 ### Linux / OS X
-
-**OSX users**: i have no Mac and i have not tested on this system for now.
-An issue has already been reported. Let me now if it works or not for you. 
 
 - Make your rompath writable or add another writable one on the 'rompath' 
   directive of `mame.ini`
