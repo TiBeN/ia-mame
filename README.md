@@ -47,8 +47,8 @@ An issue has already been reported. Let me now if it works or not for you.
 
 - Tell IaMame where is your Mame executable by making it available on your 
   $PATH environment variable — its name must match mame[64][.exe] — or by 
-  setting on your ~./bashrc, or somewhere else, the $MAME_EXEC environment 
-  variable:
+  setting on your ~./bashrc, or ~/.bash\_profile or somewhere else, 
+  the $MAME_EXEC environment variable:
 
   ```bash
   $ vim ~/.bashrc
