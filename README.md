@@ -10,8 +10,6 @@ which downloads automatically needed system roms and softwares from
 Archive Mess and Mame collections](https://archive.org/details/messmame) 
 if they are missing on the rompath directory before launching Mame.
 
-No needs to have Gigas of roms collections on your drive anymore!
-
 Mame roms, softwarelist roms and most of cd-rom CHD collections are
 supported.
 
