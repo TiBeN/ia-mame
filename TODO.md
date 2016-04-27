@@ -14,3 +14,4 @@ TODO
 -   Create simple screencast to demonstrate usage
 -   Get asynchronously the length of the download via the zipview 
     (not given by archive.org via HTTP headers)
+-   Add support for negative boolean options (-[no]option)
