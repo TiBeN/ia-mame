@@ -9,9 +9,12 @@ TODO
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
 -   Support for auto-completion
--   Handle the configuration parameters (ie rompath and so one) set from
+-   Handle the configuration parameters (ie rompath and so on) set from
     the command line too.
 -   Create simple screencast to demonstrate usage
 -   Get asynchronously the length of the download via the zipview 
     (not given by archive.org via HTTP headers)
 -   Add support for negative boolean options (-[no]option)
+-   Distribute as a zipped package containing README + CHANGELOG etc. as
+    well
+-   Use packr to include JVM ?

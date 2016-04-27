@@ -18,7 +18,11 @@ supported.
 Prerequisites
 -------------
 
-- [Java](https://www.java.com/fr/download/) 1.7+
+- [Java](https://www.java.com/fr/download/) 1.7+. 
+
+  Mac OS x Users: Some users reported issues to install Java Superior to 6. 
+  If it is you case, read this [Stack Overflow 
+thread](http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6)
 
 - A version of [Mame](http://mamedev.org/release.php) 0.161+ that suits your 
   operating system. Make sure it works properly before trying ia-mame.
@@ -44,8 +48,8 @@ Installation
 
 - Tell IaMame where is your Mame executable by making it available on your 
   $PATH environment variable — its name must match mame[64][.exe] — or by 
-  setting on your ~./bashrc, or somewhere else, the $MAME_EXEC environment 
-  variable:
+  setting on your ~./bashrc, or ~/.bash\_profile or somewhere else, 
+  the $MAME_EXEC environment variable:
 
   ```bash
   $ vim ~/.bashrc
