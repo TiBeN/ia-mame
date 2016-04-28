@@ -26,6 +26,12 @@ public class MameRuntime {
     private String binPath;
 
     /**
+     * Raw options to use when calling Mame
+     * internally
+     */
+    private String[] defaultOptions;
+
+    /**
      * Directory containing the Mame 
      * executable
      */
@@ -33,10 +39,11 @@ public class MameRuntime {
 
     private List<File> romsPaths;
 
-    public MameRuntime (String binPath) 
+    public MameRuntime (String binPath, String[] defaultOptions) 
             throws IOException, InterruptedException, ParseException {
         this.binPath = binPath;
         this.binDirectory = new File(binPath).getParent();
+        this.defaultOptions = defaultOptions;
         IaMame.debug(String.format(
             "Mame binary directory: %s", 
             this.binDirectory));
@@ -53,49 +60,35 @@ public class MameRuntime {
      * Mame terminates. cess so execution is transparent
      * for the user.
      */
-    public void execute (String[] rawArgs) 
-        throws IOException, InterruptedException {
-        
-        List<String> args = new ArrayList<>();
-        args.add(this.binPath);
-        args.addAll(Arrays.asList(rawArgs));
-        
-        ProcessBuilder builder = new ProcessBuilder(args);
-        builder.directory(new File(this.binDirectory));
-        builder.inheritIO();
-        Process mameProcess = builder.start();
-        mameProcess.waitFor();
+    public void execute (String[] rawArgs, boolean mergeArgsWithDefaultOptions) 
+            throws IOException, 
+                InterruptedException {
+        this.initMameProcess(rawArgs, true, mergeArgsWithDefaultOptions)
+            .waitFor();
     }
 
-    public InputStream executeAndReturnStdoutAsInputStream (String[] rawArgs)
-        throws IOException, InterruptedException, MameExecutionException {
-        
-        List<String> args = new ArrayList<>();
-        args.add(this.binPath);
-        args.addAll(Arrays.asList(rawArgs));
-        
-        ProcessBuilder builder = new ProcessBuilder(args);
-        builder.directory(new File(this.binDirectory));
-        Process mameProcess = builder.start();
-    
-        return mameProcess.getInputStream();
-    
-    } 
+    /**
+     * Same as MameRuntime.execute but merge rawArgs 
+     * with default options by default
+     */
+    public void execute (String[] rawArgs) 
+            throws IOException, InterruptedException {
+        this.execute(rawArgs, true);
+    }
 
     /**
      * Executes Mame using the given arguments and return
      * the stdout of the command as a List of String
      */
-    public List<String> executeAndReturnStdout (String[] rawArgs)
-        throws IOException, InterruptedException, MameExecutionException {
+    public List<String> executeAndReturnStdout (
+            String[] rawArgs, 
+            boolean mergeArgsWithDefaultOptions)
+            throws IOException, 
+                InterruptedException, 
+                MameExecutionException {
         
-        List<String> args = new ArrayList<>();
-        args.add(this.binPath);
-        args.addAll(Arrays.asList(rawArgs));
-        
-        ProcessBuilder builder = new ProcessBuilder(args);
-        builder.directory(new File(this.binDirectory));
-        Process mameProcess = builder.start();
+        Process mameProcess 
+            = this.initMameProcess(rawArgs, false, mergeArgsWithDefaultOptions);
 
         BufferedReader mameRuntimeStdout = new BufferedReader(
             new InputStreamReader(mameProcess.getInputStream()));
@@ -111,16 +104,55 @@ public class MameRuntime {
 
         if (exitValue != 0) {
             throw new MameExecutionException(
-                    String.format(
-                        "Mame process returned exit value %s", 
-                        exitValue));
+                String.format(
+                    "Mame process returned exit value %s", 
+                    exitValue));
         }
 
-        return stdout;            
+        return stdout;
     }
 
     /**
-     * Determines the path among the list of romPat were roms 
+     * Same as MameRuntime.executeAndReturnStdout
+     * but merge rawArgs with default options by default
+     */
+    public List<String> executeAndReturnStdout (String[] rawArgs) 
+            throws IOException, 
+                InterruptedException, 
+                MameExecutionException {
+        return this.executeAndReturnStdout(rawArgs, true);
+    }
+
+    /**
+     * Executes Mame using the given arguments and return
+     * an InputStream connected to the process to access to 
+     * std inputs/outputs
+     */
+    public InputStream executeAndReturnStdoutAsInputStream (
+            String[] rawArgs, 
+            boolean mergeArgsWithDefaultOptions)
+            throws IOException, 
+                InterruptedException, 
+                MameExecutionException {
+    
+        return this.initMameProcess(rawArgs, false, mergeArgsWithDefaultOptions)
+            .getInputStream();
+
+    }
+ 
+    /**
+     * Same as MameRuntime.executeAndReturnStdoutAsInputStream 
+     * but merge rawArgs with default options by default
+     */
+    public InputStream executeAndReturnStdoutAsInputStream (String[] rawArgs) 
+            throws IOException, 
+                InterruptedException, 
+                MameExecutionException {
+         return this.executeAndReturnStdoutAsInputStream(rawArgs, true);
+    }
+
+    /**
+     * Determines the path among the list of rom paths were roms 
      * and software should be put.
      */
     public File getWritableRomPath () throws NoWritableRomPathException {
@@ -134,10 +166,35 @@ public class MameRuntime {
             "No writable path to write roms into");
     }
 
-    private void getRomsPathsFromBinary () 
-            throws IOException, InterruptedException, ParseException {
+    private Process initMameProcess (
+            String[] rawArgs, 
+            boolean inheritIO, 
+            boolean mergeArgsWithDefaultOptions) 
+            throws IOException {
+    
+        List<String> args = new ArrayList<>();
+        args.add(this.binPath);
+        if (mergeArgsWithDefaultOptions) {
+            args.addAll(Arrays.asList(this.defaultOptions));
+        }
+        args.addAll(Arrays.asList(rawArgs));
+        
+        ProcessBuilder builder = new ProcessBuilder(args);
+        if (inheritIO) {
+            builder.inheritIO();
+        }
+        builder.directory(new File(this.binDirectory));
+        return builder.start();
+
+    }
+
+    private void getRomsPathsFromBinary ()
+            throws IOException, 
+                InterruptedException, 
+                ParseException {
 
         String[] rawArgs = {"-showconfig"};
+
         List<String> mameStdout = null;
 
         try {

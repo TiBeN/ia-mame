@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FilenameUtils;
@@ -17,6 +18,39 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class MameArguments {
     
+    /**
+     * Object-value which contains Machine and Software 
+     * objects extracted and instanciated from the 
+     * parsed command line arguments
+     */
+    public static class ExtractedMachineAndSoftwares {
+        
+        private Machine machine = null;
+
+        private List<Software> softwares = new ArrayList<>();
+        
+        public boolean hasMachine () {
+            return this.machine != null;
+        }
+
+        public Machine getMachine () {
+            return machine;
+        }
+
+        public void setMachine (Machine m) {
+            this.machine = m;
+        }
+
+        public List<Software> getSoftwares() {
+            return softwares;
+        }
+
+        public boolean hasSoftwares () {
+            return softwares != null;
+        }
+
+    }
+        
     private static Options mameOptions;
 
     private static String[] commands = {
@@ -49,47 +83,14 @@ public class MameArguments {
 
     private CommandLine commandLine = null;
 
-    private MachineRepository machineRepository;
-
-    private SoftwareRepository softwareRepository;
-
-    private Machine machine = null;
-
-    private List<Software> softwares = new ArrayList<>();
-
-    public MameArguments (
-            MachineRepository mr, 
-            SoftwareRepository sr, 
-            String[] rawArgs)
-            throws InvalidMameArgumentsException, 
-                        IOException, 
-                        InterruptedException {
-        
-        this.machineRepository = mr;
-        this.softwareRepository = sr;
+    public MameArguments (String[] rawArgs)
+            throws InvalidMameArgumentsException {
         this.rawArgs = rawArgs;
-        
         this.parseArgs();
     }
     
     public String[] getRawArgs () {
         return this.rawArgs;
-    }
-
-    public boolean hasMachine () {
-        return this.machine != null;
-    }
-
-    public Machine getMachine () {
-        return machine;
-    }
-
-    public List<Software> getSoftwares() {
-        return softwares;
-    }
-
-    public boolean hasSoftwares () {
-        return softwares != null;
     }
 
     /**
@@ -106,25 +107,44 @@ public class MameArguments {
 
         return false;
     }
-            
+
     /**
-     * Parse args in raw string and store usefull
-     * Arguments.
+     * Return non command options args
      */
-    private void parseArgs () 
-            throws InvalidMameArgumentsException, 
-                  IOException, 
-                  InterruptedException {
-        
-        try {            
-            CommandLineParser parser = new DefaultParser();
-            this.commandLine = parser.parse(mameOptions, rawArgs);
-        } catch (ParseException e) {
-            throw (InvalidMameArgumentsException) 
-                new InvalidMameArgumentsException(
-                        "Error while parsing commandLine")
-                    .initCause(e);
+    public String[] getRawOptionsArgs () {
+        List<String> roa = new ArrayList<>();
+        optionsLoop: for (Option o: this.commandLine.getOptions()) {
+            
+            // Discard mame commands
+            for (String c: commands) {
+                if (o.getOpt().equals(c)) {
+                    continue optionsLoop;
+                }
+            }
+            
+            roa.add('-' + o.getOpt());
+
+            if (o.hasArg() || o.hasArgs()) {
+                for (String a: this.commandLine.getOptionValues(o.getOpt())) {
+                    roa.add(a);
+                }
+            }
         }
+        return roa.toArray(new String[roa.size()]);
+    }
+
+    /**
+     * Extract and instanciate Machine and Software objects from 
+     * the parsed command-line arguments.
+     */
+    public ExtractedMachineAndSoftwares extractMachineAndSoftwares (
+        MachineRepository mr,
+        SoftwareRepository sr)
+            throws InvalidMameArgumentsException,
+                IOException,
+                InterruptedException {
+
+        ExtractedMachineAndSoftwares ems = new ExtractedMachineAndSoftwares();
 
         // Retrieve non option arguments
         // There must be at most 2 non arguments : 
@@ -133,13 +153,15 @@ public class MameArguments {
 
         if (cmdArgs.length > 2) {
             throw new InvalidMameArgumentsException(
-                    "Too many non option args");
+                "Too many non option args");
         }
+
+        Machine m = null;
 
         if (cmdArgs.length >= 1) {
             try {
-                this.machine = this.machineRepository
-                    .findByName(cmdArgs[0]);
+                m = mr.findByName(cmdArgs[0]);
+                ems.setMachine(m);
             } catch (MachineDoesntExistException e) {
                 throw (InvalidMameArgumentsException) 
                     new InvalidMameArgumentsException(e.getMessage())
@@ -155,8 +177,8 @@ public class MameArguments {
                 }
 
                 try {
-                    this.softwares.add(this.softwareRepository
-                        .findByMachineAndByName(this.machine, cmdArgs[1]));
+                    ems.getSoftwares().add(
+                        sr.findByMachineAndByName(m, cmdArgs[1]));
                 } catch (MachineHasNoSoftwareListException 
                         | SoftwareNotFoundInSoftwareListsException 
                         | MachineDoesntExistException e) {
@@ -166,23 +188,22 @@ public class MameArguments {
                 }
             }
             else {
-                for (MediaDevice md: this.machine.getMediaDevices()) {
+                for (MediaDevice md: m.getMediaDevices()) {
                     if (this.commandLine.hasOption(md.getBriefname())) {
 
-                        String softwareName  = this.commandLine
+                        String softwareName = this.commandLine
                             .getOptionValue(md.getBriefname());
 
                         Software s;
 
                         if(this.isRegularSoftwareFile(softwareName)) {
-                            s = new Software(machine, md, softwareName);
+                            s = new Software(m, md, softwareName);
                         } else {
                             try {
-                                s = this.softwareRepository
-                                    .findByMachineAndAndByMediaTypeAndByName(
-                                        machine,
-                                        md,
-                                        softwareName);
+                                s = sr.findByMachineAndAndByMediaTypeAndByName(
+                                    m,
+                                    md,
+                                    softwareName);
                             } catch (MachineHasNoSoftwareListException 
                                     | SoftwareNotFoundInSoftwareListsException 
                                     | MachineDoesntExistException e) {
@@ -193,12 +214,34 @@ public class MameArguments {
                             }
                         }
                         
-                        this.softwares.add(s);
+                        ems.getSoftwares().add(s);
 
                     }
                 }
             }
         }
+
+        return ems;
+
+    }
+
+    /**
+     * Parse args in raw string and store usefull
+     * Arguments.
+     */
+    private void parseArgs () 
+            throws InvalidMameArgumentsException {
+        
+        try {            
+            CommandLineParser parser = new DefaultParser();
+            this.commandLine = parser.parse(mameOptions, rawArgs);
+        } catch (ParseException e) {
+            throw (InvalidMameArgumentsException) 
+                new InvalidMameArgumentsException(
+                        "Error while parsing commandLine")
+                    .initCause(e);
+        }
+
     }
 
     /**

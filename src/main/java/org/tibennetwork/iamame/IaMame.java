@@ -14,6 +14,7 @@ import org.tibennetwork.iamame.mame.InvalidMameArgumentsException;
 import org.tibennetwork.iamame.mame.Machine;
 import org.tibennetwork.iamame.mame.MachineRepository;
 import org.tibennetwork.iamame.mame.MameArguments;
+import org.tibennetwork.iamame.mame.MameArguments.ExtractedMachineAndSoftwares;
 import org.tibennetwork.iamame.mame.MameRuntime;
 import org.tibennetwork.iamame.mame.Software;
 import org.tibennetwork.iamame.mame.SoftwareRepository;
@@ -28,6 +29,15 @@ public class IaMame
     {
 
         MameArguments mameArgs = null;
+
+        try {
+            mameArgs = new MameArguments(args);
+        } catch (InvalidMameArgumentsException e) {
+            IaMame.warn(
+            "An error occured while trying to parse command line: " 
+                + e.getMessage());
+        }
+            
         MameRuntime mame = null;
         String mameBinary = null;       
 
@@ -38,35 +48,20 @@ public class IaMame
         }
 
         try {
-            mame = new MameRuntime(mameBinary);
-
+            mame = new MameRuntime(mameBinary, mameArgs.getRawOptionsArgs());
         } catch (IOException | InterruptedException | ParseException e) {
             IaMame.errorAndExit(
                 "An error occured while trying to execute Mame: " 
                     + e.getMessage());
         }
 
-        MachineRepository mf = new MachineRepository(mame);
-        SoftwareRepository sr = new SoftwareRepository(mame);
-
-        try {
-            mameArgs = new MameArguments(mf, sr, args);
-            downloadFilesIfNeeded(mameArgs, mame);
-        } catch (InvalidMameArgumentsException e) {
-            IaMame.warn(
-            "An error occured while trying to parse command line: " 
-                + e.getMessage());
-        } catch (IOException | InterruptedException e) {
-            IaMame.errorAndExit(
-                "An error occured while trying to parse command line: " 
-                    + e.getMessage());
-        }
+        downloadFilesIfNeeded(mameArgs, mame);
 
         // Launch Mame if not in dry-run mode
         String dryRun = System.getProperty("iamame.dryrun");
         if (dryRun == null || !dryRun.equals("1")) {
             try {
-                mame.execute(args);
+                mame.execute(args, false);
             } catch (IOException | InterruptedException e) {
                 IaMame.errorAndExit(
                     "An error occured while trying to execute Mame: " 
@@ -158,10 +153,27 @@ public class IaMame
     private static void downloadFilesIfNeeded (
             MameArguments mameArgs, 
             MameRuntime mame) {
-    
-        if (!mameArgs.containsCommand() && mameArgs.hasMachine()) {
 
-            Machine machine = mameArgs.getMachine();
+    
+        if (!mameArgs.containsCommand() ) {
+
+            ExtractedMachineAndSoftwares ems = null;
+            
+            try {
+                ems = mameArgs.extractMachineAndSoftwares(
+                    new MachineRepository(mame), 
+                    new SoftwareRepository(mame));
+            } catch (InvalidMameArgumentsException e) {
+                IaMame.errorAndExit(
+                    "An error occured while trying to parse command-line: " 
+                        + e.getMessage());
+            }  
+            catch (IOException | InterruptedException e) {
+                IaMame.errorAndExit(
+                    "An error occured " + e.getMessage());
+            }  
+
+            Machine machine = ems.getMachine();
 
             MessAndMameCollection mamc = null;
             try {
@@ -188,9 +200,9 @@ public class IaMame
                 }
             } 
 
-            if (mameArgs.hasSoftwares()) {
+            if (ems.hasSoftwares()) {
             
-                List<Software> softwares = mameArgs.getSoftwares();
+                List<Software> softwares = ems.getSoftwares();
 
                 for (Software s: softwares) {
                     if (!s.isRegularFile()

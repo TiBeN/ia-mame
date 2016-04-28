@@ -4,6 +4,8 @@ CHANGELOG
 Current
 -------
 
+-   Handle the configuration parameters (ie rompath and so on) set from
+    the command line too
 -   Improved INFO traces format
 
 0.4
