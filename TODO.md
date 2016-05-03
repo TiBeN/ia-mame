@@ -17,3 +17,5 @@ TODO
 -   Use packr to include JVM on the executable ?
 -   Do more tests with differents version of Mame to be more precise on the
     README about Mame version support.
+-   BUG: remove the [-<media> <software>] argument option from
+    MameArguments.getRawOptionsArgs() 
