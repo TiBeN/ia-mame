@@ -19,3 +19,5 @@ TODO
     README about Mame version support.
 -   BUG: remove the [-<media> <software>] argument option from
     MameArguments.getRawOptionsArgs() 
+-   Do support of news command line switchs since Groovymame merged with
+    mame
