@@ -4,6 +4,7 @@ CHANGELOG
 Current
 -------
 
+-   The download total size and progress in percent is now displayed.
 -   Handle the configuration parameters (ie rompath and so on) set from
     the command line too
 -   Improved INFO traces format
