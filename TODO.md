@@ -21,3 +21,5 @@ TODO
     MameArguments.getRawOptionsArgs() 
 -   Do support of news command line switchs since Groovymame merged with
     mame
+-   BUG: ia-mame <system> <software> with wrong software should not break
+    the launch of Mame (displaying suggestions)
