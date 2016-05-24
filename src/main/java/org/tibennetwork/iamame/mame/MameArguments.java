@@ -79,6 +79,101 @@ public class MameArguments {
         "getsoftlist",
         "verifysoftlist"};
 
+    private static String[] mediaTypes = {
+        "bitb",
+        "brief",
+        "card",
+        "card1",
+        "card10",
+        "card11",
+        "card12",
+        "card13",
+        "card14",
+        "card15",
+        "card16",
+        "card2",
+        "card3",
+        "card4",
+        "card5",
+        "card6",
+        "card7",
+        "card8",
+        "card9",
+        "cart",
+        "cart1",
+        "cart10",
+        "cart11",
+        "cart12",
+        "cart13",
+        "cart14",
+        "cart15",
+        "cart16",
+        "cart17",
+        "cart18",
+        "cart2",
+        "cart3",
+        "cart4",
+        "cart5",
+        "cart6",
+        "cart7",
+        "cart8",
+        "cart9",
+        "cass",
+        "cass1",
+        "cass2",
+        "cdrm",
+        "cdrm1",
+        "cdrm2",
+        "cdrm3",
+        "ct",
+        "cyln",
+        "disk1",
+        "disk2",
+        "dump",
+        "flop",
+        "flop1",
+        "flop2",
+        "flop3",
+        "flop4",
+        "flop5",
+        "flop6",
+        "hard",
+        "hard1",
+        "hard2",
+        "hard3",
+        "hard4",
+        "hard5",
+        "hard6",
+        "hard7",
+        "incart60p",
+        "magt",
+        "magt1",
+        "magt2",
+        "magt3",
+        "magt4",
+        "mc1",
+        "mc2",
+        "memc",
+        "min",
+        "mout",
+        "mout1",
+        "mout2",
+        "ni",
+        "p1",
+        "p2",
+        "prin",
+        "prin1",
+        "prin2",
+        "prin3",
+        "ptap1",
+        "ptap2",
+        "quik",
+        "quik1",
+        "quik2",
+        "sasi",
+        "serl"
+    };
+
     private String[] rawArgs;
 
     private CommandLine commandLine = null;
@@ -121,6 +216,13 @@ public class MameArguments {
                     continue optionsLoop;
                 }
             }
+
+            // Discard media types options (ex -cart mario)
+            for (String mt: mediaTypes) {
+                if (o.getOpt().equals(mt)) {
+                    continue optionsLoop;
+                }
+            } 
             
             roa.add('-' + o.getOpt());
 
@@ -546,97 +648,8 @@ public class MameArguments {
         mameOptions.addOption("gl_lib", true, "");
 
         // Media specific option args
-        mameOptions.addOption("bitb", true, "");
-        mameOptions.addOption("brief", true, "");
-        mameOptions.addOption("card", true, "");
-        mameOptions.addOption("card1", true, "");
-        mameOptions.addOption("card10", true, "");
-        mameOptions.addOption("card11", true, "");
-        mameOptions.addOption("card12", true, "");
-        mameOptions.addOption("card13", true, "");
-        mameOptions.addOption("card14", true, "");
-        mameOptions.addOption("card15", true, "");
-        mameOptions.addOption("card16", true, "");
-        mameOptions.addOption("card2", true, "");
-        mameOptions.addOption("card3", true, "");
-        mameOptions.addOption("card4", true, "");
-        mameOptions.addOption("card5", true, "");
-        mameOptions.addOption("card6", true, "");
-        mameOptions.addOption("card7", true, "");
-        mameOptions.addOption("card8", true, "");
-        mameOptions.addOption("card9", true, "");
-        mameOptions.addOption("cart", true, "");
-        mameOptions.addOption("cart1", true, "");
-        mameOptions.addOption("cart10", true, "");
-        mameOptions.addOption("cart11", true, "");
-        mameOptions.addOption("cart12", true, "");
-        mameOptions.addOption("cart13", true, "");
-        mameOptions.addOption("cart14", true, "");
-        mameOptions.addOption("cart15", true, "");
-        mameOptions.addOption("cart16", true, "");
-        mameOptions.addOption("cart17", true, "");
-        mameOptions.addOption("cart18", true, "");
-        mameOptions.addOption("cart2", true, "");
-        mameOptions.addOption("cart3", true, "");
-        mameOptions.addOption("cart4", true, "");
-        mameOptions.addOption("cart5", true, "");
-        mameOptions.addOption("cart6", true, "");
-        mameOptions.addOption("cart7", true, "");
-        mameOptions.addOption("cart8", true, "");
-        mameOptions.addOption("cart9", true, "");
-        mameOptions.addOption("cass", true, "");
-        mameOptions.addOption("cass1", true, "");
-        mameOptions.addOption("cass2", true, "");
-        mameOptions.addOption("cdrm", true, "");
-        mameOptions.addOption("cdrm1", true, "");
-        mameOptions.addOption("cdrm2", true, "");
-        mameOptions.addOption("cdrm3", true, "");
-        mameOptions.addOption("ct", true, "");
-        mameOptions.addOption("cyln", true, "");
-        mameOptions.addOption("disk1", true, "");
-        mameOptions.addOption("disk2", true, "");
-        mameOptions.addOption("dump", true, "");
-        mameOptions.addOption("flop", true, "");
-        mameOptions.addOption("flop1", true, "");
-        mameOptions.addOption("flop2", true, "");
-        mameOptions.addOption("flop3", true, "");
-        mameOptions.addOption("flop4", true, "");
-        mameOptions.addOption("flop5", true, "");
-        mameOptions.addOption("flop6", true, "");
-        mameOptions.addOption("hard", true, "");
-        mameOptions.addOption("hard1", true, "");
-        mameOptions.addOption("hard2", true, "");
-        mameOptions.addOption("hard3", true, "");
-        mameOptions.addOption("hard4", true, "");
-        mameOptions.addOption("hard5", true, "");
-        mameOptions.addOption("hard6", true, "");
-        mameOptions.addOption("hard7", true, "");
-        mameOptions.addOption("incart60p", true, "");
-        mameOptions.addOption("magt", true, "");
-        mameOptions.addOption("magt1", true, "");
-        mameOptions.addOption("magt2", true, "");
-        mameOptions.addOption("magt3", true, "");
-        mameOptions.addOption("magt4", true, "");
-        mameOptions.addOption("mc1", true, "");
-        mameOptions.addOption("mc2", true, "");
-        mameOptions.addOption("memc", true, "");
-        mameOptions.addOption("min", true, "");
-        mameOptions.addOption("mout", true, "");
-        mameOptions.addOption("mout1", true, "");
-        mameOptions.addOption("mout2", true, "");
-        mameOptions.addOption("ni", true, "");
-        mameOptions.addOption("p1", true, "");
-        mameOptions.addOption("p2", true, "");
-        mameOptions.addOption("prin", true, "");
-        mameOptions.addOption("prin1", true, "");
-        mameOptions.addOption("prin2", true, "");
-        mameOptions.addOption("prin3", true, "");
-        mameOptions.addOption("ptap1", true, "");
-        mameOptions.addOption("ptap2", true, "");
-        mameOptions.addOption("quik", true, "");
-        mameOptions.addOption("quik1", true, "");
-        mameOptions.addOption("quik2", true, "");
-        mameOptions.addOption("sasi", true, "");
-        mameOptions.addOption("serl", true, "");
+        for (String mediaType: mediaTypes) {
+            mameOptions.addOption(mediaType, true, "");
+        }
     } 
 }

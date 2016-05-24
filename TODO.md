@@ -9,16 +9,12 @@ TODO
     confortable with command line
 -   Support for auto-completion
 -   Create simple screencast to demonstrate usage
--   Get asynchronously the length of the download via the zipview 
-    (not given by archive.org via HTTP headers)
 -   Add support for negative boolean options (-[no]option)
 -   Distribute as a zipped package containing README + CHANGELOG etc. as
     well
 -   Use packr to include JVM on the executable ?
 -   Do more tests with differents version of Mame to be more precise on the
     README about Mame version support.
--   BUG: remove the [-<media> <software>] argument option from
-    MameArguments.getRawOptionsArgs() 
 -   Do support of news command line switchs since Groovymame merged with
     mame
 -   BUG: ia-mame <system> <software> with wrong software should not break
