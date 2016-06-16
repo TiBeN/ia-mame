@@ -4,3 +4,4 @@ target
 .settings
 lib
 dependency-reduced-pom.xml
+doc/NOTES.md
