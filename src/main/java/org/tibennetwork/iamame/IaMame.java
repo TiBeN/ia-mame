@@ -16,6 +16,7 @@ import org.tibennetwork.iamame.mame.MachineRepository;
 import org.tibennetwork.iamame.mame.MameArguments;
 import org.tibennetwork.iamame.mame.MameArguments.ExtractedMachineAndSoftwares;
 import org.tibennetwork.iamame.mame.MameRuntime;
+import org.tibennetwork.iamame.mame.MameRuntimeImpl;
 import org.tibennetwork.iamame.mame.Software;
 import org.tibennetwork.iamame.mame.SoftwareRepository;
 
@@ -48,7 +49,8 @@ public class IaMame
         }
 
         try {
-            mame = new MameRuntime(mameBinary, mameArgs.getRawOptionsArgs());
+            mame = new MameRuntimeImpl(
+                mameBinary, mameArgs.getRawOptionsArgs());
         } catch (IOException | InterruptedException | ParseException e) {
             IaMame.errorAndExit(
                 "An error occured while trying to execute Mame: " 
