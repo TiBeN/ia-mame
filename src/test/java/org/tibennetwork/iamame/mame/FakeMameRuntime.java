@@ -13,8 +13,25 @@ import org.tibennetwork.iamame.internetarchive.NoWritableRomPathException;
  */
 public class FakeMameRuntime implements MameRuntime {
     
+    /**
+     * Hold the input streams to return sequencially when 
+     * calling methods output InputStreams
+     */
+    private List<InputStream> inputStreamsToReturn;
+
+    private int inputStreamIndex = 0;
+
     public List<File> getRomsPaths() {
         return null;
+    }
+
+    /**
+     * Set the List of InputStream to be returned sequentially when calling
+     * methods which returns InputStreams.
+     */
+    public void setInputStreamsToReturn (List<InputStream> is) {
+        this.inputStreamsToReturn = is;
+        this.inputStreamIndex = 0;
     }
 
     public void execute (String[] rawArgs, boolean mergeArgsWithDefaultOptions) 
@@ -43,8 +60,9 @@ public class FakeMameRuntime implements MameRuntime {
     public InputStream executeAndReturnStdoutAsInputStream (
             String[] rawArgs, boolean mergeArgsWithDefaultOptions)
             throws IOException, InterruptedException, MameExecutionException {
-            
-        return null;
+        InputStream is = this.inputStreamsToReturn.get(this.inputStreamIndex);
+        this.inputStreamIndex++;
+        return is;
     }
  
     /**
@@ -53,7 +71,9 @@ public class FakeMameRuntime implements MameRuntime {
      */
     public InputStream executeAndReturnStdoutAsInputStream (String[] rawArgs) 
             throws IOException, InterruptedException, MameExecutionException {
-        return null;
+        InputStream is = this.inputStreamsToReturn.get(this.inputStreamIndex);
+        this.inputStreamIndex++;
+        return is;
     }
 
     /**
