@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+<!DOCTYPE mame [
+<!ELEMENT mame (machine+)>
+	<!ATTLIST mame build CDATA #IMPLIED>
+	<!ATTLIST mame debug (yes|no) "no">
+	<!ATTLIST mame mameconfig CDATA #REQUIRED>
+	<!ELEMENT machine (description, year?, manufacturer?, biosset*, rom*, disk*, device_ref*, sample*, chip*, display*, sound?, input?, dipswitch*, configuration*, port*, adjuster*, driver?, device*, slot*, softwarelist*, ramoption*)>
+		<!ATTLIST machine name CDATA #REQUIRED>
+		<!ATTLIST machine sourcefile CDATA #IMPLIED>
+		<!ATTLIST machine isbios (yes|no) "no">
+		<!ATTLIST machine isdevice (yes|no) "no">
+		<!ATTLIST machine ismechanical (yes|no) "no">
+		<!ATTLIST machine runnable (yes|no) "yes">
+		<!ATTLIST machine cloneof CDATA #IMPLIED>
+		<!ATTLIST machine romof CDATA #IMPLIED>
+		<!ATTLIST machine sampleof CDATA #IMPLIED>
+		<!ELEMENT description (#PCDATA)>
+		<!ELEMENT year (#PCDATA)>
+		<!ELEMENT manufacturer (#PCDATA)>
+		<!ELEMENT biosset EMPTY>
+			<!ATTLIST biosset name CDATA #REQUIRED>
+			<!ATTLIST biosset description CDATA #REQUIRED>
+			<!ATTLIST biosset default (yes|no) "no">
+		<!ELEMENT rom EMPTY>
+			<!ATTLIST rom name CDATA #REQUIRED>
+			<!ATTLIST rom bios CDATA #IMPLIED>
+			<!ATTLIST rom size CDATA #REQUIRED>
+			<!ATTLIST rom crc CDATA #IMPLIED>
+			<!ATTLIST rom sha1 CDATA #IMPLIED>
+			<!ATTLIST rom merge CDATA #IMPLIED>
+			<!ATTLIST rom region CDATA #IMPLIED>
+			<!ATTLIST rom offset CDATA #IMPLIED>
+			<!ATTLIST rom status (baddump|nodump|good) "good">
+			<!ATTLIST rom optional (yes|no) "no">
+		<!ELEMENT disk EMPTY>
+			<!ATTLIST disk name CDATA #REQUIRED>
+			<!ATTLIST disk sha1 CDATA #IMPLIED>
+			<!ATTLIST disk merge CDATA #IMPLIED>
+			<!ATTLIST disk region CDATA #IMPLIED>
+			<!ATTLIST disk index CDATA #IMPLIED>
+			<!ATTLIST disk writable (yes|no) "no">
+			<!ATTLIST disk status (baddump|nodump|good) "good">
+			<!ATTLIST disk optional (yes|no) "no">
+		<!ELEMENT device_ref EMPTY>
+			<!ATTLIST device_ref name CDATA #REQUIRED>
+		<!ELEMENT sample EMPTY>
+			<!ATTLIST sample name CDATA #REQUIRED>
+		<!ELEMENT chip EMPTY>
+			<!ATTLIST chip name CDATA #REQUIRED>
+			<!ATTLIST chip tag CDATA #IMPLIED>
+			<!ATTLIST chip type (cpu|audio) #REQUIRED>
+			<!ATTLIST chip clock CDATA #IMPLIED>
+		<!ELEMENT display EMPTY>
+			<!ATTLIST display tag CDATA #IMPLIED>
+			<!ATTLIST display type (raster|vector|lcd|unknown) #REQUIRED>
+			<!ATTLIST display rotate (0|90|180|270) #REQUIRED>
+			<!ATTLIST display flipx (yes|no) "no">
+			<!ATTLIST display width CDATA #IMPLIED>
+			<!ATTLIST display height CDATA #IMPLIED>
+			<!ATTLIST display refresh CDATA #REQUIRED>
+			<!ATTLIST display pixclock CDATA #IMPLIED>
+			<!ATTLIST display htotal CDATA #IMPLIED>
+			<!ATTLIST display hbend CDATA #IMPLIED>
+			<!ATTLIST display hbstart CDATA #IMPLIED>
+			<!ATTLIST display vtotal CDATA #IMPLIED>
+			<!ATTLIST display vbend CDATA #IMPLIED>
+			<!ATTLIST display vbstart CDATA #IMPLIED>
+		<!ELEMENT sound EMPTY>
+			<!ATTLIST sound channels CDATA #REQUIRED>
+		<!ELEMENT input (control*)>
+			<!ATTLIST input service (yes|no) "no">
+			<!ATTLIST input tilt (yes|no) "no">
+			<!ATTLIST input players CDATA #REQUIRED>
+			<!ATTLIST input buttons CDATA #IMPLIED>
+			<!ATTLIST input coins CDATA #IMPLIED>
+			<!ELEMENT control EMPTY>
+				<!ATTLIST control type CDATA #REQUIRED>
+				<!ATTLIST control minimum CDATA #IMPLIED>
+				<!ATTLIST control maximum CDATA #IMPLIED>
+				<!ATTLIST control sensitivity CDATA #IMPLIED>
+				<!ATTLIST control keydelta CDATA #IMPLIED>
+				<!ATTLIST control reverse (yes|no) "no">
+				<!ATTLIST control ways CDATA #IMPLIED>
+				<!ATTLIST control ways2 CDATA #IMPLIED>
+				<!ATTLIST control ways3 CDATA #IMPLIED>
+		<!ELEMENT dipswitch (dipvalue*)>
+			<!ATTLIST dipswitch name CDATA #REQUIRED>
+			<!ATTLIST dipswitch tag CDATA #REQUIRED>
+			<!ATTLIST dipswitch mask CDATA #REQUIRED>
+			<!ELEMENT dipvalue EMPTY>
+				<!ATTLIST dipvalue name CDATA #REQUIRED>
+				<!ATTLIST dipvalue value CDATA #REQUIRED>
+				<!ATTLIST dipvalue default (yes|no) "no">
+		<!ELEMENT configuration (confsetting*)>
+			<!ATTLIST configuration name CDATA #REQUIRED>
+			<!ATTLIST configuration tag CDATA #REQUIRED>
+			<!ATTLIST configuration mask CDATA #REQUIRED>
+			<!ELEMENT confsetting EMPTY>
+				<!ATTLIST confsetting name CDATA #REQUIRED>
+				<!ATTLIST confsetting value CDATA #REQUIRED>
+				<!ATTLIST confsetting default (yes|no) "no">
+		<!ELEMENT port (analog*)>
+			<!ATTLIST port tag CDATA #REQUIRED>
+			<!ELEMENT analog EMPTY>
+				<!ATTLIST analog mask CDATA #REQUIRED>
+		<!ELEMENT adjuster EMPTY>
+			<!ATTLIST adjuster name CDATA #REQUIRED>
+			<!ATTLIST adjuster default CDATA #REQUIRED>
+		<!ELEMENT driver EMPTY>
+			<!ATTLIST driver status (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver emulation (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver color (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver sound (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver graphic (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver cocktail (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver protection (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver savestate (supported|unsupported) #REQUIRED>
+		<!ELEMENT device (instance*, extension*)>
+			<!ATTLIST device type CDATA #REQUIRED>
+			<!ATTLIST device tag CDATA #IMPLIED>
+			<!ATTLIST device mandatory CDATA #IMPLIED>
+			<!ATTLIST device interface CDATA #IMPLIED>
+			<!ELEMENT instance EMPTY>
+				<!ATTLIST instance name CDATA #REQUIRED>
+				<!ATTLIST instance briefname CDATA #REQUIRED>
+			<!ELEMENT extension EMPTY>
+				<!ATTLIST extension name CDATA #REQUIRED>
+		<!ELEMENT slot (slotoption*)>
+			<!ATTLIST slot name CDATA #REQUIRED>
+			<!ELEMENT slotoption EMPTY>
+				<!ATTLIST slotoption name CDATA #REQUIRED>
+				<!ATTLIST slotoption devname CDATA #REQUIRED>
+				<!ATTLIST slotoption default (yes|no) "no">
+		<!ELEMENT softwarelist EMPTY>
+			<!ATTLIST softwarelist name CDATA #REQUIRED>
+			<!ATTLIST softwarelist status (original|compatible) #REQUIRED>
+			<!ATTLIST softwarelist filter CDATA #IMPLIED>
+		<!ELEMENT ramoption (#PCDATA)>
+			<!ATTLIST ramoption default CDATA #IMPLIED>
+]>
+
+<mame build="0.170 (Jun 16 2016)" debug="no" mameconfig="10">
+	<machine name="altbeast" sourcefile="segas16b.cpp">
+		<description>Altered Beast (set 8) (8751 317-0078)</description>
+		<year>1988</year>
+		<manufacturer>Sega</manufacturer>
+		<rom name="epr-11907.a7" size="131072" crc="29e0c3ad" sha1="94ccd4f4e2a63424a0c90bf75ce13b8cca71ed09" region="maincpu" offset="0"/>
+		<rom name="epr-11906.a5" size="131072" crc="4c9e9cd8" sha1="1cdfb6187d2b2f5c89cfb945bcdfd80743e775e3" region="maincpu" offset="1"/>
+		<rom name="opr-11674.a14" size="131072" crc="a57a66d5" sha1="5103583d48997abad12a0c5fee26431c486ced52" region="gfx1" offset="0"/>
+		<rom name="opr-11675.a15" size="131072" crc="2ef2f144" sha1="38d22d609db2d9b6067b5d12f6499436de4605cb" region="gfx1" offset="20000"/>
+		<rom name="opr-11676.a16" size="131072" crc="0c04acac" sha1="87fe2a0dd9913f9550e9b4cbc7e7465b61640e07" region="gfx1" offset="40000"/>
+		<rom name="epr-11677.b1" size="131072" crc="a01425cd" sha1="72be5ec29e476601f9bf6aaedef9b73cedeb42f0" region="sprites" offset="1"/>
+		<rom name="epr-11681.b5" size="131072" crc="d9e03363" sha1="995a7c6a8f0c61468b57a3bb407461a2a3ae8adc" region="sprites" offset="0"/>
+		<rom name="epr-11678.b2" size="131072" crc="17a9fc53" sha1="85a9a605742ae5aab86db37189b9ee4d54c70e56" region="sprites" offset="40001"/>
+		<rom name="epr-11682.b6" size="131072" crc="e3f77c5e" sha1="6b3cb7918ab0c7c97a51cc5ea19ced3374ff3914" region="sprites" offset="40000"/>
+		<rom name="epr-11679.b3" size="131072" crc="14dcc245" sha1="1ca1b6e0f2b7bedad2a8ab70f52da8c54d40d3cf" region="sprites" offset="80001"/>
+		<rom name="epr-11683.b7" size="131072" crc="f9a60f06" sha1="0cffcfdb02733feaa869198b7e668c58b47c321a" region="sprites" offset="80000"/>
+		<rom name="epr-11680.b4" size="131072" crc="f43dcdec" sha1="2941500cf33afca487f19f2329033d5d17aad826" region="sprites" offset="c0001"/>
+		<rom name="epr-11684.b8" size="131072" crc="b20c0edb" sha1="6c8694d05e3adac37c9015037ab800233371db36" region="sprites" offset="c0000"/>
+		<rom name="epr-11671.a10" size="32768" crc="2b71343b" sha1="8a657f787de2b9d5161ed2c109642a148348af09" region="soundcpu" offset="0"/>
+		<rom name="opr-11672.a11" size="131072" crc="bbd7f460" sha1="bbc5c2219cb3a827d84062b19affd9780da2a3cf" region="soundcpu" offset="10000"/>
+		<rom name="opr-11673.a12" size="131072" crc="400c4a36" sha1="de4bdfa91734410e0a7f6a16bf8336db172f458a" region="soundcpu" offset="30000"/>
+		<rom name="317-0078.c2" size="4096" status="nodump" region="mcu" offset="0"/>
+		<device_ref name="m68000"/>
+		<device_ref name="z80"/>
+		<device_ref name="nvram"/>
+		<device_ref name="sega_315_5195"/>
+		<device_ref name="gfxdecode"/>
+		<device_ref name="palette"/>
+		<device_ref name="screen"/>
+		<device_ref name="sega_16bit_sprite"/>
+		<device_ref name="segaic16_video"/>
+		<device_ref name="speaker"/>
+		<device_ref name="ym2151"/>
+		<device_ref name="upd7759"/>
+		<device_ref name="i8751"/>
+		<chip type="cpu" tag="maincpu" name="M68000" clock="10000000"/>
+		<chip type="cpu" tag="soundcpu" name="Z80" clock="5000000"/>
+		<chip type="cpu" tag="mcu" name="I8751" clock="8000000"/>
+		<chip type="audio" tag="mono" name="Speaker"/>
+		<chip type="audio" tag="ym2151" name="YM2151" clock="4000000"/>
+		<chip type="audio" tag="upd" name="uPD7759" clock="640000"/>
+		<display tag="screen" type="raster" rotate="0" width="320" height="224" refresh="60.054389" pixclock="6293700" htotal="400" hbend="0" hbstart="320" vtotal="262" vbend="0" vbstart="224" />
+		<sound channels="1"/>
+		<input players="2" buttons="3" coins="2" service="yes">
+			<control type="joy" ways="8"/>
+		</input>
+		<dipswitch name="Credits Needed" tag="DSW2" mask="1">
+			<dipvalue name="1 Credit To Start" value="1" default="yes"/>
+			<dipvalue name="2 Credit To Start" value="0"/>
+		</dipswitch>
+		<dipswitch name="Demo Sounds" tag="DSW2" mask="2">
+			<dipvalue name="Off" value="2"/>
+			<dipvalue name="On" value="0" default="yes"/>
+		</dipswitch>
+		<dipswitch name="Lives" tag="DSW2" mask="12">
+			<dipvalue name="2" value="8"/>
+			<dipvalue name="3" value="12" default="yes"/>
+			<dipvalue name="4" value="4"/>
+			<dipvalue name="Free Play" value="0"/>
+		</dipswitch>
+		<dipswitch name="Player Meter" tag="DSW2" mask="48">
+			<dipvalue name="2" value="32"/>
+			<dipvalue name="3" value="48" default="yes"/>
+			<dipvalue name="4" value="16"/>
+			<dipvalue name="5" value="0"/>
+		</dipswitch>
+		<dipswitch name="Difficulty" tag="DSW2" mask="192">
+			<dipvalue name="Easy" value="128"/>
+			<dipvalue name="Normal" value="192" default="yes"/>
+			<dipvalue name="Hard" value="64"/>
+			<dipvalue name="Hardest" value="0"/>
+		</dipswitch>
+		<dipswitch name="Coin A" tag="DSW1" mask="15">
+			<dipvalue name="4 Coins/1 Credit" value="7"/>
+			<dipvalue name="3 Coins/1 Credit" value="8"/>
+			<dipvalue name="2 Coins/1 Credit" value="9"/>
+			<dipvalue name="2 Coins/1 Credit, 5/3, 6/4" value="5"/>
+			<dipvalue name="2 Coins/1 Credit, 4/3" value="4"/>
+			<dipvalue name="1 Coin/1 Credit" value="15" default="yes"/>
+			<dipvalue name="1 Coin/1 Credit, 5/6" value="3"/>
+			<dipvalue name="1 Coin/1 Credit, 4/5" value="2"/>
+			<dipvalue name="1 Coin/1 Credit, 2/3" value="1"/>
+			<dipvalue name="2 Coins/3 Credits" value="6"/>
+			<dipvalue name="1 Coin/2 Credits" value="14"/>
+			<dipvalue name="1 Coin/3 Credits" value="13"/>
+			<dipvalue name="1 Coin/4 Credits" value="12"/>
+			<dipvalue name="1 Coin/5 Credits" value="11"/>
+			<dipvalue name="1 Coin/6 Credits" value="10"/>
+			<dipvalue name="Free Play (if Coin B too) or 1/1" value="0"/>
+		</dipswitch>
+		<dipswitch name="Coin B" tag="DSW1" mask="240">
+			<dipvalue name="4 Coins/1 Credit" value="112"/>
+			<dipvalue name="3 Coins/1 Credit" value="128"/>
+			<dipvalue name="2 Coins/1 Credit" value="144"/>
+			<dipvalue name="2 Coins/1 Credit, 5/3, 6/4" value="80"/>
+			<dipvalue name="2 Coins/1 Credit, 4/3" value="64"/>
+			<dipvalue name="1 Coin/1 Credit" value="240" default="yes"/>
+			<dipvalue name="1 Coin/1 Credit, 5/6" value="48"/>
+			<dipvalue name="1 Coin/1 Credit, 4/5" value="32"/>
+			<dipvalue name="1 Coin/1 Credit, 2/3" value="16"/>
+			<dipvalue name="2 Coins/3 Credits" value="96"/>
+			<dipvalue name="1 Coin/2 Credits" value="224"/>
+			<dipvalue name="1 Coin/3 Credits" value="208"/>
+			<dipvalue name="1 Coin/4 Credits" value="192"/>
+			<dipvalue name="1 Coin/5 Credits" value="176"/>
+			<dipvalue name="1 Coin/6 Credits" value="160"/>
+			<dipvalue name="Free Play (if Coin A too) or 1/1" value="0"/>
+		</dipswitch>
+		<port tag=":SERVICE">
+		</port>
+		<port tag=":P1">
+		</port>
+		<port tag=":UNUSED">
+		</port>
+		<port tag=":P2">
+		</port>
+		<port tag=":DSW2">
+		</port>
+		<port tag=":DSW1">
+		</port>
+		<driver status="good" emulation="good" color="good" sound="good" graphic="good" savestate="unsupported"/>
+	</machine>
+	<machine name="m68000" sourcefile="src/devices/cpu/m68000/m68kcpu.cpp" isdevice="yes" runnable="no">
+		<description>M68000</description>
+	</machine>
+	<machine name="z80" sourcefile="src/devices/cpu/z80/z80.cpp" isdevice="yes" runnable="no">
+		<description>Z80</description>
+	</machine>
+	<machine name="nvram" sourcefile="src/devices/machine/nvram.cpp" isdevice="yes" runnable="no">
+		<description>NVRAM</description>
+	</machine>
+	<machine name="sega_315_5195" sourcefile="src/mame/machine/segaic16.cpp" isdevice="yes" runnable="no">
+		<description>Sega 315-5195 Memory Mapper</description>
+	</machine>
+	<machine name="gfxdecode" sourcefile="src/emu/drawgfx.cpp" isdevice="yes" runnable="no">
+		<description>gfxdecode</description>
+	</machine>
+	<machine name="palette" sourcefile="src/emu/emupal.cpp" isdevice="yes" runnable="no">
+		<description>palette</description>
+	</machine>
+	<machine name="screen" sourcefile="src/emu/screen.cpp" isdevice="yes" runnable="no">
+		<description>Video Screen</description>
+	</machine>
+	<machine name="sega_16bit_sprite" sourcefile="src/mame/video/sega16sp.cpp" isdevice="yes" runnable="no">
+		<description>Sega System 16B Sprites</description>
+	</machine>
+	<machine name="segaic16_video" sourcefile="src/mame/video/segaic16.cpp" isdevice="yes" runnable="no">
+		<description>Sega 16-bit Video</description>
+	</machine>
+	<machine name="speaker" sourcefile="src/emu/speaker.cpp" isdevice="yes" runnable="no">
+		<description>Speaker</description>
+		<sound channels="1"/>
+	</machine>
+	<machine name="ym2151" sourcefile="src/devices/sound/2151intf.cpp" isdevice="yes" runnable="no">
+		<description>YM2151</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="upd7759" sourcefile="src/devices/sound/upd7759.cpp" isdevice="yes" runnable="no">
+		<description>uPD7759</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="i8751" sourcefile="src/devices/cpu/mcs51/mcs51.cpp" isdevice="yes" runnable="no">
+		<description>I8751</description>
+	</machine>
+</mame>

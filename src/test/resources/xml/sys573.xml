@@ -1,0 +1,395 @@
+<?xml version="1.0"?>
+<!DOCTYPE mame [
+<!ELEMENT mame (machine+)>
+	<!ATTLIST mame build CDATA #IMPLIED>
+	<!ATTLIST mame debug (yes|no) "no">
+	<!ATTLIST mame mameconfig CDATA #REQUIRED>
+	<!ELEMENT machine (description, year?, manufacturer?, biosset*, rom*, disk*, device_ref*, sample*, chip*, display*, sound?, input?, dipswitch*, configuration*, port*, adjuster*, driver?, device*, slot*, softwarelist*, ramoption*)>
+		<!ATTLIST machine name CDATA #REQUIRED>
+		<!ATTLIST machine sourcefile CDATA #IMPLIED>
+		<!ATTLIST machine isbios (yes|no) "no">
+		<!ATTLIST machine isdevice (yes|no) "no">
+		<!ATTLIST machine ismechanical (yes|no) "no">
+		<!ATTLIST machine runnable (yes|no) "yes">
+		<!ATTLIST machine cloneof CDATA #IMPLIED>
+		<!ATTLIST machine romof CDATA #IMPLIED>
+		<!ATTLIST machine sampleof CDATA #IMPLIED>
+		<!ELEMENT description (#PCDATA)>
+		<!ELEMENT year (#PCDATA)>
+		<!ELEMENT manufacturer (#PCDATA)>
+		<!ELEMENT biosset EMPTY>
+			<!ATTLIST biosset name CDATA #REQUIRED>
+			<!ATTLIST biosset description CDATA #REQUIRED>
+			<!ATTLIST biosset default (yes|no) "no">
+		<!ELEMENT rom EMPTY>
+			<!ATTLIST rom name CDATA #REQUIRED>
+			<!ATTLIST rom bios CDATA #IMPLIED>
+			<!ATTLIST rom size CDATA #REQUIRED>
+			<!ATTLIST rom crc CDATA #IMPLIED>
+			<!ATTLIST rom sha1 CDATA #IMPLIED>
+			<!ATTLIST rom merge CDATA #IMPLIED>
+			<!ATTLIST rom region CDATA #IMPLIED>
+			<!ATTLIST rom offset CDATA #IMPLIED>
+			<!ATTLIST rom status (baddump|nodump|good) "good">
+			<!ATTLIST rom optional (yes|no) "no">
+		<!ELEMENT disk EMPTY>
+			<!ATTLIST disk name CDATA #REQUIRED>
+			<!ATTLIST disk sha1 CDATA #IMPLIED>
+			<!ATTLIST disk merge CDATA #IMPLIED>
+			<!ATTLIST disk region CDATA #IMPLIED>
+			<!ATTLIST disk index CDATA #IMPLIED>
+			<!ATTLIST disk writable (yes|no) "no">
+			<!ATTLIST disk status (baddump|nodump|good) "good">
+			<!ATTLIST disk optional (yes|no) "no">
+		<!ELEMENT device_ref EMPTY>
+			<!ATTLIST device_ref name CDATA #REQUIRED>
+		<!ELEMENT sample EMPTY>
+			<!ATTLIST sample name CDATA #REQUIRED>
+		<!ELEMENT chip EMPTY>
+			<!ATTLIST chip name CDATA #REQUIRED>
+			<!ATTLIST chip tag CDATA #IMPLIED>
+			<!ATTLIST chip type (cpu|audio) #REQUIRED>
+			<!ATTLIST chip clock CDATA #IMPLIED>
+		<!ELEMENT display EMPTY>
+			<!ATTLIST display tag CDATA #IMPLIED>
+			<!ATTLIST display type (raster|vector|lcd|unknown) #REQUIRED>
+			<!ATTLIST display rotate (0|90|180|270) #REQUIRED>
+			<!ATTLIST display flipx (yes|no) "no">
+			<!ATTLIST display width CDATA #IMPLIED>
+			<!ATTLIST display height CDATA #IMPLIED>
+			<!ATTLIST display refresh CDATA #REQUIRED>
+			<!ATTLIST display pixclock CDATA #IMPLIED>
+			<!ATTLIST display htotal CDATA #IMPLIED>
+			<!ATTLIST display hbend CDATA #IMPLIED>
+			<!ATTLIST display hbstart CDATA #IMPLIED>
+			<!ATTLIST display vtotal CDATA #IMPLIED>
+			<!ATTLIST display vbend CDATA #IMPLIED>
+			<!ATTLIST display vbstart CDATA #IMPLIED>
+		<!ELEMENT sound EMPTY>
+			<!ATTLIST sound channels CDATA #REQUIRED>
+		<!ELEMENT input (control*)>
+			<!ATTLIST input service (yes|no) "no">
+			<!ATTLIST input tilt (yes|no) "no">
+			<!ATTLIST input players CDATA #REQUIRED>
+			<!ATTLIST input buttons CDATA #IMPLIED>
+			<!ATTLIST input coins CDATA #IMPLIED>
+			<!ELEMENT control EMPTY>
+				<!ATTLIST control type CDATA #REQUIRED>
+				<!ATTLIST control minimum CDATA #IMPLIED>
+				<!ATTLIST control maximum CDATA #IMPLIED>
+				<!ATTLIST control sensitivity CDATA #IMPLIED>
+				<!ATTLIST control keydelta CDATA #IMPLIED>
+				<!ATTLIST control reverse (yes|no) "no">
+				<!ATTLIST control ways CDATA #IMPLIED>
+				<!ATTLIST control ways2 CDATA #IMPLIED>
+				<!ATTLIST control ways3 CDATA #IMPLIED>
+		<!ELEMENT dipswitch (dipvalue*)>
+			<!ATTLIST dipswitch name CDATA #REQUIRED>
+			<!ATTLIST dipswitch tag CDATA #REQUIRED>
+			<!ATTLIST dipswitch mask CDATA #REQUIRED>
+			<!ELEMENT dipvalue EMPTY>
+				<!ATTLIST dipvalue name CDATA #REQUIRED>
+				<!ATTLIST dipvalue value CDATA #REQUIRED>
+				<!ATTLIST dipvalue default (yes|no) "no">
+		<!ELEMENT configuration (confsetting*)>
+			<!ATTLIST configuration name CDATA #REQUIRED>
+			<!ATTLIST configuration tag CDATA #REQUIRED>
+			<!ATTLIST configuration mask CDATA #REQUIRED>
+			<!ELEMENT confsetting EMPTY>
+				<!ATTLIST confsetting name CDATA #REQUIRED>
+				<!ATTLIST confsetting value CDATA #REQUIRED>
+				<!ATTLIST confsetting default (yes|no) "no">
+		<!ELEMENT port (analog*)>
+			<!ATTLIST port tag CDATA #REQUIRED>
+			<!ELEMENT analog EMPTY>
+				<!ATTLIST analog mask CDATA #REQUIRED>
+		<!ELEMENT adjuster EMPTY>
+			<!ATTLIST adjuster name CDATA #REQUIRED>
+			<!ATTLIST adjuster default CDATA #REQUIRED>
+		<!ELEMENT driver EMPTY>
+			<!ATTLIST driver status (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver emulation (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver color (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver sound (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver graphic (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver cocktail (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver protection (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver savestate (supported|unsupported) #REQUIRED>
+		<!ELEMENT device (instance*, extension*)>
+			<!ATTLIST device type CDATA #REQUIRED>
+			<!ATTLIST device tag CDATA #IMPLIED>
+			<!ATTLIST device mandatory CDATA #IMPLIED>
+			<!ATTLIST device interface CDATA #IMPLIED>
+			<!ELEMENT instance EMPTY>
+				<!ATTLIST instance name CDATA #REQUIRED>
+				<!ATTLIST instance briefname CDATA #REQUIRED>
+			<!ELEMENT extension EMPTY>
+				<!ATTLIST extension name CDATA #REQUIRED>
+		<!ELEMENT slot (slotoption*)>
+			<!ATTLIST slot name CDATA #REQUIRED>
+			<!ELEMENT slotoption EMPTY>
+				<!ATTLIST slotoption name CDATA #REQUIRED>
+				<!ATTLIST slotoption devname CDATA #REQUIRED>
+				<!ATTLIST slotoption default (yes|no) "no">
+		<!ELEMENT softwarelist EMPTY>
+			<!ATTLIST softwarelist name CDATA #REQUIRED>
+			<!ATTLIST softwarelist status (original|compatible) #REQUIRED>
+			<!ATTLIST softwarelist filter CDATA #IMPLIED>
+		<!ELEMENT ramoption (#PCDATA)>
+			<!ATTLIST ramoption default CDATA #IMPLIED>
+]>
+
+<mame build="0.170 (Jun 16 2016)" debug="no" mameconfig="10">
+	<machine name="sys573" sourcefile="ksys573.cpp" isbios="yes">
+		<description>System 573 BIOS</description>
+		<year>1997</year>
+		<manufacturer>Konami</manufacturer>
+		<biosset name="std" description="Standard" default="yes"/>
+		<biosset name="gchgchmp" description="Found on Gachagachamp"/>
+		<biosset name="dsem2" description="Found on Dancing Stage Euro Mix 2"/>
+		<rom name="700a01.22g" bios="std" size="524288" crc="11812ef8" sha1="e1284add4aaddd5337bd7f4e27614460d52b5b48" region="maincpu:rom" offset="0"/>
+		<rom name="700a01(gchgchmp).22g" bios="gchgchmp" size="524288" crc="39ebb0ca" sha1="9aab8c637dd2be84d79007e52f108abe92bf29dd" region="maincpu:rom" offset="0"/>
+		<rom name="700b01.22g" bios="dsem2" size="524288" crc="6cf852af" sha1="a2421d0a494892c0e71003c96995ce8f945064dd" region="maincpu:rom" offset="0"/>
+		<rom name="h8a01.bin" bios="dsem2" size="64" crc="131e0359" sha1="967f66578ebc0cf6b044d71af09b59bce1f4a1d0" region="h8_response" offset="0"/>
+		<rom name="h8a01.bin" bios="dsem2" size="64" crc="131e0359" sha1="967f66578ebc0cf6b044d71af09b59bce1f4a1d0" region="h8_response" offset="0"/>
+		<rom name="h8b01.bin" bios="dsem2" size="64" crc="508b057d" sha1="779177e6312ef272483eeb64a5e84bbae6e301f2" region="h8_response" offset="0"/>
+		<device_ref name="cxd8530cq"/>
+		<device_ref name="psxirq"/>
+		<device_ref name="psxdma"/>
+		<device_ref name="psxmdec"/>
+		<device_ref name="psxrcnt"/>
+		<device_ref name="psxsio0"/>
+		<device_ref name="psxsio1"/>
+		<device_ref name="ram"/>
+		<device_ref name="mb89371"/>
+		<device_ref name="ata_interface"/>
+		<device_ref name="ata_slot"/>
+		<device_ref name="cr589"/>
+		<device_ref name="cdrom_image"/>
+		<device_ref name="cdda"/>
+		<device_ref name="ata_slot"/>
+		<device_ref name="k573cassslot"/>
+		<device_ref name="fujitsu_29f016a"/>
+		<device_ref name="fujitsu_29f016a"/>
+		<device_ref name="fujitsu_29f016a"/>
+		<device_ref name="fujitsu_29f016a"/>
+		<device_ref name="fujitsu_29f016a"/>
+		<device_ref name="fujitsu_29f016a"/>
+		<device_ref name="fujitsu_29f016a"/>
+		<device_ref name="fujitsu_29f016a"/>
+		<device_ref name="pccard"/>
+		<device_ref name="pccard"/>
+		<device_ref name="address_map_bank"/>
+		<device_ref name="cxd8561q"/>
+		<device_ref name="screen"/>
+		<device_ref name="palette"/>
+		<device_ref name="speaker"/>
+		<device_ref name="speaker"/>
+		<device_ref name="spu"/>
+		<device_ref name="m48t58"/>
+		<device_ref name="adc0834"/>
+		<chip type="cpu" tag="maincpu" name="CXD8530CQ" clock="67737600"/>
+		<chip type="audio" tag="ata:0:cr589:cdda" name="CD/DA"/>
+		<chip type="audio" tag="lspeaker" name="Speaker"/>
+		<chip type="audio" tag="rspeaker" name="Speaker"/>
+		<chip type="audio" tag="spu" name="SPU" clock="33868800"/>
+		<display tag="gpu:screen" type="raster" rotate="0" width="640" height="480" refresh="60.000000" />
+		<sound channels="2"/>
+		<input players="2" buttons="6" coins="2" service="yes">
+			<control type="joy" ways="8"/>
+		</input>
+		<dipswitch name="Unused 1" tag="IN1" mask="1">
+			<dipvalue name="Off" value="1" default="yes"/>
+			<dipvalue name="On" value="0"/>
+		</dipswitch>
+		<dipswitch name="Screen Flip" tag="IN1" mask="2">
+			<dipvalue name="Normal" value="2" default="yes"/>
+			<dipvalue name="V-Flip" value="0"/>
+		</dipswitch>
+		<dipswitch name="Unused 2" tag="IN1" mask="4">
+			<dipvalue name="Off" value="4" default="yes"/>
+			<dipvalue name="On" value="0"/>
+		</dipswitch>
+		<dipswitch name="Start Up Device" tag="IN1" mask="8">
+			<dipvalue name="CD-ROM Drive" value="8"/>
+			<dipvalue name="Flash ROM" value="0" default="yes"/>
+		</dipswitch>
+		<configuration name="Network?" tag="IN1" mask="4096">
+			<confsetting name="Off" value="4096" default="yes"/>
+			<confsetting name="On" value="0"/>
+		</configuration>
+		<configuration name="CD" tag="CD" mask="1">
+			<confsetting name="1" value="0" default="yes"/>
+			<confsetting name="2" value="1"/>
+		</configuration>
+		<port tag=":IN0">
+		</port>
+		<port tag=":OUT0">
+		</port>
+		<port tag=":IN1">
+		</port>
+		<port tag=":OUT1">
+		</port>
+		<port tag=":OUT2">
+		</port>
+		<port tag=":IN2">
+		</port>
+		<port tag=":IN3">
+		</port>
+		<port tag=":LAMPS">
+		</port>
+		<port tag=":analog0">
+		</port>
+		<port tag=":analog1">
+		</port>
+		<port tag=":analog2">
+		</port>
+		<port tag=":analog3">
+		</port>
+		<port tag=":CD">
+		</port>
+		<driver status="good" emulation="good" color="good" sound="good" graphic="good" savestate="unsupported"/>
+		<device type="cdrom" tag="ata:0:cr589:image" interface="cdrom">
+			<instance name="cdrom" briefname="cdrm"/>
+			<extension name="chd"/>
+			<extension name="cue"/>
+			<extension name="toc"/>
+			<extension name="nrg"/>
+			<extension name="gdi"/>
+			<extension name="iso"/>
+			<extension name="cdr"/>
+		</device>
+		<slot name="ata:0">
+			<slotoption name="cr589" devname="cr589" default="yes"/>
+		</slot>
+		<slot name="ata:1">
+		</slot>
+		<slot name="cassette">
+		</slot>
+		<slot name="pccard1">
+		</slot>
+		<slot name="pccard2">
+		</slot>
+		<ramoption default="1">4194304</ramoption>
+	</machine>
+	<machine name="cxd8530cq" sourcefile="src/devices/cpu/psx/psx.cpp" isdevice="yes" runnable="no">
+		<description>CXD8530CQ</description>
+	</machine>
+	<machine name="psxirq" sourcefile="src/devices/cpu/psx/irq.cpp" isdevice="yes" runnable="no">
+		<description>Sony PSX IRQ</description>
+	</machine>
+	<machine name="psxdma" sourcefile="src/devices/cpu/psx/dma.cpp" isdevice="yes" runnable="no">
+		<description>Sony PSX DMA</description>
+	</machine>
+	<machine name="psxmdec" sourcefile="src/devices/cpu/psx/mdec.cpp" isdevice="yes" runnable="no">
+		<description>Sony PSX MDEC</description>
+	</machine>
+	<machine name="psxrcnt" sourcefile="src/devices/cpu/psx/rcnt.cpp" isdevice="yes" runnable="no">
+		<description>Sony PSX RCNT</description>
+	</machine>
+	<machine name="psxsio0" sourcefile="src/devices/cpu/psx/sio.cpp" isdevice="yes" runnable="no">
+		<description>Sony PSX SIO-0</description>
+	</machine>
+	<machine name="psxsio1" sourcefile="src/devices/cpu/psx/sio.cpp" isdevice="yes" runnable="no">
+		<description>Sony PSX SIO-1</description>
+	</machine>
+	<machine name="ram" sourcefile="src/devices/machine/ram.cpp" isdevice="yes" runnable="no">
+		<description>RAM</description>
+	</machine>
+	<machine name="mb89371" sourcefile="src/devices/machine/mb89371.cpp" isdevice="yes" runnable="no">
+		<description>MB89371 Dual Serial UART</description>
+	</machine>
+	<machine name="ata_interface" sourcefile="src/devices/machine/ataintf.cpp" isdevice="yes" runnable="no">
+		<description>ATA Interface</description>
+		<chip type="audio" tag=":0:cr589:cdda" name="CD/DA"/>
+		<sound channels="0"/>
+		<device type="cdrom" tag=":0:cr589:image" interface="cdrom">
+			<instance name="cdrom" briefname="cdrm"/>
+			<extension name="chd"/>
+			<extension name="cue"/>
+			<extension name="toc"/>
+			<extension name="nrg"/>
+			<extension name="gdi"/>
+			<extension name="iso"/>
+			<extension name="cdr"/>
+		</device>
+		<slot name=":0">
+			<slotoption name="cr589" devname="cr589" default="yes"/>
+		</slot>
+		<slot name=":1">
+		</slot>
+	</machine>
+	<machine name="ata_slot" sourcefile="src/devices/machine/ataintf.cpp" isdevice="yes" runnable="no">
+		<description>ATA Connector</description>
+		<chip type="audio" tag=":cr589:cdda" name="CD/DA"/>
+		<sound channels="0"/>
+		<device type="cdrom" tag=":cr589:image" interface="cdrom">
+			<instance name="cdrom" briefname="cdrm"/>
+			<extension name="chd"/>
+			<extension name="cue"/>
+			<extension name="toc"/>
+			<extension name="nrg"/>
+			<extension name="gdi"/>
+			<extension name="iso"/>
+			<extension name="cdr"/>
+		</device>
+	</machine>
+	<machine name="cr589" sourcefile="src/devices/machine/cr589.cpp" isdevice="yes" runnable="no">
+		<description>Matsushita CR589 CD-ROM Drive</description>
+		<chip type="audio" tag=":cdda" name="CD/DA"/>
+		<sound channels="0"/>
+		<device type="cdrom" tag=":image" interface="cdrom">
+			<instance name="cdrom" briefname="cdrm"/>
+			<extension name="chd"/>
+			<extension name="cue"/>
+			<extension name="toc"/>
+			<extension name="nrg"/>
+			<extension name="gdi"/>
+			<extension name="iso"/>
+			<extension name="cdr"/>
+		</device>
+	</machine>
+	<machine name="cdrom_image" sourcefile="src/devices/imagedev/chd_cd.cpp" isdevice="yes" runnable="no">
+		<description>CD-ROM Image</description>
+	</machine>
+	<machine name="cdda" sourcefile="src/devices/sound/cdda.cpp" isdevice="yes" runnable="no">
+		<description>CD/DA</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="k573cassslot" sourcefile="src/mame/machine/k573cass.cpp" isdevice="yes" runnable="no">
+		<description>Konami 573 Cassette Slot</description>
+	</machine>
+	<machine name="fujitsu_29f016a" sourcefile="src/devices/machine/intelfsh.cpp" isdevice="yes" runnable="no">
+		<description>Fujitsu 29F016A Flash</description>
+	</machine>
+	<machine name="pccard" sourcefile="src/devices/machine/pccard.cpp" isdevice="yes" runnable="no">
+		<description>PCCARD SLOT</description>
+	</machine>
+	<machine name="address_map_bank" sourcefile="src/devices/machine/bankdev.cpp" isdevice="yes" runnable="no">
+		<description>Address Map Bank</description>
+	</machine>
+	<machine name="cxd8561q" sourcefile="src/devices/video/psx.cpp" isdevice="yes" runnable="no">
+		<description>CXD8561Q GPU</description>
+		<display tag=":screen" type="raster" rotate="0" width="640" height="480" refresh="60.000000" />
+	</machine>
+	<machine name="screen" sourcefile="src/emu/screen.cpp" isdevice="yes" runnable="no">
+		<description>Video Screen</description>
+	</machine>
+	<machine name="palette" sourcefile="src/emu/emupal.cpp" isdevice="yes" runnable="no">
+		<description>palette</description>
+	</machine>
+	<machine name="speaker" sourcefile="src/emu/speaker.cpp" isdevice="yes" runnable="no">
+		<description>Speaker</description>
+		<sound channels="1"/>
+	</machine>
+	<machine name="spu" sourcefile="src/devices/sound/spu.cpp" isdevice="yes" runnable="no">
+		<description>SPU</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="m48t58" sourcefile="src/devices/machine/timekpr.cpp" isdevice="yes" runnable="no">
+		<description>M48T58 Timekeeper</description>
+	</machine>
+	<machine name="adc0834" sourcefile="src/devices/machine/adc083x.cpp" isdevice="yes" runnable="no">
+		<description>ADC0834</description>
+	</machine>
+</mame>
