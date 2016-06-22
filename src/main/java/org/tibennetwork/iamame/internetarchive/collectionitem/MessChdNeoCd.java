@@ -1,7 +1,7 @@
 package org.tibennetwork.iamame.internetarchive.collectionitem;
 
 import java.io.File;
-import java.util.List;
+import java.util.Set;
 
 import org.tibennetwork.iamame.mame.Software;
 
@@ -11,7 +11,7 @@ public class MessChdNeoCd extends SoftwareListCollectionItem {
         = "http://archive.org/download/MESS_0.149_CHD_neocd/" 
             + "MESS_0.149_CHD_neocd.zip/MESS_0.149_CHD_neocd/%1$s/%2$s.chd";
 
-    public MessChdNeoCd (List<File> romsPaths, File writableRomPath) {
+    public MessChdNeoCd (Set<File> romsPaths, File writableRomPath) {
         super(romsPaths, writableRomPath);
     }
 

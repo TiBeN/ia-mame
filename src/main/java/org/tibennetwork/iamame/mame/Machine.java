@@ -2,7 +2,9 @@ package org.tibennetwork.iamame.mame;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -84,13 +86,13 @@ public class Machine {
     /**
      * Generate and return a list of needed rom files
      */
-    public List<String> getNeededRomFiles () {
-        List<String> romSets = new ArrayList<>();
+    public Set<String> getNeededRomFiles () {
+        Set<String> romSets = new HashSet<>();
         if (!this.roms.isEmpty()) {
             romSets.add(this.name);
         }
         if (this.parentMachine != null) {
-            List<String> psRomSets = this.parentMachine.getNeededRomFiles();
+            Set<String> psRomSets = this.parentMachine.getNeededRomFiles();
             if (!psRomSets.isEmpty()) {
                 romSets.addAll(psRomSets);                                
             }
@@ -118,9 +120,9 @@ public class Machine {
     /**
      * Determine missing roms files on the given rom path
      */
-    public List<String> getMissingRomFiles (List<File> romPaths) {
+    public Set<String> getMissingRomFiles (Set<File> romPaths) {
 
-        List<String> missingRomFiles = new ArrayList<>();
+        Set<String> missingRomFiles = new HashSet<>();
 
         romfileloop: for (String romFile: this.getNeededRomFiles()) {
 
@@ -148,7 +150,7 @@ public class Machine {
      * Determines whether the required rom files for this system 
      * are present on the given rompaths
      */
-    public boolean areRomFilesAvailable (List<File> romPaths) {
+    public boolean areRomFilesAvailable (Set<File> romPaths) {
         return this.getMissingRomFiles(romPaths).size() == 0;
     }
 

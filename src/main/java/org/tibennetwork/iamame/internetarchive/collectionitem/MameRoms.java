@@ -1,7 +1,7 @@
 package org.tibennetwork.iamame.internetarchive.collectionitem;
 
 import java.io.File;
-import java.util.List;
+import java.util.Set;
 
 import org.tibennetwork.iamame.mame.Machine;
 
@@ -11,7 +11,7 @@ public class MameRoms extends MachineRomsCollectionItem {
         = "https://archive.org/download/MAME_0.151_ROMs/MAME_0.151_ROMs.zip"
             + "/MAME 0.151 ROMs/%s.zip";
 
-    public MameRoms (List<File> romsPaths, File writableRomPath) {
+    public MameRoms (Set<File> romsPaths, File writableRomPath) {
         super(romsPaths, writableRomPath);
     }
 

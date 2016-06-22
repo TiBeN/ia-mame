@@ -1,7 +1,7 @@
 package org.tibennetwork.iamame.internetarchive.collectionitem;
 
 import java.io.File;
-import java.util.List;
+import java.util.Set;
 
 import org.tibennetwork.iamame.mame.Machine;
 
@@ -11,7 +11,7 @@ public class MessBios extends MachineRomsCollectionItem {
         = "https://archive.org/download/MESS-0.151.BIOS.ROMs/" 
             + "MESS-0.151.BIOS.ROMs.zip/MESS 0.151 ROMs/%s.zip";
 
-    public MessBios (List<File> romsPaths, File writableRomPath) {
+    public MessBios (Set<File> romsPaths, File writableRomPath) {
         super(romsPaths, writableRomPath);
     }
 

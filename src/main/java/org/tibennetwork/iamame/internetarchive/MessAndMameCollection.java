@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.tibennetwork.iamame.internetarchive.collectionitem.FileNotFoundInCollectionItem;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MachineRomsCollectionItem;
@@ -46,7 +47,7 @@ public class MessAndMameCollection {
      */
     private SoftwareListCollectionItem messSoftwareListRoms;
 
-    public MessAndMameCollection (List<File> romsPaths, File writableRomPath) {
+    public MessAndMameCollection (Set<File> romsPaths, File writableRomPath) {
 
         // Instanciate the collection items
         this.machineRomsCollectionItems

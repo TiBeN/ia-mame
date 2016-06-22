@@ -1,7 +1,7 @@
 package org.tibennetwork.iamame.internetarchive.collectionitem;
 
 import java.io.File;
-import java.util.List;
+import java.util.Set;
 
 import org.tibennetwork.iamame.mame.Software;
 
@@ -11,7 +11,7 @@ public class MessChdCd32 extends SoftwareListCollectionItem {
         = "http://archive.org/download/MESS_0.149_CHD_cd32/" 
             + "MESS_0.149_CHD_cd32.zip/MESS_0.149_CHD_cd32/%1$s/%2$s.chd";
 
-    public MessChdCd32 (List<File> romsPaths, File writableRomPath) {
+    public MessChdCd32 (Set<File> romsPaths, File writableRomPath) {
         super(romsPaths, writableRomPath);
     }
 

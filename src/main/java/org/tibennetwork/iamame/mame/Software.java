@@ -3,6 +3,7 @@ package org.tibennetwork.iamame.mame;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -158,7 +159,7 @@ public class Software {
      * Determines whether the files of this software 
      * are available on the given romPath
      */
-    public boolean isAvailable (List<File> romsPaths) {
+    public boolean isAvailable (Set<File> romsPaths) {
     
         String rfp = this.getRelativeFilePath();
 

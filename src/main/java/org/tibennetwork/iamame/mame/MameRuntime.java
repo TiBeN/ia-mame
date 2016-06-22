@@ -4,12 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Set;
 
 import org.tibennetwork.iamame.internetarchive.NoWritableRomPathException;
 
 public interface MameRuntime {
 
-    public List<File> getRomsPaths();
+    public Set<File> getRomsPaths();
 
     /**
      * Executes Mame using the given arguments.

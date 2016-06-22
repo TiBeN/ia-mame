@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +39,7 @@ public class MameRuntimeImpl implements MameRuntime {
      */
     private String binDirectory;
 
-    private List<File> romsPaths;
+    private Set<File> romsPaths;
 
     public MameRuntimeImpl (String binPath, String[] defaultOptions) 
             throws IOException, InterruptedException, ParseException {
@@ -50,7 +52,7 @@ public class MameRuntimeImpl implements MameRuntime {
         this.getRomsPathsFromBinary();
     }
   
-    public List<File> getRomsPaths() {
+    public Set<File> getRomsPaths() {
         return this.romsPaths;        
     }
 
@@ -206,7 +208,7 @@ public class MameRuntimeImpl implements MameRuntime {
                     .initCause(e);
         }
              
-        this.romsPaths = new ArrayList<File>();
+        this.romsPaths = new HashSet<File>();
 
         Pattern p = Pattern.compile("^rompath +(.*)$");
         for (String s : mameStdout) {

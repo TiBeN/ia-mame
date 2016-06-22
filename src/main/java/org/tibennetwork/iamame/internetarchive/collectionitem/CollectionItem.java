@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,7 +18,7 @@ import org.jsoup.nodes.Document;
  */
 public abstract class CollectionItem {
 
-    protected List<File> romsPaths;
+    protected Set<File> romsPaths;
 
     protected File writableRomPath;
 
@@ -55,7 +55,7 @@ public abstract class CollectionItem {
     int length = 0; 
 
     public CollectionItem (
-            List<File> romsPaths, 
+            Set<File> romsPaths, 
             File writableRomPath) {
     
         this.romsPaths = romsPaths;

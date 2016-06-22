@@ -1,7 +1,7 @@
 package org.tibennetwork.iamame.internetarchive.collectionitem;
 
 import java.io.File;
-import java.util.List;
+import java.util.Set;
 
 import org.tibennetwork.iamame.mame.Software;
 
@@ -11,7 +11,7 @@ public class MessSoftwareListRoms extends SoftwareListCollectionItem {
         = "http://archive.org/download/MESS_0.151_Software_List_ROMs/" 
             + "%1$s.zip/MESS 0.151 Software List ROMs/%1$s/%2$s.zip";
 
-    public MessSoftwareListRoms (List<File> romsPaths, File writableRomPath) {
+    public MessSoftwareListRoms (Set<File> romsPaths, File writableRomPath) {
         super(romsPaths, writableRomPath);
     }
 
