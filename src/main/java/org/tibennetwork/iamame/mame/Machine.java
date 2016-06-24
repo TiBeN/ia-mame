@@ -32,6 +32,23 @@ public class Machine {
         
     }
 
+    /**
+     * This as been renamed to MachineDisk because of JAXB clash with
+     * Software.DiskArea.Disk
+     */
+    @XmlRootElement(name="disk")
+    @XmlAccessorType(XmlAccessType.FIELD)
+    static class MachineDisk {
+        
+        @XmlAttribute(name="name")
+        String name;
+
+        public String getName() {
+            return name;
+        }
+
+    }
+
     @XmlAttribute(name="name")
     private String name;
 
@@ -49,6 +66,9 @@ public class Machine {
 
     @XmlElement(name="rom")
     private List<Rom> roms = new ArrayList<>();
+
+    @XmlElement(name="disk")
+    private List<MachineDisk> disks = new ArrayList<>();
 
     @XmlElement(name="device")
     private List<MediaDevice> devices = new ArrayList<>();
@@ -84,6 +104,23 @@ public class Machine {
     }
 
     /**
+     * Generate and return a list of supported medias
+     * based on the machine/device data
+     */
+    public List<MediaDevice> getMediaDevices () {
+
+        List<MediaDevice> mediaDevices = new ArrayList<>();
+
+        for (MediaDevice d: this.devices) {
+            if (d.getMediaInterface() != null) {
+                mediaDevices.add(d);
+            }
+        }
+
+        return mediaDevices;
+    }
+
+    /**
      * Generate and return a list of needed rom files
      */
     public Set<String> getNeededRomFiles () {
@@ -101,20 +138,16 @@ public class Machine {
     }
 
     /**
-     * Generate and return a list of supported medias
-     * based on the machine/device data
+     * Generate and return a list of needed chd files
      */
-    public List<MediaDevice> getMediaDevices () {
-
-        List<MediaDevice> mediaDevices = new ArrayList<>();
-
-        for (MediaDevice d: this.devices) {
-            if (d.getMediaInterface() != null) {
-                mediaDevices.add(d);
+    public Set<String> getNeededChdFiles () {
+        Set<String> chds = new HashSet<>();
+        if (!this.disks.isEmpty()) {
+            for (MachineDisk d: this.disks) {
+                chds.add(d.getName());
             }
         }
-
-        return mediaDevices;
+        return chds;
     }
 
     /**
