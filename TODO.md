@@ -19,3 +19,5 @@ TODO
     mame
 -   BUG: ia-mame <system> <software> with wrong software should not break
     the launch of Mame (displaying suggestions)
+-   BUG: some mame games seems to need others files: Punisher (qsound),
+    Virtua Fighter (m1comm) 
