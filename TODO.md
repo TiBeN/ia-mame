@@ -4,7 +4,6 @@ TODO
 -   Improve the compatibility of CHD software Collections when used with 
     a different version of Mame than the collection 
     (embed software list hashs matching the version?)
--   Add support for Mame CHD collections
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
 -   Support for auto-completion
@@ -21,3 +20,5 @@ TODO
     the launch of Mame (displaying suggestions)
 -   BUG: some mame games seems to need others files: Punisher (qsound),
     Virtua Fighter (m1comm) 
+-   BUG: Sometimes the download of a file finishs prematurally (noticeable 
+    with CHDs)

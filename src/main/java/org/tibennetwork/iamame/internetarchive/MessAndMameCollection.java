@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.tibennetwork.iamame.internetarchive.collectionitem.FileNotFoundInCollectionItem;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MachineRomsCollectionItem;
+import org.tibennetwork.iamame.internetarchive.collectionitem.MameChds;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MameRoms;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessBios;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCd32;
@@ -54,6 +55,8 @@ public class MessAndMameCollection {
             .add(new MameRoms(romsPaths, writableRomPath));
         this.machineRomsCollectionItems
             .add(new MessBios(romsPaths, writableRomPath));
+        this.machineRomsCollectionItems
+            .add(new MameChds(romsPaths, writableRomPath));
 
         this.messSoftwareListRoms
             = new MessSoftwareListRoms(romsPaths, writableRomPath);
@@ -111,20 +114,24 @@ public class MessAndMameCollection {
     public void download (Machine machine) 
             throws MachineRomFileNotFoundInCollection {
 
+        boolean filesNotFound = true;
+
         for (MachineRomsCollectionItem mci
                 : this.machineRomsCollectionItems) {
             try {
                 mci.download(machine);
+                filesNotFound = false;
             } catch (FileNotFoundInCollectionItem e) {
                 continue;
             }
-            return;
         }
 
-        throw new MachineRomFileNotFoundInCollection(
-            String.format("Needed Rom files for machine %s has not"
-               + " been found on the collection",
-            machine.getName()));
+        if (filesNotFound) {
+            throw new MachineRomFileNotFoundInCollection(
+                String.format("Needed Rom files for machine %s has not"
+                   + " been found on the collection",
+                machine.getName()));
+        }
         
     }
 

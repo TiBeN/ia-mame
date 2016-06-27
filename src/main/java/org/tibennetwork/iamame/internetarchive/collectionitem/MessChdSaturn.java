@@ -48,8 +48,8 @@ public class MessChdSaturn extends SoftwareListCollectionItem {
 
         }
 
-            throw new FileNotFoundInCollectionItem(
-                "The files have not been found on collection");
+        throw new FileNotFoundInCollectionItem(
+            "The files have not been found on collection");
 
     }
 
