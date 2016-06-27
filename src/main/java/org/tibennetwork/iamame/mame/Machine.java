@@ -180,6 +180,37 @@ public class Machine {
     }
 
     /**
+     * Determine missing chds files on the given rom path
+     */
+    public Set<String> getMissingChdFiles (Set<File> romPaths) {
+
+        Set<String> missingChdFiles = new HashSet<>();
+
+        romfileloop: for (String chdFile: this.getNeededChdFiles()) {
+
+            for (File romPath: romPaths) {
+                File chdFileInRomPath = new File(
+                    romPath.getAbsolutePath() 
+                        + File.separator 
+                        + this.name
+                        + File.separator
+                        + chdFile
+                        + ".chd");
+
+                if (chdFileInRomPath.exists()) {
+                    continue romfileloop;
+                }
+            }
+
+            missingChdFiles.add(chdFile);
+
+        }
+
+        return missingChdFiles;
+    
+    }
+
+    /**
      * Determines whether the required rom files for this system 
      * are present on the given rompaths
      */
