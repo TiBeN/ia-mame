@@ -40,7 +40,7 @@ public class IaMame
         }
             
         MameRuntime mame = null;
-        String mameBinary = null;       
+        String mameBinary = null;
 
         try {
             mameBinary = IaMame.findMameBinary();
@@ -51,13 +51,20 @@ public class IaMame
         try {
             mame = new MameRuntimeImpl(
                 mameBinary, mameArgs.getRawOptionsArgs());
+            downloadFilesIfNeeded(mameArgs, mame);
         } catch (IOException | InterruptedException | ParseException e) {
             IaMame.errorAndExit(
                 "An error occured while trying to execute Mame: " 
                     + e.getMessage());
+        } catch (InvalidMameArgumentsException e) {
+            // In case of an InvalidMameArgumentsException, the execution of
+            // Mame is maintained to have more precise logs from Mame
+            // about the error, like software names suggestions.
+            IaMame.warn(
+                "An error occured while trying to parse the command-line: " 
+                    + e.getMessage());
+        
         }
-
-        downloadFilesIfNeeded(mameArgs, mame);
 
         // Launch Mame if not in dry-run mode
         String dryRun = System.getProperty("iamame.dryrun");
@@ -154,7 +161,8 @@ public class IaMame
 
     private static void downloadFilesIfNeeded (
             MameArguments mameArgs, 
-            MameRuntime mame) {
+            MameRuntime mame)
+            throws InvalidMameArgumentsException {
 
     
         if (!mameArgs.containsCommand() ) {
@@ -165,12 +173,7 @@ public class IaMame
                 ems = mameArgs.extractMachineAndSoftwares(
                     new MachineRepository(mame), 
                     new SoftwareRepository(mame));
-            } catch (InvalidMameArgumentsException e) {
-                IaMame.errorAndExit(
-                    "An error occured while trying to parse command-line: " 
-                        + e.getMessage());
-            }  
-            catch (IOException | InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 IaMame.errorAndExit(
                     "An error occured " + e.getMessage());
             }  

@@ -4,10 +4,16 @@ CHANGELOG
 Current
 -------
 
+-   Fixed bug `ia-mame <system> <software>` with wrong software should not 
+    break the launch of Mame to display software name suggestions
 -   Now support download of Mame system CHD files
 -   The download total size and progress in percent is now displayed.
 -   Handle the configuration parameters (ie rompath and so on) set from
     the command line too
+
+0.5
+---
+
 -   Improved INFO traces format
 
 0.4
