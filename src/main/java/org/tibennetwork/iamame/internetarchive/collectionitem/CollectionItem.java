@@ -115,9 +115,10 @@ public abstract class CollectionItem {
                     destination.getName(),
                     (downloadedBytes / 1024),
                     flf.length != 0 ? flf.length : "??",
-                    (readBytes = urlInputStream.read(bytes)) != -1
+                    downloadedBytes != flf.length
                         ? (downloadedPercent + "%") 
                         : "...COMPLETED\n"));
+                        
             }
 
             // Stop the length fetching thread
