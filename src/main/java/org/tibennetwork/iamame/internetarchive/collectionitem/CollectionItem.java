@@ -100,6 +100,8 @@ public abstract class CollectionItem {
             Thread fileLengthFetchingThread = new Thread(flf);
             fileLengthFetchingThread.start();
 
+            boolean downloadingMessageDisplayed = false;
+
             // Download the file
             while ((readBytes = urlInputStream.read(bytes)) != -1) {
                 destinationOutputStream.write(bytes, 0, readBytes);
@@ -118,7 +120,15 @@ public abstract class CollectionItem {
                     downloadedBytes != flf.length
                         ? (downloadedPercent + "%") 
                         : "...COMPLETED\n"));
+
+                downloadingMessageDisplayed = true;
                         
+            }
+
+            // Add a return carriage if a line of downloading message 
+            // was previously printed
+            if (downloadingMessageDisplayed) {
+                System.out.println();
             }
 
             // Stop the length fetching thread
