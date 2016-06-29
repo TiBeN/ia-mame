@@ -340,7 +340,7 @@ public class MameArguments {
         } catch (ParseException e) {
             throw (InvalidMameArgumentsException) 
                 new InvalidMameArgumentsException(
-                        "Error while parsing commandLine")
+                        e.getMessage())
                     .initCause(e);
         }
 
