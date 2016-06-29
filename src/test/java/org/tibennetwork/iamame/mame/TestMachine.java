@@ -78,6 +78,36 @@ public class TestMachine {
     
     }
 
+    @Test
+    public void testGetNeededRomsFilesWithMachineHavingSubMachinesNeedingRoms ()
+            throws FileNotFoundException,
+                IOException,
+                InterruptedException,
+                MachineDoesntExistException {
+        
+        FakeMameRuntime mame = new FakeMameRuntime();
+        
+        List<InputStream> inputStreams = new ArrayList<>();
+
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/punisher.xml"));
+        
+        mame.setInputStreamsToReturn(inputStreams);
+
+        MachineRepository mr = new MachineRepository(mame);
+
+        Machine m = mr.findByName("punisher");
+
+        Set<String> neededFiles = m.getNeededRomFiles();
+
+        Set<String> expectedNeededFiles = new HashSet<>();
+        expectedNeededFiles.add("punisher");
+        expectedNeededFiles.add("qsound");
+
+        assertThat(neededFiles, equalTo(expectedNeededFiles));
+
+    }
+
     @Test 
     public void testGetMissingRomsFilesWithEmptyRomPath () 
             throws FileNotFoundException,

@@ -3,7 +3,9 @@ package org.tibennetwork.iamame.mame;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.DataBindingException;
 import javax.xml.bind.JAXB;
@@ -70,8 +72,14 @@ public class MachineRepository {
                     machineName));
         }
 
+        Machine machine = null;
+        Set<Machine> subMachines = new HashSet<>();
+
         for (Machine m: ms.getMachines()) {
+
             if (m.getName().equals(machineName)) {
+
+                machine = m;
 
                 String parentMachineName = m.getRomof();
                 if(parentMachineName != null) {
@@ -79,15 +87,24 @@ public class MachineRepository {
                             this.findByName(parentMachineName));
                 }
 
-                return m;
+            } else {
+                // Others machines of the set are considered "subMachines"
+                subMachines.add(m);
             }
+
         }
             
-        throw new RuntimeException(String.format(
-            "Unhandled case: Mame returned no errors while searching " 
-                + "for machine %s but the machine has not been found " 
-                + "on the XML content", 
-            machineName));
+        if (machine == null) {
+            throw new RuntimeException(String.format(
+                "Unhandled case: Mame returned no errors while searching " 
+                    + "for machine %s but the machine has not been found " 
+                    + "on the XML content", 
+                machineName));
+        }
+
+        machine.setSubMachines(subMachines);
+
+        return machine;
     }
 
 }

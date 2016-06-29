@@ -73,6 +73,11 @@ public class Machine {
     @XmlElement(name="device")
     private List<MediaDevice> devices = new ArrayList<>();
 
+    /**
+     * Theses are the machine componant associated to this machine
+     */
+    private Set<Machine> subMachines = new HashSet<>();
+
     private Machine parentMachine;
 
     public Boolean IsRunnable() {
@@ -93,6 +98,18 @@ public class Machine {
 
     public List<SoftwareList> getSoftwareLists() {
         return softwareLists;
+    }
+
+    public List<Rom> getRoms() {
+        return roms;
+    }
+
+    public Set<Machine> getSubMachines() {
+        return subMachines;
+    }
+
+    public void setSubMachines(Set<Machine> subMachines) {
+        this.subMachines = subMachines;
     }
 
     public Machine getParentMachine() {
@@ -125,15 +142,28 @@ public class Machine {
      */
     public Set<String> getNeededRomFiles () {
         Set<String> romSets = new HashSet<>();
+
+        // This machine needs Roms ?
         if (!this.roms.isEmpty()) {
             romSets.add(this.name);
         }
+
+        // This machine is a child of another which needs roms ?
         if (this.parentMachine != null) {
             Set<String> psRomSets = this.parentMachine.getNeededRomFiles();
             if (!psRomSets.isEmpty()) {
-                romSets.addAll(psRomSets);                                
+                romSets.addAll(psRomSets);
             }
         }
+
+        // Any sub machine componants of this machine need roms ?
+        for (Machine subm: this.getSubMachines()) {
+            Set<String> submRomSets = subm.getNeededRomFiles();
+            if (!submRomSets.isEmpty()) {
+                romSets.addAll(submRomSets);
+            }
+        }
+
         return romSets;
     }
 

@@ -16,6 +16,4 @@ TODO
     README about Mame version support.
 -   Do support of news command line switchs since Groovymame merged with
     mame
--   BUG: some mame games seems to need others files: Punisher (qsound),
-    Virtua Fighter (m1comm) 
 -   BUG: file length for Mame roms is not fetched

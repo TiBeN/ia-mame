@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Current
+-------
+
+-   Fixed bug some mame games seems to need others files ex Punisher qsound
+
 0.6
 ---
 
