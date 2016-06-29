@@ -17,3 +17,5 @@ TODO
 -   Do support of news command line switchs since Groovymame merged with
     mame
 -   BUG: file length for Mame roms is not fetched
+-   Check if softwares needing many files case is handled correctly (multi
+    CD for example)
