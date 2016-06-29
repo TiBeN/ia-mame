@@ -42,7 +42,7 @@ Installation
 - Install ia-mame and make it executable: 
 
   ```bash 
-  $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/0.5/ia-mame
+  $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/0.6/ia-mame
   $ sudo chmod +x /usr/local/bin/ia-mame
   ```
 
@@ -59,7 +59,7 @@ Installation
 ### Windows
 
 - Download
-  [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/0.5/ia-mame.exe) and place it on the folder where is your mame.exe
+  [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/0.6/ia-mame.exe) and place it on the folder where is your mame.exe
 
 You can alternatively place it somewhere else and use the $MAME\_EXEC env
 variable:
@@ -131,7 +131,7 @@ INFO: Downloading 25kB / ??kB, progress: ??
 
 Alternatively, the provided 
 [executable
-jar](https://github.com/TiBeN/ia-mame/releases/download/0.5/ia-mame.jar) 
+jar](https://github.com/TiBeN/ia-mame/releases/download/0.6/ia-mame.jar) 
 can be used directly:
 
 ```

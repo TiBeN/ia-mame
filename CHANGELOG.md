@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Current
--------
+0.6
+---
 
 -   Fixed bug `ia-mame <system> <software>` with wrong software should not 
     break the launch of Mame to display software name suggestions
