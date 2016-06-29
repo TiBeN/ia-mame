@@ -20,3 +20,4 @@ TODO
     the launch of Mame (displaying suggestions)
 -   BUG: some mame games seems to need others files: Punisher (qsound),
     Virtua Fighter (m1comm) 
+-   BUG: file length for Mame roms is not fetched
