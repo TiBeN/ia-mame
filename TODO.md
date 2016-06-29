@@ -8,7 +8,7 @@ TODO
     confortable with command line
 -   Support for auto-completion
 -   Create simple screencast to demonstrate usage
--   Add support for negative boolean options (-[no]option)
+-   [WIP] - Add support for negative boolean options (-[no]option)
 -   Distribute as a zipped package containing README + CHANGELOG etc. as
     well
 -   Use packr to include JVM on the executable ?
