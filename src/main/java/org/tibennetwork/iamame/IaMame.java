@@ -34,7 +34,7 @@ public class IaMame
         try {
             mameArgs = new MameArguments(args);
         } catch (InvalidMameArgumentsException e) {
-            IaMame.warn(
+            IaMame.errorAndExit(
             "An error occured while trying to parse command line: " 
                 + e.getMessage());
         }
