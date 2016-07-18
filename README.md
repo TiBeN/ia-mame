@@ -10,7 +10,7 @@ which downloads automatically needed system roms and softwares from
 Archive Mess and Mame collections](https://archive.org/details/messmame) 
 if they are missing on the rompath directory before launching Mame.
 
-Mame roms, softwarelist roms and most of cd-rom CHD collections are
+Mame roms and CHD, softwarelist roms and most of cd-rom CHD collections are
 supported.
 
 ![preview](./doc/screenshot.png)
@@ -24,8 +24,9 @@ Prerequisites
   If it is you case, read this [Stack Overflow 
 thread](http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6)
 
-- A version of [Mame](http://mamedev.org/release.php) 0.161+ that suits your 
+- A version of [Mame](http://mamedev.org/release.php) 0.162+ that suits your 
   operating system. Make sure it works properly before trying ia-mame.
+  Versions prior to 0.162 can be used but MESS stuff will not be available.
 
 Installation
 ------------
@@ -172,7 +173,8 @@ Known issues
 I'm facing issues on some CHD collections (psx, saturn) due to version 
 differences between the collection and the Mame executable. 
 It is especially true if the delta of the version is high.
-(PSX CHDs will work great using Mame v0.161 but not with 0.170 for example)
+(PSX CHDs will work great using Mame v0.162 but not with 0.170 for example
+because of bios and softwarelist changes in between)
 
 Some screenshots
 ----------------
