@@ -28,6 +28,15 @@ thread](http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x
   operating system. Make sure it works properly before trying ia-mame.
   Versions prior to 0.162 can be used but MESS stuff will not be available.
 
+Warning
+-------
+
+Despite ia-mame can be considered safe, it is for now a beta software.
+It should not affect your beloved roms collection and will not overwrite
+your existing files. But if you take care of your years tailored
+collection, it should be safer to try ia-mame with an empty rompath. See
+[below](https://github.com/TiBeN/ia-mame#use-a-different-rompath)
+
 Installation
 ------------
 
