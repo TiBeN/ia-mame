@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Current
--------
+0.7
+---
 
 -   Now distributed as a zipped package as well
 -   Added support for negative boolean options (-[no]option)
