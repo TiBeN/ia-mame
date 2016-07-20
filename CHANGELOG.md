@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+Current
+-------
+
+-   7z support partially implemented (Mame roms/bios only, not softwarelist 
+    softwares)
+
 0.7
 ---
 

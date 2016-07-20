@@ -208,6 +208,38 @@ public class TestMachine {
         assertThat(missingFiles, equalTo(expectedMissingFiles));
     }
 
+    @Test 
+    public void testGetMissingRomsFilesWith7ZipFilesRomPath ()
+            throws FileNotFoundException,
+                IOException,
+                InterruptedException,
+                MachineDoesntExistException {
+
+        FakeMameRuntime mame = new FakeMameRuntime();
+        
+        List<InputStream> inputStreams = new ArrayList<>();
+
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/neomrdo.xml"));
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/neogeo.xml"));
+        
+        mame.setInputStreamsToReturn(inputStreams);
+
+        MachineRepository mr = new MachineRepository(mame);
+
+        Machine m = mr.findByName("neomrdo");
+
+        Set<File> romPaths = new HashSet<>();
+        romPaths.add(new File("src/test/resources/7z-rompath"));
+
+        Set<String> missingFiles = m.getMissingRomFiles(romPaths);
+
+        Set<String> expectedMissingFiles = new HashSet<>();
+
+        assertThat(missingFiles, equalTo(expectedMissingFiles));
+    }
+
     @Test
     public void testGetNeededChdsFiles ()
             throws FileNotFoundException,

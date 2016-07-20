@@ -190,8 +190,7 @@ public class Software {
     }
 
     /**
-     * Return the partial file path relative to the
-     * rompath.
+     * Return the partial file path relative to the rompath.
      */
     public String getRelativeFilePath() {
 

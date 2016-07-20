@@ -190,13 +190,22 @@ public class Machine {
         romfileloop: for (String romFile: this.getNeededRomFiles()) {
 
             for (File romPath: romPaths) {
-                File romFileInRomPath = new File(
-                    romPath.getAbsolutePath() 
-                        + File.separator 
-                        + romFile
-                        + ".zip");
 
-                if (romFileInRomPath.exists()) {
+                String romFileInRomPathWithoutExtension 
+                    = romPath.getAbsolutePath() 
+                        + File.separator 
+                        + romFile;
+
+                File zippedRomFileInRomPath = new File(
+                    romFileInRomPathWithoutExtension
+                        + ".zip");
+                
+                File SevenZippedRomFileInRomPath = new File(
+                    romFileInRomPathWithoutExtension
+                        + ".7z");
+
+                if (zippedRomFileInRomPath.exists() 
+                        || SevenZippedRomFileInRomPath.exists()) {
                     continue romfileloop;
                 }
             }

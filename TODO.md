@@ -14,7 +14,9 @@ Features/Improvements
     mame
 -   Support for others providers (torrent sources ?)
 -   [WIP] Add support for 7z compressed files when scanning for rom files 
-    on the rompath
+    on the rompath. *Implemented for Mame roms but need to be implemented
+    for softwarelist. But need to check 3rd bullet bug first because of 
+    possible refactoring.
 
 Bugs/Checks
 -----------
