@@ -24,3 +24,5 @@ Bugs/Checks
 -   File length for Mame roms is not fetched at all
 -   Check if softwares needing many files case is handled correctly (multi
     CD for example)
+-   Add support for 7z compressed files when scanning for rom files on the 
+    rompath
