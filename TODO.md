@@ -9,9 +9,7 @@ Features/Improvements
     (embed software list hashs matching the version?)
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
--   Support for auto-completion
--   Do more tests with differents version of Mame to be more precise on the
-    README about Mame version support.
+-   ~~Support for auto-completion~~ This should be a separate project
 -   Do support of news command line switchs since Groovymame merged with
     mame
 -   Support for others providers (torrent sources ?)
@@ -26,3 +24,5 @@ Bugs/Checks
 -   File length for Mame roms is not fetched at all
 -   Check if softwares needing many files case is handled correctly (multi
     CD for example)
+-   Do more tests with differents version of Mame to be more precise on the
+    README about Mame version support.
