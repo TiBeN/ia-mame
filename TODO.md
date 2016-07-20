@@ -1,18 +1,26 @@
 TODO
 ====
 
+Features/Improvements
+---------------------
+
 -   Improve the compatibility of CHD software Collections when used with 
     a different version of Mame than the collection 
     (embed software list hashs matching the version?)
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
 -   Support for auto-completion
--   Create simple screencast to demonstrate usage
--   Use packr to include JVM on the executable ?
 -   Do more tests with differents version of Mame to be more precise on the
     README about Mame version support.
 -   Do support of news command line switchs since Groovymame merged with
     mame
--   BUG: file length for Mame roms is not fetched
+-   Support for others providers (torrent sources ?)
+
+Bugs/Checks
+-----------
+
+-   ia-mame does not find the Machine data on the XML using Mame < 0.16[2|1] 
+    because "machine" tag was previously named "game".
+-   File length for Mame roms is not fetched at all
 -   Check if softwares needing many files case is handled correctly (multi
     CD for example)
