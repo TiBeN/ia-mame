@@ -13,8 +13,8 @@ Features/Improvements
 -   Do support of news command line switchs since Groovymame merged with
     mame
 -   Support for others providers (torrent sources ?)
--   Add support for 7z compressed files when scanning for rom files on the 
-    rompath
+-   [WIP] Add support for 7z compressed files when scanning for rom files 
+    on the rompath
 
 Bugs/Checks
 -----------
@@ -26,3 +26,5 @@ Bugs/Checks
     CD for example)
 -   Do more tests with differents version of Mame to be more precise on the
     README about Mame version support.
+-   A wrong machine name given on command line must not break the
+    underlying Mame execution to display suggestions.
