@@ -12,11 +12,15 @@ Features/Improvements
 -   ~~Support for auto-completion~~ This should be a separate project
 -   Do support of news command line switchs since Groovymame merged with
     mame
--   Support for others providers (torrent sources ?)
+-   Support for torrents sources as up-to-date provider
 -   [WIP] Add support for 7z compressed files when scanning for rom files 
     on the rompath. *Implemented for Mame roms but need to be implemented
     for softwarelist. But need to check 3rd bullet bug first because of 
     possible refactoring.
+-   Check if possible to support olds collection source from archive.org:
+    https://archive.org/details/MAME0.78-MAME2003-ROMs-CHDs-Samples
+-   Add some kind of communication channel for frontends to read the
+    download progress and activity data.
 
 Bugs/Checks
 -----------
@@ -30,3 +34,5 @@ Bugs/Checks
     README about Mame version support.
 -   A wrong machine name given on command line must not break the
     underlying Mame execution to display suggestions.
+-   Check the 32/64bits compatibility on Windows (see reddit post:
+    https://www.reddit.com/r/emulation/comments/4tkrqb/iamame_07_released/)
