@@ -13,7 +13,7 @@ Features/Improvements
 -   Do support of news command line switchs since Groovymame merged with
     mame
 -   Support for torrents sources as up-to-date provider
--   [WIP] Add support for 7z compressed files when scanning for rom files 
+-   [STOPPED] Add support for 7z compressed files when scanning for rom files 
     on the rompath. 
     -   *Implemented for Mame roms but need to be implemented for 
         softwarelist. But need to check 3rd bullet bug first because 
@@ -29,8 +29,8 @@ Bugs/Checks
 -   ia-mame does not find the Machine data on the XML using Mame < 0.16[2|1] 
     because "machine" tag was previously named "game".
 -   File length for Mame roms is not fetched at all
--   Check if softwares needing many files case is handled correctly (multi
-    CD for example)
+-   [WIP] Check if softwares needing many files case is handled correctly 
+    (multi CD for example)
 -   Do more tests with differents version of Mame to be more precise on the
     README about Mame version support.
 -   A wrong machine name given on command line must not break the
