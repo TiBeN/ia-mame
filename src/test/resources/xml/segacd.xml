@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<!DOCTYPE mame [
+<!ELEMENT mame (machine+)>
+	<!ATTLIST mame build CDATA #IMPLIED>
+	<!ATTLIST mame debug (yes|no) "no">
+	<!ATTLIST mame mameconfig CDATA #REQUIRED>
+	<!ELEMENT machine (description, year?, manufacturer?, biosset*, rom*, disk*, device_ref*, sample*, chip*, display*, sound?, input?, dipswitch*, configuration*, port*, adjuster*, driver?, device*, slot*, softwarelist*, ramoption*)>
+		<!ATTLIST machine name CDATA #REQUIRED>
+		<!ATTLIST machine sourcefile CDATA #IMPLIED>
+		<!ATTLIST machine isbios (yes|no) "no">
+		<!ATTLIST machine isdevice (yes|no) "no">
+		<!ATTLIST machine ismechanical (yes|no) "no">
+		<!ATTLIST machine runnable (yes|no) "yes">
+		<!ATTLIST machine cloneof CDATA #IMPLIED>
+		<!ATTLIST machine romof CDATA #IMPLIED>
+		<!ATTLIST machine sampleof CDATA #IMPLIED>
+		<!ELEMENT description (#PCDATA)>
+		<!ELEMENT year (#PCDATA)>
+		<!ELEMENT manufacturer (#PCDATA)>
+		<!ELEMENT biosset EMPTY>
+			<!ATTLIST biosset name CDATA #REQUIRED>
+			<!ATTLIST biosset description CDATA #REQUIRED>
+			<!ATTLIST biosset default (yes|no) "no">
+		<!ELEMENT rom EMPTY>
+			<!ATTLIST rom name CDATA #REQUIRED>
+			<!ATTLIST rom bios CDATA #IMPLIED>
+			<!ATTLIST rom size CDATA #REQUIRED>
+			<!ATTLIST rom crc CDATA #IMPLIED>
+			<!ATTLIST rom sha1 CDATA #IMPLIED>
+			<!ATTLIST rom merge CDATA #IMPLIED>
+			<!ATTLIST rom region CDATA #IMPLIED>
+			<!ATTLIST rom offset CDATA #IMPLIED>
+			<!ATTLIST rom status (baddump|nodump|good) "good">
+			<!ATTLIST rom optional (yes|no) "no">
+		<!ELEMENT disk EMPTY>
+			<!ATTLIST disk name CDATA #REQUIRED>
+			<!ATTLIST disk sha1 CDATA #IMPLIED>
+			<!ATTLIST disk merge CDATA #IMPLIED>
+			<!ATTLIST disk region CDATA #IMPLIED>
+			<!ATTLIST disk index CDATA #IMPLIED>
+			<!ATTLIST disk writable (yes|no) "no">
+			<!ATTLIST disk status (baddump|nodump|good) "good">
+			<!ATTLIST disk optional (yes|no) "no">
+		<!ELEMENT device_ref EMPTY>
+			<!ATTLIST device_ref name CDATA #REQUIRED>
+		<!ELEMENT sample EMPTY>
+			<!ATTLIST sample name CDATA #REQUIRED>
+		<!ELEMENT chip EMPTY>
+			<!ATTLIST chip name CDATA #REQUIRED>
+			<!ATTLIST chip tag CDATA #IMPLIED>
+			<!ATTLIST chip type (cpu|audio) #REQUIRED>
+			<!ATTLIST chip clock CDATA #IMPLIED>
+		<!ELEMENT display EMPTY>
+			<!ATTLIST display tag CDATA #IMPLIED>
+			<!ATTLIST display type (raster|vector|lcd|unknown) #REQUIRED>
+			<!ATTLIST display rotate (0|90|180|270) #REQUIRED>
+			<!ATTLIST display flipx (yes|no) "no">
+			<!ATTLIST display width CDATA #IMPLIED>
+			<!ATTLIST display height CDATA #IMPLIED>
+			<!ATTLIST display refresh CDATA #REQUIRED>
+			<!ATTLIST display pixclock CDATA #IMPLIED>
+			<!ATTLIST display htotal CDATA #IMPLIED>
+			<!ATTLIST display hbend CDATA #IMPLIED>
+			<!ATTLIST display hbstart CDATA #IMPLIED>
+			<!ATTLIST display vtotal CDATA #IMPLIED>
+			<!ATTLIST display vbend CDATA #IMPLIED>
+			<!ATTLIST display vbstart CDATA #IMPLIED>
+		<!ELEMENT sound EMPTY>
+			<!ATTLIST sound channels CDATA #REQUIRED>
+		<!ELEMENT input (control*)>
+			<!ATTLIST input service (yes|no) "no">
+			<!ATTLIST input tilt (yes|no) "no">
+			<!ATTLIST input players CDATA #REQUIRED>
+			<!ATTLIST input buttons CDATA #IMPLIED>
+			<!ATTLIST input coins CDATA #IMPLIED>
+			<!ELEMENT control EMPTY>
+				<!ATTLIST control type CDATA #REQUIRED>
+				<!ATTLIST control minimum CDATA #IMPLIED>
+				<!ATTLIST control maximum CDATA #IMPLIED>
+				<!ATTLIST control sensitivity CDATA #IMPLIED>
+				<!ATTLIST control keydelta CDATA #IMPLIED>
+				<!ATTLIST control reverse (yes|no) "no">
+				<!ATTLIST control ways CDATA #IMPLIED>
+				<!ATTLIST control ways2 CDATA #IMPLIED>
+				<!ATTLIST control ways3 CDATA #IMPLIED>
+		<!ELEMENT dipswitch (dipvalue*)>
+			<!ATTLIST dipswitch name CDATA #REQUIRED>
+			<!ATTLIST dipswitch tag CDATA #REQUIRED>
+			<!ATTLIST dipswitch mask CDATA #REQUIRED>
+			<!ELEMENT dipvalue EMPTY>
+				<!ATTLIST dipvalue name CDATA #REQUIRED>
+				<!ATTLIST dipvalue value CDATA #REQUIRED>
+				<!ATTLIST dipvalue default (yes|no) "no">
+		<!ELEMENT configuration (confsetting*)>
+			<!ATTLIST configuration name CDATA #REQUIRED>
+			<!ATTLIST configuration tag CDATA #REQUIRED>
+			<!ATTLIST configuration mask CDATA #REQUIRED>
+			<!ELEMENT confsetting EMPTY>
+				<!ATTLIST confsetting name CDATA #REQUIRED>
+				<!ATTLIST confsetting value CDATA #REQUIRED>
+				<!ATTLIST confsetting default (yes|no) "no">
+		<!ELEMENT port (analog*)>
+			<!ATTLIST port tag CDATA #REQUIRED>
+			<!ELEMENT analog EMPTY>
+				<!ATTLIST analog mask CDATA #REQUIRED>
+		<!ELEMENT adjuster EMPTY>
+			<!ATTLIST adjuster name CDATA #REQUIRED>
+			<!ATTLIST adjuster default CDATA #REQUIRED>
+		<!ELEMENT driver EMPTY>
+			<!ATTLIST driver status (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver emulation (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver color (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver sound (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver graphic (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver cocktail (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver protection (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver savestate (supported|unsupported) #REQUIRED>
+		<!ELEMENT device (instance*, extension*)>
+			<!ATTLIST device type CDATA #REQUIRED>
+			<!ATTLIST device tag CDATA #IMPLIED>
+			<!ATTLIST device mandatory CDATA #IMPLIED>
+			<!ATTLIST device interface CDATA #IMPLIED>
+			<!ELEMENT instance EMPTY>
+				<!ATTLIST instance name CDATA #REQUIRED>
+				<!ATTLIST instance briefname CDATA #REQUIRED>
+			<!ELEMENT extension EMPTY>
+				<!ATTLIST extension name CDATA #REQUIRED>
+		<!ELEMENT slot (slotoption*)>
+			<!ATTLIST slot name CDATA #REQUIRED>
+			<!ELEMENT slotoption EMPTY>
+				<!ATTLIST slotoption name CDATA #REQUIRED>
+				<!ATTLIST slotoption devname CDATA #REQUIRED>
+				<!ATTLIST slotoption default (yes|no) "no">
+		<!ELEMENT softwarelist EMPTY>
+			<!ATTLIST softwarelist name CDATA #REQUIRED>
+			<!ATTLIST softwarelist status (original|compatible) #REQUIRED>
+			<!ATTLIST softwarelist filter CDATA #IMPLIED>
+		<!ELEMENT ramoption (#PCDATA)>
+			<!ATTLIST ramoption default CDATA #IMPLIED>
+]>
+
+<mame build="0.170 (Jun 16 2016)" debug="no" mameconfig="10">
+	<machine name="segacd" sourcefile="megadriv.cpp">
+		<description>Sega CD (USA, NTSC)</description>
+		<year>1992</year>
+		<manufacturer>Sega</manufacturer>
+		<rom name="mpr-15045b.bin" size="131072" crc="c6d10268" sha1="f4f315adcef9b8feb0364c21ab7f0eaf5457f3ed" region="maincpu" offset="0"/>
+		<device_ref name="m68000"/>
+		<device_ref name="z80"/>
+		<device_ref name="timer"/>
+		<device_ref name="sega315_5313"/>
+		<device_ref name="palette"/>
+		<device_ref name="screen"/>
+		<device_ref name="speaker"/>
+		<device_ref name="speaker"/>
+		<device_ref name="ym2612"/>
+		<device_ref name="segapsg"/>
+		<device_ref name="sega_segacd_us"/>
+		<device_ref name="m68000"/>
+		<device_ref name="lc89510"/>
+		<device_ref name="lc89510_temp"/>
+		<device_ref name="timer"/>
+		<device_ref name="cdda"/>
+		<device_ref name="timer"/>
+		<device_ref name="timer"/>
+		<device_ref name="timer"/>
+		<device_ref name="timer"/>
+		<device_ref name="rf5c68"/>
+		<device_ref name="nvram"/>
+		<device_ref name="cdrom_image"/>
+		<device_ref name="software_list"/>
+		<chip type="cpu" tag="maincpu" name="M68000" clock="7670453"/>
+		<chip type="cpu" tag="genesis_snd_z80" name="Z80" clock="3579545"/>
+		<chip type="cpu" tag="segacd:segacd_68k" name="M68000" clock="12500000"/>
+		<chip type="audio" tag="lspeaker" name="Speaker"/>
+		<chip type="audio" tag="rspeaker" name="Speaker"/>
+		<chip type="audio" tag="ymsnd" name="YM2612" clock="7670453"/>
+		<chip type="audio" tag="snsnd" name="SEGA VDP PSG" clock="3579545"/>
+		<chip type="audio" tag="segacd:tempcdc:cdda" name="CD/DA"/>
+		<chip type="audio" tag="segacd:rfsnd" name="RF5C68" clock="12500000"/>
+		<display tag="megadriv" type="raster" rotate="0" width="256" height="224" refresh="60.000000" />
+		<sound channels="2"/>
+		<input players="2" buttons="7">
+			<control type="joy" ways="8"/>
+		</input>
+		<configuration name="Player 1 Controller" tag="CTRLSEL" mask="15">
+			<confsetting name="Joystick 3 Buttons" value="0" default="yes"/>
+			<confsetting name="Joystick 6 Buttons" value="1"/>
+		</configuration>
+		<configuration name="Player 2 Controller" tag="CTRLSEL" mask="240">
+			<confsetting name="Joystick 3 Buttons" value="0" default="yes"/>
+			<confsetting name="Joystick 6 Buttons" value="16"/>
+		</configuration>
+		<port tag=":CTRLSEL">
+		</port>
+		<port tag=":PAD1_3B">
+		</port>
+		<port tag=":PAD2_3B">
+		</port>
+		<port tag=":PAD1_6B">
+		</port>
+		<port tag=":EXTRA1">
+		</port>
+		<port tag=":PAD2_6B">
+		</port>
+		<port tag=":EXTRA2">
+		</port>
+		<port tag=":RESET">
+		</port>
+		<driver status="preliminary" emulation="preliminary" color="good" sound="good" graphic="good" savestate="unsupported"/>
+		<device type="cdrom" tag="cdrom" interface="scd_cdrom">
+			<instance name="cdrom" briefname="cdrm"/>
+			<extension name="chd"/>
+			<extension name="cue"/>
+			<extension name="toc"/>
+			<extension name="nrg"/>
+			<extension name="gdi"/>
+			<extension name="iso"/>
+			<extension name="cdr"/>
+		</device>
+		<softwarelist name="segacd" status="original" />
+	</machine>
+	<machine name="m68000" sourcefile="src/devices/cpu/m68000/m68kcpu.cpp" isdevice="yes" runnable="no">
+		<description>M68000</description>
+	</machine>
+	<machine name="z80" sourcefile="src/devices/cpu/z80/z80.cpp" isdevice="yes" runnable="no">
+		<description>Z80</description>
+	</machine>
+	<machine name="timer" sourcefile="src/emu/timer.cpp" isdevice="yes" runnable="no">
+		<description>Timer</description>
+	</machine>
+	<machine name="sega315_5313" sourcefile="src/devices/video/315_5313.cpp" isdevice="yes" runnable="no">
+		<description>Sega 315-5313 Megadrive VDP</description>
+	</machine>
+	<machine name="palette" sourcefile="src/emu/emupal.cpp" isdevice="yes" runnable="no">
+		<description>palette</description>
+	</machine>
+	<machine name="screen" sourcefile="src/emu/screen.cpp" isdevice="yes" runnable="no">
+		<description>Video Screen</description>
+	</machine>
+	<machine name="speaker" sourcefile="src/emu/speaker.cpp" isdevice="yes" runnable="no">
+		<description>Speaker</description>
+		<sound channels="1"/>
+	</machine>
+	<machine name="ym2612" sourcefile="src/devices/sound/2612intf.cpp" isdevice="yes" runnable="no">
+		<description>YM2612</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="segapsg" sourcefile="src/devices/sound/sn76496.cpp" isdevice="yes" runnable="no">
+		<description>SEGA VDP PSG</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="sega_segacd_us" sourcefile="src/mame/machine/megacd.cpp" isdevice="yes" runnable="no">
+		<description>sega_segacd_us</description>
+		<chip type="cpu" tag=":segacd_68k" name="M68000" clock="12500000"/>
+		<chip type="audio" tag=":tempcdc:cdda" name="CD/DA"/>
+		<chip type="audio" tag=":rfsnd" name="RF5C68" clock="12500000"/>
+		<sound channels="0"/>
+	</machine>
+	<machine name="lc89510" sourcefile="src/devices/machine/lc89510.cpp" isdevice="yes" runnable="no">
+		<description>lc89510_device</description>
+	</machine>
+	<machine name="lc89510_temp" sourcefile="src/mame/machine/megacdcd.cpp" isdevice="yes" runnable="no">
+		<description>lc89510_temp_device</description>
+		<chip type="audio" tag=":cdda" name="CD/DA"/>
+		<sound channels="0"/>
+	</machine>
+	<machine name="cdda" sourcefile="src/devices/sound/cdda.cpp" isdevice="yes" runnable="no">
+		<description>CD/DA</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="rf5c68" sourcefile="src/devices/sound/rf5c68.cpp" isdevice="yes" runnable="no">
+		<description>RF5C68</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="nvram" sourcefile="src/devices/machine/nvram.cpp" isdevice="yes" runnable="no">
+		<description>NVRAM</description>
+	</machine>
+	<machine name="cdrom_image" sourcefile="src/devices/imagedev/chd_cd.cpp" isdevice="yes" runnable="no">
+		<description>CD-ROM Image</description>
+	</machine>
+	<machine name="software_list" sourcefile="src/emu/softlist.cpp" isdevice="yes" runnable="no">
+		<description>Software list</description>
+	</machine>
+</mame>

@@ -2,6 +2,7 @@ package org.tibennetwork.iamame.mame;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -215,4 +216,39 @@ public class Software {
         return this.parts.get(0).getDiskarea().getDisk().getName();
     }
 
+    public Set<SoftwareFile> getNeededFiles () {
+
+        Set<SoftwareFile> neededFiles = new HashSet<>();
+
+        boolean isChdFormat = false;
+
+        // Search for CD-ROM items on the software parts.
+        // Theses media types are stored on chd files.
+        for (Part p: this.parts) {
+            if (p.getName().matches("^cdrom[0-9]+$")) {
+                isChdFormat = true;
+                String chdFileName = this.softwareList.getName() 
+                    + File.separator
+                    + this.name
+                    + File.separator
+                    + p.getDiskarea().getDisk().getName();
+                neededFiles.add(new SoftwareFile(chdFileName, true));
+            }
+            
+        }
+
+        // Declare the software media(s) file in zip format.
+        // For a Software, chd or zip files seems to be exclusive 
+        // (ie: if there is CHD files on the parts of the software, 
+        // there is no zip files associated.)
+        if (!isChdFormat) {
+            String romFileName = this.softwareList.getName()
+                + File.separator
+                + this.name;
+            neededFiles.add(new SoftwareFile(romFileName, false));
+        }
+
+        return neededFiles;
+
+    }
 }

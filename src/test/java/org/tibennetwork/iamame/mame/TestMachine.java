@@ -101,8 +101,8 @@ public class TestMachine {
         Set<String> neededFiles = m.getNeededRomFiles();
 
         Set<String> expectedNeededFiles = new HashSet<>();
-        expectedNeededFiles.add("punisher");
         expectedNeededFiles.add("qsound");
+        expectedNeededFiles.add("punisher");
 
         assertThat(neededFiles, equalTo(expectedNeededFiles));
 
