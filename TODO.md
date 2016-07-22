@@ -22,6 +22,7 @@ Features/Improvements
     https://archive.org/details/MAME0.78-MAME2003-ROMs-CHDs-Samples
 -   Add some kind of communication channel for frontends to read the
     download progress and activity data.
+-   [WIP] Handle software having many cd-rom/chd parts
 
 Bugs/Checks
 -----------
@@ -29,8 +30,6 @@ Bugs/Checks
 -   ia-mame does not find the Machine data on the XML using Mame < 0.16[2|1] 
     because "machine" tag was previously named "game".
 -   File length for Mame roms is not fetched at all
--   [WIP] Check if softwares needing many files case is handled correctly 
-    (multi CD for example)
 -   Do more tests with differents version of Mame to be more precise on the
     README about Mame version support.
 -   A wrong machine name given on command line must not break the
