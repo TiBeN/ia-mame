@@ -15,9 +15,9 @@ Features/Improvements
 -   Support for torrents sources as up-to-date provider
 -   [WIP] Add support for 7z compressed files when scanning for rom files 
     on the rompath. 
-        -   *Implemented for Mame roms but need to be implemented for 
-            softwarelist. But need to check 3rd bullet bug first because 
-            of possible refactoring*.
+    -   *Implemented for Mame roms but need to be implemented for 
+        softwarelist. But need to check 3rd bullet bug first because 
+        of possible refactoring*.
 -   Check if possible to support olds collection source from archive.org:
     https://archive.org/details/MAME0.78-MAME2003-ROMs-CHDs-Samples
 -   Add some kind of communication channel for frontends to read the
