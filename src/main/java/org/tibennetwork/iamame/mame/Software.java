@@ -216,6 +216,10 @@ public class Software {
         return this.parts.get(0).getDiskarea().getDisk().getName();
     }
 
+    /**
+     * Generate and return a Set of needed files to
+     * run this software
+     */
     public Set<SoftwareFile> getNeededFiles () {
 
         Set<SoftwareFile> neededFiles = new HashSet<>();
@@ -249,6 +253,54 @@ public class Software {
         }
 
         return neededFiles;
+
+    }
+
+    /**
+     * Determine missing files on the given rom path
+     */
+    public Set<SoftwareFile> getMissingFiles (Set<File> romPaths) {
+
+        Set<SoftwareFile> missingFiles = new HashSet<>();
+
+        fileloop: for (SoftwareFile sf: this.getNeededFiles()) {
+            
+            for (File romPath: romPaths) {
+
+                if (sf.isChdFile()) {
+                    File chdFileInRomPath = new File(romPath.getAbsolutePath()
+                        + File.separator
+                        + sf.getRelativeFilePath());
+                    if (chdFileInRomPath.exists()) {
+                        continue fileloop;
+                    }
+
+                } else {
+                    File zippedFileInRomPath 
+                        = new File(romPath.getAbsolutePath()
+                            + File.separator
+                            + sf.getRelativeFilePathWithoutExtension()
+                            + ".zip");                                                         
+
+                    File sevenZippedFileInRomPath 
+                        = new File(romPath.getAbsolutePath()
+                            + File.separator
+                            + sf.getRelativeFilePathWithoutExtension()
+                            + ".7z");
+                    
+                    if (zippedFileInRomPath.exists() 
+                            || sevenZippedFileInRomPath.exists()) {
+                        continue fileloop;                    
+                    }
+                }
+
+            }
+
+            missingFiles.add(sf);
+
+        }
+
+        return missingFiles;
 
     }
 }

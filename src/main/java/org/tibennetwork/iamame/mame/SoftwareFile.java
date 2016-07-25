@@ -22,13 +22,17 @@ public class SoftwareFile {
     
     }
 
+    public String getRelativeFilePathWithoutExtension() {
+        return relativeFilePathWithoutExtension;
+    }
+
     public boolean isChdFile() {
         return isChdFile;
     }
 
     public String getRelativeFilePath () {
         return this.relativeFilePathWithoutExtension
-            + (isChdFile ? ".zip" : ".chd");
+            + (isChdFile ? ".chd" : ".zip");
     }
 
     public String toString() {
