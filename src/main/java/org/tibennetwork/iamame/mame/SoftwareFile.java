@@ -1,8 +1,8 @@
 package org.tibennetwork.iamame.mame;
 
 /**
- * Models One file needed by a Software from softwarelist
- * (zip rom(s) or chd). 
+ * Model a file needed by a Software from softwarelist
+ * rom file needed by a system (zip or chd)
  */
 public class SoftwareFile {
 

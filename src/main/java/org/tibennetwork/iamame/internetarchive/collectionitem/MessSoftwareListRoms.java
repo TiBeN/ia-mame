@@ -20,7 +20,7 @@ public class MessSoftwareListRoms extends SoftwareListCollectionItem {
         
         String softwareListName = software.getSoftwareList().getName();
         String softwareName = software.getName();
-        
+
         String softwareFileUrl = String.format(
             this.softwareFileUrlPattern,
             softwareListName,

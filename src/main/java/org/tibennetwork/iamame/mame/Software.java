@@ -220,18 +220,15 @@ public class Software {
      * Generate and return a Set of needed files to
      * run this software
      */
-    public Set<SoftwareFile> getNeededFiles () {
+    private Set<SoftwareFile> getNeededChdFiles () {
 
         Set<SoftwareFile> neededFiles = new HashSet<>();
-
-        boolean isChdFormat = false;
 
         // Search for CD-ROM items on the software parts.
         // Theses media types are stored on chd files.
         for (Part p: this.parts) {
             if (p.getName().matches("^cdrom[0-9]+$")) {
-                isChdFormat = true;
-                String chdFileName = this.softwareList.getName() 
+                String chdFileName = this.softwareList.getName()
                     + File.separator
                     + this.name
                     + File.separator
@@ -245,29 +242,29 @@ public class Software {
         // For a Software, chd or zip files seems to be exclusive 
         // (ie: if there is CHD files on the parts of the software, 
         // there is no zip files associated.)
-        if (!isChdFormat) {
-            String romFileName = this.softwareList.getName()
-                + File.separator
-                + this.name;
-            neededFiles.add(new SoftwareFile(romFileName, false));
-        }
+        //if (!isChdFormat) {
+            //String romFileName = this.softwareList.getName()
+                //+ File.separator
+                //+ this.name;
+            //neededFiles.add(new SoftwareFile(romFileName, false));
+        //}
 
         return neededFiles;
 
     }
 
     /**
-     * Determine missing files on the given rom path
+     * Determine missing CHD files on the given rom path
      */
-    public Set<SoftwareFile> getMissingFiles (Set<File> romPaths) {
+    public Set<SoftwareFile> getMissingChdFiles (Set<File> romPaths) {
 
         Set<SoftwareFile> missingFiles = new HashSet<>();
 
-        fileloop: for (SoftwareFile sf: this.getNeededFiles()) {
+        fileloop: for (SoftwareFile sf: this.getNeededChdFiles()) {
             
             for (File romPath: romPaths) {
 
-                if (sf.isChdFile()) {
+                //if (sf.isChdFile()) {
                     File chdFileInRomPath = new File(romPath.getAbsolutePath()
                         + File.separator
                         + sf.getRelativeFilePath());
@@ -275,24 +272,24 @@ public class Software {
                         continue fileloop;
                     }
 
-                } else {
-                    File zippedFileInRomPath 
-                        = new File(romPath.getAbsolutePath()
-                            + File.separator
-                            + sf.getRelativeFilePathWithoutExtension()
-                            + ".zip");                                                         
+                //} else {
+                    //File zippedFileInRomPath 
+                        //= new File(romPath.getAbsolutePath()
+                            //+ File.separator
+                            //+ sf.getRelativeFilePathWithoutExtension()
+                            //+ ".zip");                                                         
 
-                    File sevenZippedFileInRomPath 
-                        = new File(romPath.getAbsolutePath()
-                            + File.separator
-                            + sf.getRelativeFilePathWithoutExtension()
-                            + ".7z");
+                    //File sevenZippedFileInRomPath 
+                        //= new File(romPath.getAbsolutePath()
+                            //+ File.separator
+                            //+ sf.getRelativeFilePathWithoutExtension()
+                            //+ ".7z");
                     
-                    if (zippedFileInRomPath.exists() 
-                            || sevenZippedFileInRomPath.exists()) {
-                        continue fileloop;                    
-                    }
-                }
+                    //if (zippedFileInRomPath.exists() 
+                            //|| sevenZippedFileInRomPath.exists()) {
+                        //continue fileloop;                    
+                    //}
+                //}
 
             }
 
