@@ -1,6 +1,7 @@
 package org.tibennetwork.iamame.mame;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
@@ -108,7 +109,7 @@ public class TestSoftware {
     }
 
     @Test
-    public void testGetMissingFilesWithFullRomPath () 
+    public void testGetMissingChdFilesWithFullRomPath () 
             throws FileNotFoundException,
                 IOException,
                 InterruptedException,
@@ -149,87 +150,160 @@ public class TestSoftware {
             
     }
 
-    //@Test
-    //public void testGetMissingRomsFilesWithZipFilesRomPath ()
-            //throws FileNotFoundException,
-                //IOException,
-                //InterruptedException,
-                //MachineDoesntExistException,
-                //MachineHasNoSoftwareListException,
-                //SoftwareNotFoundInSoftwareListsException {
+    @Test
+    public void testGetMissingRomFileWithEmptyRomPath ()
+            throws FileNotFoundException,
+                IOException,
+                InterruptedException,
+                MachineDoesntExistException,
+                MachineHasNoSoftwareListException,
+                SoftwareNotFoundInSoftwareListsException {
 
-        //FakeMameRuntime mame = new FakeMameRuntime();
+        FakeMameRuntime mame = new FakeMameRuntime();
         
-        //List<InputStream> inputStreams = new ArrayList<>();
+        List<InputStream> inputStreams = new ArrayList<>();
 
-        //// Add SMS Machine XML metadata
-        //inputStreams.add(
-                //new FileInputStream("src/test/resources/xml/sms.xml"));
+        // Add SMS Machine XML metadata
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/sms.xml"));
 
-        //// Add SMS XML softwarelist
-        //inputStreams.add(
-                //new FileInputStream("src/test/resources/xml/sms-sl.xml"));
+        // Add SMS XML softwarelist
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/sms-sl.xml"));
         
-        //mame.setInputStreamsToReturn(inputStreams);
+        mame.setInputStreamsToReturn(inputStreams);
 
-        //MachineRepository mr = new MachineRepository(mame);
+        MachineRepository mr = new MachineRepository(mame);
 
-        //Machine m = mr.findByName("sms");
+        Machine m = mr.findByName("sms");
 
-        //SoftwareRepository sr = new SoftwareRepository(mame);
+        SoftwareRepository sr = new SoftwareRepository(mame);
 
-        //Software s = sr.findByMachineAndByName(m, "columns");
+        Software s = sr.findByMachineAndByName(m, "columns");
 
-        //Set<File> romPaths = new HashSet<>();
-        //romPaths.add(new File("src/test/resources/full-rompath"));
+        Set<File> romPaths = new HashSet<>();
+        romPaths.add(new File("src/test/resources/empty-rompath"));
 
-        //Set<SoftwareFile> missingFiles = s.getMissingFiles(romPaths);
+        SoftwareFile missingRomFile = s.getMissingRomFile(romPaths);
 
-        //Set<SoftwareFile> expectedMissingFiles = new HashSet<>();
+        SoftwareFile expectedMissingRomFile 
+            = new SoftwareFile("sms/columns", false);
 
-        //assertThat(missingFiles, equalTo(expectedMissingFiles));
+        assertThat(missingRomFile, equalTo(expectedMissingRomFile));
 
-    //}
+    }
 
-    //@Test
-    //public void testGetMissingRomsFilesWith7ZipFilesRomPath ()
-            //throws FileNotFoundException,
-                //IOException,
-                //InterruptedException,
-                //MachineDoesntExistException,
-                //MachineHasNoSoftwareListException,
-                //SoftwareNotFoundInSoftwareListsException {
+    @Test
+    public void testGetMissingRomFileWithFullRomPath ()
+            throws FileNotFoundException,
+                IOException,
+                InterruptedException,
+                MachineDoesntExistException,
+                MachineHasNoSoftwareListException,
+                SoftwareNotFoundInSoftwareListsException {
 
-        //FakeMameRuntime mame = new FakeMameRuntime();
+        FakeMameRuntime mame = new FakeMameRuntime();
         
-        //List<InputStream> inputStreams = new ArrayList<>();
+        List<InputStream> inputStreams = new ArrayList<>();
 
-        //// Add SMS Machine XML metadata
-        //inputStreams.add(
-                //new FileInputStream("src/test/resources/xml/sms.xml"));
+        // Add SMS Machine XML metadata
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/sms.xml"));
 
-        //// Add SMS XML softwarelist
-        //inputStreams.add(
-                //new FileInputStream("src/test/resources/xml/sms-sl.xml"));
+        // Add SMS XML softwarelist
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/sms-sl.xml"));
         
-        //mame.setInputStreamsToReturn(inputStreams);
+        mame.setInputStreamsToReturn(inputStreams);
 
-        //MachineRepository mr = new MachineRepository(mame);
+        MachineRepository mr = new MachineRepository(mame);
 
-        //Machine m = mr.findByName("sms");
+        Machine m = mr.findByName("sms");
 
-        //SoftwareRepository sr = new SoftwareRepository(mame);
+        SoftwareRepository sr = new SoftwareRepository(mame);
 
-        //Software s = sr.findByMachineAndByName(m, "columns");
+        Software s = sr.findByMachineAndByName(m, "columns");
 
-        //Set<File> romPaths = new HashSet<>();
-        //romPaths.add(new File("src/test/resources/7z-rompath"));
+        Set<File> romPaths = new HashSet<>();
+        romPaths.add(new File("src/test/resources/full-rompath"));
 
-        //Set<SoftwareFile> missingFiles = s.getMissingFiles(romPaths);
+        assertNull(s.getMissingRomFile(romPaths));
 
-        //Set<SoftwareFile> expectedMissingFiles = new HashSet<>();
+    }
 
-        //assertThat(missingFiles, equalTo(expectedMissingFiles));
+    @Test
+    public void testGetMissingRomFileWith7zRomPath ()
+            throws FileNotFoundException,
+                IOException,
+                InterruptedException,
+                MachineDoesntExistException,
+                MachineHasNoSoftwareListException,
+                SoftwareNotFoundInSoftwareListsException {
 
-    //}
+        FakeMameRuntime mame = new FakeMameRuntime();
+        
+        List<InputStream> inputStreams = new ArrayList<>();
+
+        // Add SMS Machine XML metadata
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/sms.xml"));
+
+        // Add SMS XML softwarelist
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/sms-sl.xml"));
+        
+        mame.setInputStreamsToReturn(inputStreams);
+
+        MachineRepository mr = new MachineRepository(mame);
+
+        Machine m = mr.findByName("sms");
+
+        SoftwareRepository sr = new SoftwareRepository(mame);
+
+        Software s = sr.findByMachineAndByName(m, "columns");
+
+        Set<File> romPaths = new HashSet<>();
+        romPaths.add(new File("src/test/resources/7z-rompath"));
+
+        assertNull(s.getMissingRomFile(romPaths));
+
+    }
+
+    @Test
+    public void testGetMissingRomFileOnChdFilesSystemShouldReturnNull () 
+            throws FileNotFoundException,
+                IOException,
+                InterruptedException,
+                MachineDoesntExistException,
+                MachineHasNoSoftwareListException,
+                SoftwareNotFoundInSoftwareListsException {
+
+        FakeMameRuntime mame = new FakeMameRuntime();
+        
+        List<InputStream> inputStreams = new ArrayList<>();
+
+        // Add SegaCD Machine XML metadata
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/segacd.xml"));
+
+        // Add SMS XML softwarelist
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/segacd-sl.xml"));
+        
+        mame.setInputStreamsToReturn(inputStreams);
+
+        MachineRepository mr = new MachineRepository(mame);
+
+        Machine m = mr.findByName("segacd");
+
+        SoftwareRepository sr = new SoftwareRepository(mame);
+
+        Software s = sr.findByMachineAndByName(m, "slamcity");
+
+        Set<File> romPaths = new HashSet<>();
+        romPaths.add(new File("src/test/resources/full-rompath"));
+
+        assertNull(s.getMissingRomFile(romPaths));
+            
+    }
 }

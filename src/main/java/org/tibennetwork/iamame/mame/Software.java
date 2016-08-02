@@ -300,4 +300,64 @@ public class Software {
         return missingFiles;
 
     }
+
+    /**
+     * Generate and return needed rom file to
+     * run this software.
+     *
+     * If the software contains any chd files of cd-rom type, 
+     * then it should not contain any rom file
+     */
+    private SoftwareFile getNeededRomFile () {
+
+        // Search for CD-ROM items on the software parts.
+        // If that is the case, return null
+        for (Part p: this.parts) {
+            if (p.getName().matches("^cdrom[0-9]+$")) {
+                return null;
+            }
+        }
+
+        String romFileName = this.softwareList.getName()
+            + File.separator
+            + this.name;
+
+        return new SoftwareFile(romFileName, false);
+
+    }
+
+    /**
+     * Determine missing rom file on the given rom path
+     */
+    public SoftwareFile getMissingRomFile (Set<File> romPaths) {
+
+        SoftwareFile sf = this.getNeededRomFile();
+
+        if (sf == null) {
+            return null;
+        }
+            
+        for (File romPath: romPaths) {
+            
+            File zippedFileInRomPath 
+                = new File(romPath.getAbsolutePath()
+                    + File.separator
+                    + sf.getRelativeFilePathWithoutExtension()
+                    + ".zip");                                                         
+
+            File sevenZippedFileInRomPath 
+                = new File(romPath.getAbsolutePath()
+                    + File.separator
+                    + sf.getRelativeFilePathWithoutExtension()
+                    + ".7z");
+
+            if (zippedFileInRomPath.exists() 
+                    || sevenZippedFileInRomPath.exists()) {
+                return null;
+            }
+        }
+
+        return sf;
+
+    }
 }
