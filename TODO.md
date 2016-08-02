@@ -22,6 +22,7 @@ Features/Improvements
 -   Add some kind of communication channel for frontends to read the
     download progress and activity data.
 -   [WIP] Handle software having many cd-rom/chd parts
+-   Add Mame0162 as recommended version and explain why.
 
 Bugs/Checks
 -----------
