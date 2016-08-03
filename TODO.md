@@ -36,3 +36,4 @@ Bugs/Checks
     underlying Mame execution to display suggestions.
 -   Check the 32/64bits compatibility on Windows (see reddit post:
     https://www.reddit.com/r/emulation/comments/4tkrqb/iamame_07_released/)
+-   Download chd from a 404 doesn't throw any exceptions
