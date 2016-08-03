@@ -23,6 +23,7 @@ Features/Improvements
     download progress and activity data.
 -   [WIP] Handle software having many cd-rom/chd parts
 -   Add Mame0162 as recommended version and explain why.
+-   Implements Collections 3DO, MacHDD,VsmileCD
 
 Bugs/Checks
 -----------
