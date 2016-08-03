@@ -160,20 +160,20 @@ public class Software {
      * Determines whether the files of this software 
      * are available on the given romPath
      */
-    public boolean isAvailable (Set<File> romsPaths) {
+    //public boolean isAvailable (Set<File> romsPaths) {
     
-        String rfp = this.getRelativeFilePath();
+        //String rfp = this.getRelativeFilePath();
 
-        for (File rp: romsPaths) {
-            File softwareFile = new File(rp + File.separator + rfp);
-            if(softwareFile.exists()) {
-                return true;
-            }
-        }
+        //for (File rp: romsPaths) {
+            //File softwareFile = new File(rp + File.separator + rfp);
+            //if(softwareFile.exists()) {
+                //return true;
+            //}
+        //}
 
-        return false;
+        //return false;
 
-    }
+    //}
     
     public String toString() {
         return this.isRegularFile() 
@@ -191,32 +191,6 @@ public class Software {
     }
 
     /**
-     * Return the partial file path relative to the rompath.
-     */
-    public String getRelativeFilePath() {
-
-        // Its a CDROM ? so its a CHD
-        if (this.parts.get(0).getName().equals("cdrom")) {
-            return this.softwareList.getName() 
-                + File.separator
-                + this.name
-                + File.separator
-                + this.getChdName()
-                + ".chd";
-        } else {
-            return this.softwareList.getName() 
-                + File.separator
-                + this.name
-                + ".zip";
-        }
-
-    }
-
-    public String getChdName () {
-        return this.parts.get(0).getDiskarea().getDisk().getName();
-    }
-
-    /**
      * Generate and return a Set of needed files to
      * run this software
      */
@@ -227,7 +201,7 @@ public class Software {
         // Search for CD-ROM items on the software parts.
         // Theses media types are stored on chd files.
         for (Part p: this.parts) {
-            if (p.getName().matches("^cdrom[0-9]+$")) {
+            if (p.getName().matches("^cdrom[0-9]*$")) {
                 String chdFileName = this.softwareList.getName()
                     + File.separator
                     + this.name
@@ -237,17 +211,6 @@ public class Software {
             }
             
         }
-
-        // Declare the software media(s) file in zip format.
-        // For a Software, chd or zip files seems to be exclusive 
-        // (ie: if there is CHD files on the parts of the software, 
-        // there is no zip files associated.)
-        //if (!isChdFormat) {
-            //String romFileName = this.softwareList.getName()
-                //+ File.separator
-                //+ this.name;
-            //neededFiles.add(new SoftwareFile(romFileName, false));
-        //}
 
         return neededFiles;
 
@@ -264,32 +227,12 @@ public class Software {
             
             for (File romPath: romPaths) {
 
-                //if (sf.isChdFile()) {
-                    File chdFileInRomPath = new File(romPath.getAbsolutePath()
-                        + File.separator
-                        + sf.getRelativeFilePath());
-                    if (chdFileInRomPath.exists()) {
-                        continue fileloop;
-                    }
-
-                //} else {
-                    //File zippedFileInRomPath 
-                        //= new File(romPath.getAbsolutePath()
-                            //+ File.separator
-                            //+ sf.getRelativeFilePathWithoutExtension()
-                            //+ ".zip");                                                         
-
-                    //File sevenZippedFileInRomPath 
-                        //= new File(romPath.getAbsolutePath()
-                            //+ File.separator
-                            //+ sf.getRelativeFilePathWithoutExtension()
-                            //+ ".7z");
-                    
-                    //if (zippedFileInRomPath.exists() 
-                            //|| sevenZippedFileInRomPath.exists()) {
-                        //continue fileloop;                    
-                    //}
-                //}
+                File chdFileInRomPath = new File(romPath.getAbsolutePath()
+                    + File.separator
+                    + sf.getRelativeFilePath());
+                if (chdFileInRomPath.exists()) {
+                    continue fileloop;
+                }
 
             }
 
@@ -360,4 +303,14 @@ public class Software {
         return sf;
 
     }
+
+    /**
+     * Determines if some files are missing on the given set of 
+     * romspaths to launch this software
+     */
+    public boolean areFilesAvailable (Set<File> romPaths) {
+        return this.getMissingRomFile(romPaths) == null
+            && this.getMissingChdFiles(romPaths) == null;
+    }
+
 }

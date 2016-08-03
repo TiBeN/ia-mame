@@ -13,16 +13,10 @@ Features/Improvements
 -   Do support of news command line switchs since Groovymame merged with
     mame
 -   Support for torrents sources as up-to-date provider
--   [STOPPED] Add support for 7z compressed files when scanning for rom files 
-    on the rompath. 
-    -   *Implemented for Mame roms but need to be implemented for 
-        softwarelist too.*
 -   Check if possible to support olds collection source from archive.org:
     https://archive.org/details/MAME0.78-MAME2003-ROMs-CHDs-Samples
 -   Add some kind of communication channel for frontends to read the
     download progress and activity data.
--   [WIP] Handle software having many cd-rom/chd parts
--   Add Mame0162 as recommended version and explain why.
 -   Implements Collections 3DO, MacHDD,VsmileCD
 
 Bugs/Checks

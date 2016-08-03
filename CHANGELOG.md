@@ -4,8 +4,8 @@ CHANGELOG
 Current
 -------
 
--   7z support partially implemented (Mame roms/bios only, not softwarelist 
-    softwares)
+-   Handle software having many cd-rom/chd parts
+-   7z support implemented
 
 0.7
 ---

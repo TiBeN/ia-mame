@@ -4,12 +4,13 @@ import java.io.File;
 import java.util.Set;
 
 import org.tibennetwork.iamame.mame.Software;
+import org.tibennetwork.iamame.mame.SoftwareFile;
 
 public class MessSoftwareListRoms extends SoftwareListCollectionItem {
 
     private String softwareFileUrlPattern 
         = "http://archive.org/download/MESS_0.151_Software_List_ROMs/" 
-            + "%1$s.zip/MESS 0.151 Software List ROMs/%1$s/%2$s.zip";
+            + "%1$s.zip/MESS 0.151 Software List ROMs/%1$s/%2$s";
 
     public MessSoftwareListRoms (Set<File> romsPaths, File writableRomPath) {
         super(romsPaths, writableRomPath);
@@ -18,17 +19,20 @@ public class MessSoftwareListRoms extends SoftwareListCollectionItem {
     public void download (Software software) 
             throws FileNotFoundInCollectionItem {
         
-        String softwareListName = software.getSoftwareList().getName();
-        String softwareName = software.getName();
+        SoftwareFile sf = software.getMissingRomFile(romsPaths);
+
+        if (sf == null) {
+            return;
+        }
 
         String softwareFileUrl = String.format(
             this.softwareFileUrlPattern,
-            softwareListName,
-            softwareName);
+            software.getMachine().getName(),
+            sf.getName());
 
         String destinationPath = this.writableRomPath.getAbsolutePath()
             + File.separator
-            + software.getRelativeFilePath();
+            + sf.getRelativeFilePath();
 
         this.downloadFile(softwareFileUrl, destinationPath);
 

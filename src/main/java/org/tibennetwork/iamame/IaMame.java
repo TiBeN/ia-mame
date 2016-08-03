@@ -211,7 +211,7 @@ public class IaMame
 
                 for (Software s: softwares) {
                     if (!s.isRegularFile()
-                           && !s.isAvailable(mame.getRomsPaths())) {
+                           && !s.areFilesAvailable(mame.getRomsPaths())) {
 
                         IaMame.info(String.format(
                             "Download missing software file: %s",

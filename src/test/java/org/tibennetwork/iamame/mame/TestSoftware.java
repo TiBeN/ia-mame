@@ -65,6 +65,49 @@ public class TestSoftware {
     }
 
     @Test
+    public void testGetMissingChdFileForSoftwareNeedingOnlyOneChdWithEmptyRomPath () 
+            throws FileNotFoundException,
+                IOException,
+                InterruptedException,
+                MachineDoesntExistException,
+                MachineHasNoSoftwareListException,
+                SoftwareNotFoundInSoftwareListsException {
+
+        FakeMameRuntime mame = new FakeMameRuntime();
+        
+        List<InputStream> inputStreams = new ArrayList<>();
+
+        // Add SegaCD Machine XML metadata
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/segacd.xml"));
+
+        // Add SMS XML softwarelist
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/segacd-sl.xml"));
+        
+        mame.setInputStreamsToReturn(inputStreams);
+
+        MachineRepository mr = new MachineRepository(mame);
+
+        Machine m = mr.findByName("segacd");
+
+        SoftwareRepository sr = new SoftwareRepository(mame);
+
+        Software s = sr.findByMachineAndByName(m, "silpheed");
+
+        Set<File> romPaths = new HashSet<>();
+        romPaths.add(new File("src/test/resources/empty-rompath"));
+
+        Set<SoftwareFile> missingChdFiles = s.getMissingChdFiles(romPaths);
+
+        Set<SoftwareFile> expectedMissingChdFiles = new HashSet<>();
+        expectedMissingChdFiles.add(new SoftwareFile("segacd/silpheed/silpheed (usa)", true));
+
+        assertThat(missingChdFiles, equalTo(expectedMissingChdFiles));
+            
+    }
+
+    @Test
     public void testGetMissingChdFilesWithMissingPartsRomPath () 
             throws FileNotFoundException,
                 IOException,

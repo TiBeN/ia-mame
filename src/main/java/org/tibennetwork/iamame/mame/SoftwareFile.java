@@ -1,5 +1,7 @@
 package org.tibennetwork.iamame.mame;
 
+import java.io.File;
+
 /**
  * Model a file needed by a Software from softwarelist
  * rom file needed by a system (zip or chd)
@@ -33,6 +35,10 @@ public class SoftwareFile {
     public String getRelativeFilePath () {
         return this.relativeFilePathWithoutExtension
             + (isChdFile ? ".chd" : ".zip");
+    }
+
+    public String getName () {
+        return new File(this.getRelativeFilePath()).getName();    
     }
 
     public String toString() {
