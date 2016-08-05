@@ -22,8 +22,8 @@ Features/Improvements
 Bugs/Checks
 -----------
 
--   ia-mame does not find the Machine data on the XML using Mame < 0.16[2|1] 
-    because "machine" tag was previously named "game".
+-   [WIP] ia-mame does not find the Machine data on the XML using 
+    Mame < 0.16[2|1] because "machine" tag was previously named "game".
 -   File length for Mame roms is not fetched at all
 -   Do more tests with differents version of Mame to be more precise on the
     README about Mame version support.
