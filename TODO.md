@@ -30,3 +30,6 @@ Bugs/Checks
 -   Check the 32/64bits compatibility on Windows (see reddit post:
     https://www.reddit.com/r/emulation/comments/4tkrqb/iamame_07_released/)
 -   Download chd from a 404 doesn't throw any exceptions
+-   Malformed XML "JAXB error". Mame or IaMame fault? can be reproduced
+    with softwarelist of system "pippin" with Mame 0.162 . In any case, 
+    better handle the error (avoid stack trace)
