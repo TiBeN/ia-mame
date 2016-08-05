@@ -27,7 +27,7 @@ Bugs/Checks
 -   File length for Mame roms is not fetched at all
 -   Do more tests with differents version of Mame to be more precise on the
     README about Mame version support.
--   A wrong machine name given on command line must not break the
+-   [WIP] A wrong machine name given on command line must not break the
     underlying Mame execution to display suggestions.
 -   Check the 32/64bits compatibility on Windows (see reddit post:
     https://www.reddit.com/r/emulation/comments/4tkrqb/iamame_07_released/)
