@@ -17,97 +17,6 @@ import org.junit.Test;
 
 public class TestMachine {
 
-    @Test
-    public void testGetNeededRomsFilesWithMachineNeedingOnlyOneFile ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
-        
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
-
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/altbeast.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
-
-        MachineRepository mr = new MachineRepository(mame);
-
-        Machine m = mr.findByName("altbeast");
-
-        Set<String> neededFiles = m.getNeededRomFiles();
-
-        Set<String> expectedNeededFiles = new HashSet<>();
-        expectedNeededFiles.add("altbeast");
-
-        assertThat(neededFiles, equalTo(expectedNeededFiles));
-
-    }
-
-    @Test
-    public void testGetNeededRomsFilesWithMachineNeedingManyFiles ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
-
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
-
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neomrdo.xml"));
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neogeo.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
-
-        MachineRepository mr = new MachineRepository(mame);
-
-        Machine m = mr.findByName("neomrdo");
-
-        Set<String> neededFiles = m.getNeededRomFiles();
-
-        Set<String> expectedNeededFiles = new HashSet<>();
-        expectedNeededFiles.add("neogeo");
-        expectedNeededFiles.add("neomrdo");
-
-        assertThat(neededFiles, equalTo(expectedNeededFiles));
-    
-    }
-
-    @Test
-    public void testGetNeededRomsFilesWithMachineHavingSubMachinesNeedingRoms ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
-        
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
-
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/punisher.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
-
-        MachineRepository mr = new MachineRepository(mame);
-
-        Machine m = mr.findByName("punisher");
-
-        Set<String> neededFiles = m.getNeededRomFiles();
-
-        Set<String> expectedNeededFiles = new HashSet<>();
-        expectedNeededFiles.add("punisher");
-        expectedNeededFiles.add("qsound");
-
-        assertThat(neededFiles, equalTo(expectedNeededFiles));
-
-    }
-
     @Test 
     public void testGetMissingRomsFilesWithEmptyRomPath () 
             throws FileNotFoundException,
@@ -208,36 +117,36 @@ public class TestMachine {
         assertThat(missingFiles, equalTo(expectedMissingFiles));
     }
 
-    @Test
-    public void testGetNeededChdsFiles ()
+    @Test 
+    public void testGetMissingRomsFilesWith7ZipFilesRomPath ()
             throws FileNotFoundException,
                 IOException,
                 InterruptedException,
                 MachineDoesntExistException {
-        
+
         FakeMameRuntime mame = new FakeMameRuntime();
         
         List<InputStream> inputStreams = new ArrayList<>();
 
         inputStreams.add(
-                new FileInputStream("src/test/resources/xml/drmn10m.xml"));
+                new FileInputStream("src/test/resources/xml/neomrdo.xml"));
         inputStreams.add(
-                new FileInputStream("src/test/resources/xml/sys573.xml"));
+                new FileInputStream("src/test/resources/xml/neogeo.xml"));
         
         mame.setInputStreamsToReturn(inputStreams);
 
         MachineRepository mr = new MachineRepository(mame);
 
-        Machine m = mr.findByName("drmn10m");
+        Machine m = mr.findByName("neomrdo");
 
-        Set<String> neededFiles = m.getNeededChdFiles();
+        Set<File> romPaths = new HashSet<>();
+        romPaths.add(new File("src/test/resources/7z-rompath"));
 
-        Set<String> expectedNeededFiles = new HashSet<>();
-        expectedNeededFiles.add("d40jaa02");
-        expectedNeededFiles.add("d40jba02");
+        Set<String> missingFiles = m.getMissingRomFiles(romPaths);
 
-        assertThat(neededFiles, equalTo(expectedNeededFiles));
+        Set<String> expectedMissingFiles = new HashSet<>();
 
+        assertThat(missingFiles, equalTo(expectedMissingFiles));
     }
 
     @Test 

@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+Current
+-------
+
+-   Handle software having many cd-rom/chd parts
+-   7z support implemented
+
 0.7
 ---
 

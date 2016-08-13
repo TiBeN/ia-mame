@@ -1,0 +1,362 @@
+<?xml version="1.0"?>
+<!DOCTYPE mame [
+<!ELEMENT mame (machine+)>
+	<!ATTLIST mame build CDATA #IMPLIED>
+	<!ATTLIST mame debug (yes|no) "no">
+	<!ATTLIST mame mameconfig CDATA #REQUIRED>
+	<!ELEMENT machine (description, year?, manufacturer?, biosset*, rom*, disk*, device_ref*, sample*, chip*, display*, sound?, input?, dipswitch*, configuration*, port*, adjuster*, driver?, device*, slot*, softwarelist*, ramoption*)>
+		<!ATTLIST machine name CDATA #REQUIRED>
+		<!ATTLIST machine sourcefile CDATA #IMPLIED>
+		<!ATTLIST machine isbios (yes|no) "no">
+		<!ATTLIST machine isdevice (yes|no) "no">
+		<!ATTLIST machine ismechanical (yes|no) "no">
+		<!ATTLIST machine runnable (yes|no) "yes">
+		<!ATTLIST machine cloneof CDATA #IMPLIED>
+		<!ATTLIST machine romof CDATA #IMPLIED>
+		<!ATTLIST machine sampleof CDATA #IMPLIED>
+		<!ELEMENT description (#PCDATA)>
+		<!ELEMENT year (#PCDATA)>
+		<!ELEMENT manufacturer (#PCDATA)>
+		<!ELEMENT biosset EMPTY>
+			<!ATTLIST biosset name CDATA #REQUIRED>
+			<!ATTLIST biosset description CDATA #REQUIRED>
+			<!ATTLIST biosset default (yes|no) "no">
+		<!ELEMENT rom EMPTY>
+			<!ATTLIST rom name CDATA #REQUIRED>
+			<!ATTLIST rom bios CDATA #IMPLIED>
+			<!ATTLIST rom size CDATA #REQUIRED>
+			<!ATTLIST rom crc CDATA #IMPLIED>
+			<!ATTLIST rom sha1 CDATA #IMPLIED>
+			<!ATTLIST rom merge CDATA #IMPLIED>
+			<!ATTLIST rom region CDATA #IMPLIED>
+			<!ATTLIST rom offset CDATA #IMPLIED>
+			<!ATTLIST rom status (baddump|nodump|good) "good">
+			<!ATTLIST rom optional (yes|no) "no">
+		<!ELEMENT disk EMPTY>
+			<!ATTLIST disk name CDATA #REQUIRED>
+			<!ATTLIST disk sha1 CDATA #IMPLIED>
+			<!ATTLIST disk merge CDATA #IMPLIED>
+			<!ATTLIST disk region CDATA #IMPLIED>
+			<!ATTLIST disk index CDATA #IMPLIED>
+			<!ATTLIST disk writable (yes|no) "no">
+			<!ATTLIST disk status (baddump|nodump|good) "good">
+			<!ATTLIST disk optional (yes|no) "no">
+		<!ELEMENT device_ref EMPTY>
+			<!ATTLIST device_ref name CDATA #REQUIRED>
+		<!ELEMENT sample EMPTY>
+			<!ATTLIST sample name CDATA #REQUIRED>
+		<!ELEMENT chip EMPTY>
+			<!ATTLIST chip name CDATA #REQUIRED>
+			<!ATTLIST chip tag CDATA #IMPLIED>
+			<!ATTLIST chip type (cpu|audio) #REQUIRED>
+			<!ATTLIST chip clock CDATA #IMPLIED>
+		<!ELEMENT display EMPTY>
+			<!ATTLIST display tag CDATA #IMPLIED>
+			<!ATTLIST display type (raster|vector|lcd|unknown) #REQUIRED>
+			<!ATTLIST display rotate (0|90|180|270) #REQUIRED>
+			<!ATTLIST display flipx (yes|no) "no">
+			<!ATTLIST display width CDATA #IMPLIED>
+			<!ATTLIST display height CDATA #IMPLIED>
+			<!ATTLIST display refresh CDATA #REQUIRED>
+			<!ATTLIST display pixclock CDATA #IMPLIED>
+			<!ATTLIST display htotal CDATA #IMPLIED>
+			<!ATTLIST display hbend CDATA #IMPLIED>
+			<!ATTLIST display hbstart CDATA #IMPLIED>
+			<!ATTLIST display vtotal CDATA #IMPLIED>
+			<!ATTLIST display vbend CDATA #IMPLIED>
+			<!ATTLIST display vbstart CDATA #IMPLIED>
+		<!ELEMENT sound EMPTY>
+			<!ATTLIST sound channels CDATA #REQUIRED>
+		<!ELEMENT input (control*)>
+			<!ATTLIST input service (yes|no) "no">
+			<!ATTLIST input tilt (yes|no) "no">
+			<!ATTLIST input players CDATA #REQUIRED>
+			<!ATTLIST input buttons CDATA #IMPLIED>
+			<!ATTLIST input coins CDATA #IMPLIED>
+			<!ELEMENT control EMPTY>
+				<!ATTLIST control type CDATA #REQUIRED>
+				<!ATTLIST control minimum CDATA #IMPLIED>
+				<!ATTLIST control maximum CDATA #IMPLIED>
+				<!ATTLIST control sensitivity CDATA #IMPLIED>
+				<!ATTLIST control keydelta CDATA #IMPLIED>
+				<!ATTLIST control reverse (yes|no) "no">
+				<!ATTLIST control ways CDATA #IMPLIED>
+				<!ATTLIST control ways2 CDATA #IMPLIED>
+				<!ATTLIST control ways3 CDATA #IMPLIED>
+		<!ELEMENT dipswitch (dipvalue*)>
+			<!ATTLIST dipswitch name CDATA #REQUIRED>
+			<!ATTLIST dipswitch tag CDATA #REQUIRED>
+			<!ATTLIST dipswitch mask CDATA #REQUIRED>
+			<!ELEMENT dipvalue EMPTY>
+				<!ATTLIST dipvalue name CDATA #REQUIRED>
+				<!ATTLIST dipvalue value CDATA #REQUIRED>
+				<!ATTLIST dipvalue default (yes|no) "no">
+		<!ELEMENT configuration (confsetting*)>
+			<!ATTLIST configuration name CDATA #REQUIRED>
+			<!ATTLIST configuration tag CDATA #REQUIRED>
+			<!ATTLIST configuration mask CDATA #REQUIRED>
+			<!ELEMENT confsetting EMPTY>
+				<!ATTLIST confsetting name CDATA #REQUIRED>
+				<!ATTLIST confsetting value CDATA #REQUIRED>
+				<!ATTLIST confsetting default (yes|no) "no">
+		<!ELEMENT port (analog*)>
+			<!ATTLIST port tag CDATA #REQUIRED>
+			<!ELEMENT analog EMPTY>
+				<!ATTLIST analog mask CDATA #REQUIRED>
+		<!ELEMENT adjuster EMPTY>
+			<!ATTLIST adjuster name CDATA #REQUIRED>
+			<!ATTLIST adjuster default CDATA #REQUIRED>
+		<!ELEMENT driver EMPTY>
+			<!ATTLIST driver status (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver emulation (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver color (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver sound (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver graphic (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver cocktail (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver protection (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver savestate (supported|unsupported) #REQUIRED>
+		<!ELEMENT device (instance*, extension*)>
+			<!ATTLIST device type CDATA #REQUIRED>
+			<!ATTLIST device tag CDATA #IMPLIED>
+			<!ATTLIST device mandatory CDATA #IMPLIED>
+			<!ATTLIST device interface CDATA #IMPLIED>
+			<!ELEMENT instance EMPTY>
+				<!ATTLIST instance name CDATA #REQUIRED>
+				<!ATTLIST instance briefname CDATA #REQUIRED>
+			<!ELEMENT extension EMPTY>
+				<!ATTLIST extension name CDATA #REQUIRED>
+		<!ELEMENT slot (slotoption*)>
+			<!ATTLIST slot name CDATA #REQUIRED>
+			<!ELEMENT slotoption EMPTY>
+				<!ATTLIST slotoption name CDATA #REQUIRED>
+				<!ATTLIST slotoption devname CDATA #REQUIRED>
+				<!ATTLIST slotoption default (yes|no) "no">
+		<!ELEMENT softwarelist EMPTY>
+			<!ATTLIST softwarelist name CDATA #REQUIRED>
+			<!ATTLIST softwarelist status (original|compatible) #REQUIRED>
+			<!ATTLIST softwarelist filter CDATA #IMPLIED>
+		<!ELEMENT ramoption (#PCDATA)>
+			<!ATTLIST ramoption default CDATA #IMPLIED>
+]>
+
+<mame build="0.170 (Jun 16 2016)" debug="no" mameconfig="10">
+	<machine name="sms" sourcefile="sms.cpp">
+		<description>Master System II</description>
+		<year>1990</year>
+		<manufacturer>Sega</manufacturer>
+		<biosset name="alexkidd" description="US/European BIOS with Alex Kidd in Miracle World (1990)" default="yes"/>
+		<rom name="mpr-12808.ic2" bios="alexkidd" size="131072" crc="cf4a09ea" sha1="3af7b66248d34eb26da40c92bf2fa4c73a46a051" region="user1" offset="0"/>
+		<device_ref name="z80"/>
+		<device_ref name="speaker"/>
+		<device_ref name="segapsg"/>
+		<device_ref name="sega8_cart_slot"/>
+		<device_ref name="software_list"/>
+		<device_ref name="sms_control_port"/>
+		<device_ref name="sms_joypad"/>
+		<device_ref name="sms_control_port"/>
+		<device_ref name="sms_joypad"/>
+		<device_ref name="screen"/>
+		<device_ref name="sega315_5246"/>
+		<device_ref name="palette"/>
+		<chip type="cpu" tag="maincpu" name="Z80" clock="3579545"/>
+		<chip type="audio" tag="mono" name="Speaker"/>
+		<chip type="audio" tag="segapsg" name="SEGA VDP PSG" clock="3579545"/>
+		<display tag="screen" type="raster" rotate="0" width="268" height="224" refresh="59.922743" pixclock="5369317" htotal="342" hbend="44" hbstart="312" vtotal="262" vbend="27" vbstart="251" />
+		<sound channels="1"/>
+		<input players="1" buttons="2">
+			<control type="joy" ways="8"/>
+		</input>
+		<port tag=":PAUSE">
+		</port>
+		<port tag=":ctrl1:joypad:JOYPAD">
+		</port>
+		<port tag=":ctrl2:joypad:JOYPAD">
+		</port>
+		<driver status="good" emulation="good" color="good" sound="good" graphic="good" savestate="supported"/>
+		<device type="cartridge" tag="slot" interface="sms_cart">
+			<instance name="cartridge" briefname="cart"/>
+			<extension name="bin"/>
+			<extension name="sms"/>
+		</device>
+		<slot name="slot">
+		</slot>
+		<slot name="ctrl1">
+			<slotoption name="joypad" devname="sms_joypad" default="yes"/>
+			<slotoption name="lphaser" devname="sms_light_phaser"/>
+			<slotoption name="paddle" devname="sms_paddle"/>
+			<slotoption name="sportspad" devname="sms_sports_pad"/>
+			<slotoption name="sportspadjp" devname="sms_sports_pad_jp"/>
+			<slotoption name="rapidfire" devname="sms_rapid_fire"/>
+			<slotoption name="multitap" devname="sms_multitap"/>
+			<slotoption name="graphic" devname="sms_graphic"/>
+		</slot>
+		<slot name="ctrl2">
+			<slotoption name="joypad" devname="sms_joypad" default="yes"/>
+			<slotoption name="lphaser" devname="sms_light_phaser"/>
+			<slotoption name="paddle" devname="sms_paddle"/>
+			<slotoption name="sportspad" devname="sms_sports_pad"/>
+			<slotoption name="sportspadjp" devname="sms_sports_pad_jp"/>
+			<slotoption name="rapidfire" devname="sms_rapid_fire"/>
+			<slotoption name="multitap" devname="sms_multitap"/>
+			<slotoption name="graphic" devname="sms_graphic"/>
+		</slot>
+		<softwarelist name="sms" status="original" />
+	</machine>
+	<machine name="z80" sourcefile="src/devices/cpu/z80/z80.cpp" isdevice="yes" runnable="no">
+		<description>Z80</description>
+	</machine>
+	<machine name="speaker" sourcefile="src/emu/speaker.cpp" isdevice="yes" runnable="no">
+		<description>Speaker</description>
+		<sound channels="1"/>
+	</machine>
+	<machine name="segapsg" sourcefile="src/devices/sound/sn76496.cpp" isdevice="yes" runnable="no">
+		<description>SEGA VDP PSG</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="sega8_cart_slot" sourcefile="src/devices/bus/sega8/sega8_slot.cpp" isdevice="yes" runnable="no">
+		<description>Sega Master System / Game Gear / SG1000 Cartridge Slot</description>
+	</machine>
+	<machine name="software_list" sourcefile="src/emu/softlist.cpp" isdevice="yes" runnable="no">
+		<description>Software list</description>
+	</machine>
+	<machine name="sms_control_port" sourcefile="src/devices/bus/sms_ctrl/smsctrl.cpp" isdevice="yes" runnable="no">
+		<description>Sega SMS control port</description>
+		<input players="1" buttons="2">
+			<control type="joy" ways="8"/>
+		</input>
+	</machine>
+	<machine name="sms_joypad" sourcefile="src/devices/bus/sms_ctrl/joypad.cpp" isdevice="yes" runnable="no">
+		<description>Sega SMS Control Pad</description>
+		<input players="1" buttons="2">
+			<control type="joy" ways="8"/>
+		</input>
+	</machine>
+	<machine name="screen" sourcefile="src/emu/screen.cpp" isdevice="yes" runnable="no">
+		<description>Video Screen</description>
+	</machine>
+	<machine name="sega315_5246" sourcefile="src/devices/video/315_5124.cpp" isdevice="yes" runnable="no">
+		<description>Sega 315-5246 VDP</description>
+	</machine>
+	<machine name="palette" sourcefile="src/emu/emupal.cpp" isdevice="yes" runnable="no">
+		<description>palette</description>
+	</machine>
+	<machine name="sega8_rom" sourcefile="src/devices/bus/sega8/rom.cpp" isdevice="yes" runnable="no">
+		<description>Mark III, SMS &amp; GG Carts</description>
+	</machine>
+	<machine name="sega8_codemasters" sourcefile="src/devices/bus/sega8/rom.cpp" isdevice="yes" runnable="no">
+		<description>Mark III, SMS &amp; GG Codemasters Carts</description>
+	</machine>
+	<machine name="sega8_4pak" sourcefile="src/devices/bus/sega8/rom.cpp" isdevice="yes" runnable="no">
+		<description>SMS 4-Pak Cart</description>
+	</machine>
+	<machine name="sega8_zemina" sourcefile="src/devices/bus/sega8/rom.cpp" isdevice="yes" runnable="no">
+		<description>SMS Zemina Carts</description>
+	</machine>
+	<machine name="sega8_nemesis" sourcefile="src/devices/bus/sega8/rom.cpp" isdevice="yes" runnable="no">
+		<description>SMS Nemesis Cart</description>
+	</machine>
+	<machine name="sega8_janggun" sourcefile="src/devices/bus/sega8/rom.cpp" isdevice="yes" runnable="no">
+		<description>SMS Janggun Cart</description>
+	</machine>
+	<machine name="sega8_hicom" sourcefile="src/devices/bus/sega8/rom.cpp" isdevice="yes" runnable="no">
+		<description>SMS Hi-Com Carts</description>
+	</machine>
+	<machine name="sega8_korean" sourcefile="src/devices/bus/sega8/rom.cpp" isdevice="yes" runnable="no">
+		<description>SMS Korean Carts</description>
+	</machine>
+	<machine name="sega8_korean_nb" sourcefile="src/devices/bus/sega8/rom.cpp" isdevice="yes" runnable="no">
+		<description>SMS Korean No-Bank Mapper Carts</description>
+	</machine>
+	<machine name="sms_light_phaser" sourcefile="src/devices/bus/sms_ctrl/lphaser.cpp" isdevice="yes" runnable="no">
+		<description>Sega SMS Light Phaser</description>
+		<input players="1" buttons="1">
+			<control type="lightgun" minimum="0" maximum="255" sensitivity="50" keydelta="15"/>
+		</input>
+	</machine>
+	<machine name="sms_paddle" sourcefile="src/devices/bus/sms_ctrl/paddle.cpp" isdevice="yes" runnable="no">
+		<description>Sega SMS Paddle</description>
+		<input players="1" buttons="1">
+			<control type="paddle" minimum="0" maximum="255" sensitivity="40" keydelta="20"/>
+		</input>
+	</machine>
+	<machine name="sms_sports_pad" sourcefile="src/devices/bus/sms_ctrl/sports.cpp" isdevice="yes" runnable="no">
+		<description>Sega SMS Sports Pad US</description>
+		<input players="1" buttons="2">
+			<control type="trackball" minimum="0" maximum="255" sensitivity="50" keydelta="40" reverse="yes"/>
+		</input>
+	</machine>
+	<machine name="sms_sports_pad_jp" sourcefile="src/devices/bus/sms_ctrl/sportsjp.cpp" isdevice="yes" runnable="no">
+		<description>Sega SMS Sports Pad JP</description>
+		<input players="1" buttons="2">
+			<control type="trackball" minimum="0" maximum="255" sensitivity="50" keydelta="40"/>
+		</input>
+	</machine>
+	<machine name="sms_rapid_fire" sourcefile="src/devices/bus/sms_ctrl/rfu.cpp" isdevice="yes" runnable="no">
+		<description>Sega SMS Rapid Fire</description>
+		<configuration name="Rapid Fire Unit" tag=":rfu_sw" mask="3">
+			<confsetting name="Off" value="0" default="yes"/>
+			<confsetting name="Button 1" value="1"/>
+			<confsetting name="Button 2" value="2"/>
+			<confsetting name="Button 1 + 2" value="3"/>
+		</configuration>
+		<slot name=":ctrl">
+			<slotoption name="joypad" devname="sms_joypad" default="yes"/>
+			<slotoption name="lphaser" devname="sms_light_phaser"/>
+			<slotoption name="paddle" devname="sms_paddle"/>
+			<slotoption name="sportspad" devname="sms_sports_pad"/>
+			<slotoption name="sportspadjp" devname="sms_sports_pad_jp"/>
+			<slotoption name="rapidfire" devname="sms_rapid_fire"/>
+			<slotoption name="multitap" devname="sms_multitap"/>
+			<slotoption name="graphic" devname="sms_graphic"/>
+		</slot>
+	</machine>
+	<machine name="sms_multitap" sourcefile="src/devices/bus/sms_ctrl/multitap.cpp" isdevice="yes" runnable="no">
+		<description>Sega SMS Multitap</description>
+		<slot name=":ctrl1">
+			<slotoption name="joypad" devname="sms_joypad" default="yes"/>
+			<slotoption name="lphaser" devname="sms_light_phaser"/>
+			<slotoption name="paddle" devname="sms_paddle"/>
+			<slotoption name="sportspad" devname="sms_sports_pad"/>
+			<slotoption name="sportspadjp" devname="sms_sports_pad_jp"/>
+			<slotoption name="rapidfire" devname="sms_rapid_fire"/>
+			<slotoption name="multitap" devname="sms_multitap"/>
+			<slotoption name="graphic" devname="sms_graphic"/>
+		</slot>
+		<slot name=":ctrl2">
+			<slotoption name="joypad" devname="sms_joypad" default="yes"/>
+			<slotoption name="lphaser" devname="sms_light_phaser"/>
+			<slotoption name="paddle" devname="sms_paddle"/>
+			<slotoption name="sportspad" devname="sms_sports_pad"/>
+			<slotoption name="sportspadjp" devname="sms_sports_pad_jp"/>
+			<slotoption name="rapidfire" devname="sms_rapid_fire"/>
+			<slotoption name="multitap" devname="sms_multitap"/>
+			<slotoption name="graphic" devname="sms_graphic"/>
+		</slot>
+		<slot name=":ctrl3">
+			<slotoption name="joypad" devname="sms_joypad" default="yes"/>
+			<slotoption name="lphaser" devname="sms_light_phaser"/>
+			<slotoption name="paddle" devname="sms_paddle"/>
+			<slotoption name="sportspad" devname="sms_sports_pad"/>
+			<slotoption name="sportspadjp" devname="sms_sports_pad_jp"/>
+			<slotoption name="rapidfire" devname="sms_rapid_fire"/>
+			<slotoption name="multitap" devname="sms_multitap"/>
+			<slotoption name="graphic" devname="sms_graphic"/>
+		</slot>
+		<slot name=":ctrl4">
+			<slotoption name="joypad" devname="sms_joypad" default="yes"/>
+			<slotoption name="lphaser" devname="sms_light_phaser"/>
+			<slotoption name="paddle" devname="sms_paddle"/>
+			<slotoption name="sportspad" devname="sms_sports_pad"/>
+			<slotoption name="sportspadjp" devname="sms_sports_pad_jp"/>
+			<slotoption name="rapidfire" devname="sms_rapid_fire"/>
+			<slotoption name="multitap" devname="sms_multitap"/>
+			<slotoption name="graphic" devname="sms_graphic"/>
+		</slot>
+	</machine>
+	<machine name="sms_graphic" sourcefile="src/devices/bus/sms_ctrl/graphic.cpp" isdevice="yes" runnable="no">
+		<description>Sega SMS Graphic Board</description>
+		<input players="1" buttons="3">
+			<control type="lightgun" minimum="0" maximum="255" sensitivity="50" keydelta="15"/>
+		</input>
+	</machine>
+</mame>

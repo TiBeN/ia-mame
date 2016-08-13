@@ -136,7 +136,7 @@ public class MessAndMameCollection {
     }
 
     /**
-     * search on items of the collection for the needed software file
+     * Search on items of the collection for the needed software file
      * then download it on the rom path set in constructor.
      */
     public void download (Software software) 
@@ -145,7 +145,7 @@ public class MessAndMameCollection {
         String sl = software.getSoftwareList().getName();
 
         if (this.softwareCollectionItems.containsKey(sl)) {
-            try {    
+            try {
                 this.softwareCollectionItems.get(sl).download(software);
             } catch (FileNotFoundInCollectionItem e) {
                 String.format("Needed file for software %s has not"
@@ -154,7 +154,7 @@ public class MessAndMameCollection {
                 
             }
         
-        } else {    
+        } else {
 
             try {    
                 this.messSoftwareListRoms.download(software);

@@ -140,7 +140,7 @@ public class Machine {
     /**
      * Generate and return a list of needed rom files
      */
-    public Set<String> getNeededRomFiles () {
+    private Set<String> getNeededRomFiles () {
         Set<String> romSets = new HashSet<>();
 
         // This machine needs Roms ?
@@ -170,7 +170,7 @@ public class Machine {
     /**
      * Generate and return a list of needed chd files
      */
-    public Set<String> getNeededChdFiles () {
+    private Set<String> getNeededChdFiles () {
         Set<String> chds = new HashSet<>();
         if (!this.disks.isEmpty()) {
             for (MachineDisk d: this.disks) {
@@ -190,13 +190,22 @@ public class Machine {
         romfileloop: for (String romFile: this.getNeededRomFiles()) {
 
             for (File romPath: romPaths) {
-                File romFileInRomPath = new File(
-                    romPath.getAbsolutePath() 
-                        + File.separator 
-                        + romFile
-                        + ".zip");
 
-                if (romFileInRomPath.exists()) {
+                String romFileInRomPathWithoutExtension 
+                    = romPath.getAbsolutePath() 
+                        + File.separator 
+                        + romFile;
+
+                File zippedRomFileInRomPath = new File(
+                    romFileInRomPathWithoutExtension
+                        + ".zip");
+                
+                File SevenZippedRomFileInRomPath = new File(
+                    romFileInRomPathWithoutExtension
+                        + ".7z");
+
+                if (zippedRomFileInRomPath.exists() 
+                        || SevenZippedRomFileInRomPath.exists()) {
                     continue romfileloop;
                 }
             }
