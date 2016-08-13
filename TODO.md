@@ -18,3 +18,7 @@ TODO
     CD for example)
 -   Add support for 7z compressed files when scanning for rom files on the 
     rompath
+-   Support of software list softwares clones — via the `cloneof` attribute
+    — in order to download the reference version of a software if needed
+    (see [issue #4](https://github.com/TiBeN/ia-mame/issues/4))
+    
