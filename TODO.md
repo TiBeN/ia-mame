@@ -36,3 +36,4 @@ Bugs/Checks
 -   Malformed XML "JAXB error". Mame or IaMame fault? can be reproduced
     with softwarelist of system "pippin" with Mame 0.162 . In any case, 
     better handle the error (avoid stack trace)
+-   Use Uppercase letters on command line throws exception (allowed by Mame)
