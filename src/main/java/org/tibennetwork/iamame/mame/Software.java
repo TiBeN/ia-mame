@@ -155,25 +155,6 @@ public class Software {
         
         return null;
     }
-
-    /**
-     * Determines whether the files of this software 
-     * are available on the given romPath
-     */
-    //public boolean isAvailable (Set<File> romsPaths) {
-    
-        //String rfp = this.getRelativeFilePath();
-
-        //for (File rp: romsPaths) {
-            //File softwareFile = new File(rp + File.separator + rfp);
-            //if(softwareFile.exists()) {
-                //return true;
-            //}
-        //}
-
-        //return false;
-
-    //}
     
     public String toString() {
         return this.isRegularFile() 
