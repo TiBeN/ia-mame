@@ -18,7 +18,10 @@ import org.tibennetwork.iamame.IaMame;
 import org.tibennetwork.iamame.internetarchive.NoWritableRomPathException;
 
 /**
- * Mame binary facade
+ * Mame binary facade.
+ *
+ * Contain methods to execute and obtains informations about the 
+ * Mame binary
  */
 public class MameRuntimeImpl implements MameRuntime {
 
@@ -41,19 +44,31 @@ public class MameRuntimeImpl implements MameRuntime {
 
     private Set<File> romsPaths;
 
-    public MameRuntimeImpl (String binPath, String[] defaultOptions) 
-            throws IOException, InterruptedException, ParseException {
+    private MameVersionParser mameVersionParser;
+
+    private String version;
+
+    public MameRuntimeImpl (
+            String binPath, 
+            String[] defaultOptions, 
+            MameVersionParser mvp) 
+            throws IOException, 
+                InterruptedException, 
+                ParseException,
+                UnhandledMameVersionPatternException {
         this.binPath = binPath;
         this.binDirectory = new File(binPath).getParent();
         this.defaultOptions = defaultOptions;
+        this.mameVersionParser = mvp;
         IaMame.debug(String.format(
             "Mame binary directory: %s", 
             this.binDirectory));
         this.getRomsPathsFromBinary();
+        this.getVersionFromBinary();
     }
   
     public Set<File> getRomsPaths() {
-        return this.romsPaths;        
+        return this.romsPaths;
     }
 
     /**
@@ -168,6 +183,10 @@ public class MameRuntimeImpl implements MameRuntime {
             "No writable path to write roms into");
     }
 
+    public String getVersion () {
+        return this.version;
+    }
+
     private Process initMameProcess (
             String[] rawArgs, 
             boolean inheritIO, 
@@ -187,6 +206,28 @@ public class MameRuntimeImpl implements MameRuntime {
         }
         builder.directory(new File(this.binDirectory));
         return builder.start();
+
+    }
+
+    private void getVersionFromBinary () 
+            throws IOException, 
+                InterruptedException, 
+                UnhandledMameVersionPatternException {
+
+        String[] rawArgs = {"-help"};
+
+        List<String> mameStdout = null;
+
+        try {
+            mameStdout = this.executeAndReturnStdout(rawArgs);
+        } catch( MameExecutionException e) {
+            throw (RuntimeException) 
+                new RuntimeException("Unhandled error occured while " 
+                    + "launching mame using -help to obtain version")
+                    .initCause(e);
+        }
+
+        this.version = this.mameVersionParser.parse(mameStdout.get(0));
 
     }
 

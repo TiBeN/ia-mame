@@ -26,6 +26,10 @@ public class FakeMameRuntime implements MameRuntime {
         return null;
     }
 
+    public String getVersion() {
+        return null;
+    }
+
     /**
      * Set the List of InputStream to be returned sequentially when calling
      * methods which returns InputStreams.

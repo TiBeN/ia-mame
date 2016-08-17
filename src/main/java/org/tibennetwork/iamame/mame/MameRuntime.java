@@ -64,4 +64,9 @@ public interface MameRuntime {
      */
     public File getWritableRomPath () throws NoWritableRomPathException;
 
+    /**
+     * Determine and return the Mame version of the binary
+     */
+    public String getVersion ();
+
 }

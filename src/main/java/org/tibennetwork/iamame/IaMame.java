@@ -17,8 +17,10 @@ import org.tibennetwork.iamame.mame.MameArguments;
 import org.tibennetwork.iamame.mame.MameArguments.ExtractedMachineAndSoftwares;
 import org.tibennetwork.iamame.mame.MameRuntime;
 import org.tibennetwork.iamame.mame.MameRuntimeImpl;
+import org.tibennetwork.iamame.mame.MameVersionParser;
 import org.tibennetwork.iamame.mame.Software;
 import org.tibennetwork.iamame.mame.SoftwareRepository;
+import org.tibennetwork.iamame.mame.UnhandledMameVersionPatternException;
 
 public class IaMame
 {
@@ -50,9 +52,14 @@ public class IaMame
 
         try {
             mame = new MameRuntimeImpl(
-                mameBinary, mameArgs.getRawOptionsArgs());
+                mameBinary, 
+                mameArgs.getRawOptionsArgs(), 
+                new MameVersionParser());
             downloadFilesIfNeeded(mameArgs, mame);
-        } catch (IOException | InterruptedException | ParseException e) {
+        } catch (IOException 
+                | InterruptedException 
+                | ParseException 
+                | UnhandledMameVersionPatternException e) {
             IaMame.errorAndExit(
                 "An error occured while trying to execute Mame: " 
                     + e.getMessage());
