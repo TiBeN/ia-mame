@@ -21,13 +21,11 @@ Features/Improvements
 -   Support of software list softwares clones — via the `cloneof` attribute
     — in order to download the reference version of a software if needed
     (see [issue #4](https://github.com/TiBeN/ia-mame/issues/4))
--   Support Mame 0.149+ and Mess 0.149+
+-   Officially support Mame and Mess starting to version 0.149
 
 Bugs/Checks
 -----------
 
--   [WIP] ia-mame does not find the Machine data on the XML using 
-    Mame < 0.16[2|1] because "machine" tag was previously named "game".
 -   File length for Mame roms is not fetched at all
 -   Do more tests with differents version of Mame to be more precise on the
     README about Mame version support.
@@ -38,3 +36,4 @@ Bugs/Checks
     with softwarelist of system "pippin" with Mame 0.162 . In any case, 
     better handle the error (avoid stack trace)
 -   Use Uppercase letters on command line throws exception (allowed by Mame)
+    (see [issue #5](https://github.com/TiBeN/ia-mame/issues/5))

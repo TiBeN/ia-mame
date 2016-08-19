@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<!DOCTYPE mame [
+<!ELEMENT mame (game+)>
+	<!ATTLIST mame build CDATA #IMPLIED>
+	<!ATTLIST mame debug (yes|no) "no">
+	<!ATTLIST mame mameconfig CDATA #REQUIRED>
+	<!ELEMENT game (description, year?, manufacturer?, biosset*, rom*, disk*, device_ref*, sample*, chip*, display*, sound?, input?, dipswitch*, configuration*, adjuster*, driver?, device*, slot*, softwarelist*, ramoption*)>
+		<!ATTLIST game name CDATA #REQUIRED>
+		<!ATTLIST game sourcefile CDATA #IMPLIED>
+		<!ATTLIST game isbios (yes|no) "no">
+		<!ATTLIST game isdevice (yes|no) "no">
+		<!ATTLIST game ismechanical (yes|no) "no">
+		<!ATTLIST game runnable (yes|no) "yes">
+		<!ATTLIST game cloneof CDATA #IMPLIED>
+		<!ATTLIST game romof CDATA #IMPLIED>
+		<!ATTLIST game sampleof CDATA #IMPLIED>
+		<!ELEMENT description (#PCDATA)>
+		<!ELEMENT year (#PCDATA)>
+		<!ELEMENT manufacturer (#PCDATA)>
+		<!ELEMENT biosset EMPTY>
+			<!ATTLIST biosset name CDATA #REQUIRED>
+			<!ATTLIST biosset description CDATA #REQUIRED>
+			<!ATTLIST biosset default (yes|no) "no">
+		<!ELEMENT rom EMPTY>
+			<!ATTLIST rom name CDATA #REQUIRED>
+			<!ATTLIST rom bios CDATA #IMPLIED>
+			<!ATTLIST rom size CDATA #REQUIRED>
+			<!ATTLIST rom crc CDATA #IMPLIED>
+			<!ATTLIST rom sha1 CDATA #IMPLIED>
+			<!ATTLIST rom merge CDATA #IMPLIED>
+			<!ATTLIST rom region CDATA #IMPLIED>
+			<!ATTLIST rom offset CDATA #IMPLIED>
+			<!ATTLIST rom status (baddump|nodump|good) "good">
+			<!ATTLIST rom optional (yes|no) "no">
+		<!ELEMENT disk EMPTY>
+			<!ATTLIST disk name CDATA #REQUIRED>
+			<!ATTLIST disk sha1 CDATA #IMPLIED>
+			<!ATTLIST disk merge CDATA #IMPLIED>
+			<!ATTLIST disk region CDATA #IMPLIED>
+			<!ATTLIST disk index CDATA #IMPLIED>
+			<!ATTLIST disk writable (yes|no) "no">
+			<!ATTLIST disk status (baddump|nodump|good) "good">
+			<!ATTLIST disk optional (yes|no) "no">
+		<!ELEMENT device_ref EMPTY>
+			<!ATTLIST device_ref name CDATA #REQUIRED>
+		<!ELEMENT sample EMPTY>
+			<!ATTLIST sample name CDATA #REQUIRED>
+		<!ELEMENT chip EMPTY>
+			<!ATTLIST chip name CDATA #REQUIRED>
+			<!ATTLIST chip tag CDATA #IMPLIED>
+			<!ATTLIST chip type (cpu|audio) #REQUIRED>
+			<!ATTLIST chip clock CDATA #IMPLIED>
+		<!ELEMENT display EMPTY>
+			<!ATTLIST display tag CDATA #IMPLIED>
+			<!ATTLIST display type (raster|vector|lcd|unknown) #REQUIRED>
+			<!ATTLIST display rotate (0|90|180|270) #REQUIRED>
+			<!ATTLIST display flipx (yes|no) "no">
+			<!ATTLIST display width CDATA #IMPLIED>
+			<!ATTLIST display height CDATA #IMPLIED>
+			<!ATTLIST display refresh CDATA #REQUIRED>
+			<!ATTLIST display pixclock CDATA #IMPLIED>
+			<!ATTLIST display htotal CDATA #IMPLIED>
+			<!ATTLIST display hbend CDATA #IMPLIED>
+			<!ATTLIST display hbstart CDATA #IMPLIED>
+			<!ATTLIST display vtotal CDATA #IMPLIED>
+			<!ATTLIST display vbend CDATA #IMPLIED>
+			<!ATTLIST display vbstart CDATA #IMPLIED>
+		<!ELEMENT sound EMPTY>
+			<!ATTLIST sound channels CDATA #REQUIRED>
+		<!ELEMENT input (control*)>
+			<!ATTLIST input service (yes|no) "no">
+			<!ATTLIST input tilt (yes|no) "no">
+			<!ATTLIST input players CDATA #REQUIRED>
+			<!ATTLIST input buttons CDATA #IMPLIED>
+			<!ATTLIST input coins CDATA #IMPLIED>
+			<!ELEMENT control EMPTY>
+				<!ATTLIST control type CDATA #REQUIRED>
+				<!ATTLIST control minimum CDATA #IMPLIED>
+				<!ATTLIST control maximum CDATA #IMPLIED>
+				<!ATTLIST control sensitivity CDATA #IMPLIED>
+				<!ATTLIST control keydelta CDATA #IMPLIED>
+				<!ATTLIST control reverse (yes|no) "no">
+				<!ATTLIST control ways CDATA #IMPLIED>
+				<!ATTLIST control ways2 CDATA #IMPLIED>
+				<!ATTLIST control ways3 CDATA #IMPLIED>
+		<!ELEMENT dipswitch (dipvalue*)>
+			<!ATTLIST dipswitch name CDATA #REQUIRED>
+			<!ATTLIST dipswitch tag CDATA #REQUIRED>
+			<!ATTLIST dipswitch mask CDATA #REQUIRED>
+			<!ELEMENT dipvalue EMPTY>
+				<!ATTLIST dipvalue name CDATA #REQUIRED>
+				<!ATTLIST dipvalue value CDATA #REQUIRED>
+				<!ATTLIST dipvalue default (yes|no) "no">
+		<!ELEMENT configuration (confsetting*)>
+			<!ATTLIST configuration name CDATA #REQUIRED>
+			<!ATTLIST configuration tag CDATA #REQUIRED>
+			<!ATTLIST configuration mask CDATA #REQUIRED>
+			<!ELEMENT confsetting EMPTY>
+				<!ATTLIST confsetting name CDATA #REQUIRED>
+				<!ATTLIST confsetting value CDATA #REQUIRED>
+				<!ATTLIST confsetting default (yes|no) "no">
+		<!ELEMENT adjuster EMPTY>
+			<!ATTLIST adjuster name CDATA #REQUIRED>
+			<!ATTLIST adjuster default CDATA #REQUIRED>
+		<!ELEMENT driver EMPTY>
+			<!ATTLIST driver status (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver emulation (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver color (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver sound (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver graphic (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver cocktail (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver protection (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver savestate (supported|unsupported) #REQUIRED>
+			<!ATTLIST driver palettesize CDATA #REQUIRED>
+		<!ELEMENT device (instance*, extension*)>
+			<!ATTLIST device type CDATA #REQUIRED>
+			<!ATTLIST device tag CDATA #IMPLIED>
+			<!ATTLIST device mandatory CDATA #IMPLIED>
+			<!ATTLIST device interface CDATA #IMPLIED>
+			<!ELEMENT instance EMPTY>
+				<!ATTLIST instance name CDATA #REQUIRED>
+				<!ATTLIST instance briefname CDATA #REQUIRED>
+			<!ELEMENT extension EMPTY>
+				<!ATTLIST extension name CDATA #REQUIRED>
+		<!ELEMENT slot (slotoption*)>
+			<!ATTLIST slot name CDATA #REQUIRED>
+			<!ELEMENT slotoption EMPTY>
+				<!ATTLIST slotoption name CDATA #REQUIRED>
+				<!ATTLIST slotoption devname CDATA #REQUIRED>
+				<!ATTLIST slotoption default (yes|no) "no">
+		<!ELEMENT softwarelist EMPTY>
+			<!ATTLIST softwarelist name CDATA #REQUIRED>
+			<!ATTLIST softwarelist status (original|compatible) #REQUIRED>
+			<!ATTLIST softwarelist filter CDATA #IMPLIED>
+		<!ELEMENT ramoption (#PCDATA)>
+			<!ATTLIST ramoption default CDATA #IMPLIED>
+]>
+
+<mame build="0.149 (Aug 19 2016)" debug="no" mameconfig="10">
+	<game name="punisher" sourcefile="cps1.c">
+		<description>The Punisher (World 930422)</description>
+		<year>1993</year>
+		<manufacturer>Capcom</manufacturer>
+		<rom name="pse_26.11e" size="131072" crc="389a99d2" sha1="e97f4225554e4603cb0e3edd296a90bb2e467ca7" region="maincpu" offset="0"/>
+		<rom name="pse_30.11f" size="131072" crc="68fb06ac" sha1="189e25ca7e4aaa80492c03ce06696952cc1b1553" region="maincpu" offset="1"/>
+		<rom name="pse_27.12e" size="131072" crc="3eb181c3" sha1="a2442449f4bbe3be03d2be7d4e2cbb69f9741dac" region="maincpu" offset="40000"/>
+		<rom name="pse_31.12f" size="131072" crc="37108e7b" sha1="78aaa6e2913e6b1b852b39416557ac4a394d7d8b" region="maincpu" offset="40001"/>
+		<rom name="pse_24.9e" size="131072" crc="0f434414" sha1="aaacf835a93551fc792571d6e824a01f3c5d4469" region="maincpu" offset="80000"/>
+		<rom name="pse_28.9f" size="131072" crc="b732345d" sha1="472d84f846e9f73f129562d78352376194e0211e" region="maincpu" offset="80001"/>
+		<rom name="pse_25.10e" size="131072" crc="b77102e2" sha1="2e39b2c2c0eed5ca2320a57e69bcf377f809a20c" region="maincpu" offset="c0000"/>
+		<rom name="pse_29.10f" size="131072" crc="ec037bce" sha1="f86e7feb63d7662a38048e6d51d7b5a69dafaffb" region="maincpu" offset="c0001"/>
+		<rom name="ps_21.6f" size="524288" crc="8affa5a9" sha1="268760b83b1723ff50a019ec51ef7af2e49935bf" region="maincpu" offset="100000"/>
+		<rom name="ps-1m.3a" size="524288" crc="77b7ccab" sha1="e08e5d55a79e4c0c8ca819d6d7d2a14f753c6ec3" region="gfx" offset="0"/>
+		<rom name="ps-3m.5a" size="524288" crc="0122720b" sha1="5f0d3097e097f64106048156fbb0d343fe78fffa" region="gfx" offset="2"/>
+		<rom name="ps-2m.4a" size="524288" crc="64fa58d4" sha1="d4a774285ed15273195b6b26d2965ce370e54e73" region="gfx" offset="4"/>
+		<rom name="ps-4m.6a" size="524288" crc="60da42c8" sha1="95eec4a58d9628a2d9764951dd8dc11e4860a899" region="gfx" offset="6"/>
+		<rom name="ps-5m.7a" size="524288" crc="c54ea839" sha1="0733f37329edd9d0cace1319a7544b40aa7ecb0b" region="gfx" offset="200000"/>
+		<rom name="ps-7m.9a" size="524288" crc="04c5acbd" sha1="fddc94b0f36d4d22d7c357856ae15b7514c342d3" region="gfx" offset="200002"/>
+		<rom name="ps-6m.8a" size="524288" crc="a544f4cc" sha1="9552df8934ba25f19a22f2e07783712d8c8ef03c" region="gfx" offset="200004"/>
+		<rom name="ps-8m.10a" size="524288" crc="8f02f436" sha1="a2f0ebb7e9593469c7b843f8962a66f3d77f79e5" region="gfx" offset="200006"/>
+		<rom name="ps_q.5k" size="131072" crc="49ff4446" sha1="87af12f87a940a6c5428b4574ad44a4b54867bc3" region="audiocpu" offset="0"/>
+		<rom name="ps-q1.1k" size="524288" crc="31fd8726" sha1="1d73a76682e9fb908db0c55b9a18163f7539fea1" region="qsound" offset="0"/>
+		<rom name="ps-q2.2k" size="524288" crc="980a9eef" sha1="36571381f349bc726508a7e618ba1c635ec9d271" region="qsound" offset="80000"/>
+		<rom name="ps-q3.3k" size="524288" crc="0dd44491" sha1="903cea1d7f3120545ea3229d30fbd687d11ad68f" region="qsound" offset="100000"/>
+		<rom name="ps-q4.4k" size="524288" crc="bed42f03" sha1="21302f7e75f9c795392a3b34e16a959fc5f6e4e9" region="qsound" offset="180000"/>
+		<rom name="buf1" size="279" crc="eb122de7" sha1="b26b5bfe258e3e184f069719f9fd008d6b8f6b9b" region="aboardplds" offset="0"/>
+		<rom name="ioa1" size="279" crc="59c7ee3b" sha1="fbb887c5b4f5cb8df77cec710eaac2985bc482a6" region="aboardplds" offset="0"/>
+		<rom name="prg2" size="279" crc="4386879a" sha1="c36896d169d8c78393609acbbe4397931292a033" region="aboardplds" offset="0"/>
+		<rom name="rom1" size="279" crc="41dc73b9" sha1="7d4c9f1693c821fbf84e32dd6ef62ddf14967845" region="aboardplds" offset="0"/>
+		<rom name="ps63b.1a" size="279" status="nodump" region="bboardplds" offset="0"/>
+		<rom name="iob1.12d" size="279" crc="3abc0700" sha1="973043aa46ec6d5d1db20dc9d5937005a0f9f6ae" region="bboardplds" offset="0"/>
+		<rom name="bprg1.11d" size="279" crc="31793da7" sha1="400fa7ac517421c978c1ee7773c30b9ed0c5d3f3" region="bboardplds" offset="0"/>
+		<rom name="ioc1.ic1" size="279" crc="0d182081" sha1="475b3d417785da4bc512cce2b274bb00d4cc6792" region="cboardplds" offset="0"/>
+		<rom name="d7l1.7l" size="279" crc="27b7410d" sha1="06d0cba0226850f100ff1f539bd7d5db0f90c730" region="dboardplds" offset="0"/>
+		<rom name="d8l1.8l" size="279" crc="539fc7da" sha1="cad5c91629c6247e49ccbbcbfe6b08229eafae07" region="dboardplds" offset="0"/>
+		<rom name="d9k2.9k" size="279" crc="cd85a156" sha1="a88f8939c5d93e65d7bcc0eb3ee5b6f4f1114e3a" region="dboardplds" offset="0"/>
+		<rom name="d10f1.10f" size="279" crc="6619c494" sha1="3aef656c07182a2186f810f30e0d854dd5bd8d18" region="dboardplds" offset="0"/>
+		<device_ref name="qsound"/>
+		<chip type="cpu" tag="maincpu" name="68000" clock="12000000"/>
+		<chip type="cpu" tag="audiocpu" name="Z80" clock="8000000"/>
+		<chip type="cpu" tag="qsound:qsound" name="DSP16" clock="4000000"/>
+		<chip type="audio" tag="lspeaker" name="Speaker"/>
+		<chip type="audio" tag="rspeaker" name="Speaker"/>
+		<chip type="audio" tag="qsound" name="Q-Sound" clock="4000000"/>
+		<display tag="screen" type="raster" rotate="0" width="384" height="224" refresh="59.629403" pixclock="8000000" htotal="518" hbend="64" hbstart="448" vtotal="259" vbend="16" vbstart="240" />
+		<sound channels="2"/>
+		<input players="2" buttons="2" coins="2" service="yes">
+			<control type="joy" ways="8"/>
+		</input>
+		<dipswitch name="Freeze" tag="Freeze" mask="8">
+			<dipvalue name="Off" value="8" default="yes"/>
+			<dipvalue name="On" value="0"/>
+		</dipswitch>
+		<driver status="good" emulation="good" color="good" sound="good" graphic="good" savestate="supported" palettesize="3072"/>
+	</game>
+	<game name="qsound" sourcefile="src/emu/sound/qsound.c" isdevice="yes" runnable="no">
+		<description>Q-Sound</description>
+		<rom name="qsound.bin" size="8192" crc="059c847d" sha1="229cead1be2f86733dd80573d4983ba482355ece" status="baddump" region="qsound" offset="0"/>
+		<chip type="cpu" tag=":qsound" name="DSP16" clock="4000000"/>
+		<sound channels="0"/>
+	</game>
+</mame>

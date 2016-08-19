@@ -22,12 +22,18 @@ public class FakeMameRuntime implements MameRuntime {
 
     private int inputStreamIndex = 0;
 
-    public Set<File> getRomsPaths() {
+    private String version;
+
+    public Set<File> getRomsPaths () {
         return null;
     }
 
-    public String getVersion() {
-        return null;
+    public String getVersion () {
+        return this.version;
+    }
+
+    public void setVersion (String v) {
+        this.version = v;
     }
 
     /**
