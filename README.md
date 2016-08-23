@@ -24,9 +24,13 @@ Prerequisites
   If it is you case, read this [Stack Overflow 
 thread](http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6)
 
-- A version of [Mame](http://mamedev.org/release.php) 0.162+ that suits your 
+- A version of [Mame](http://mamedev.org/release.php) that suits your 
   operating system. Make sure it works properly before trying ia-mame.
-  Versions prior to 0.162 can be used but MESS stuff will not be available.
+  Recommended version is 0.162 because it is the closest match with the 
+  archive.org collections version. But All Mame & Mess version are 
+  supported starting from 0.149 . You can use the latest Mame version
+  but there should be roms mismatch dues to version differences.
+  (Some workarounds are planned, see [todo](TODO.md) file)
 
 Warning
 -------
@@ -175,15 +179,6 @@ environment.
 
 I have not tested now but IaMame should be compatible with frontends, the
 usage command line beeing the same as the original Mame.
-
-Known issues
-------------
-
-I'm facing issues on some CHD collections (psx, saturn) due to version 
-differences between the collection and the Mame executable. 
-It is especially true if the delta of the version is high.
-(PSX CHDs will work great using Mame v0.162 but not with 0.170 for example
-because of bios and softwarelist changes in between)
 
 Some screenshots
 ----------------

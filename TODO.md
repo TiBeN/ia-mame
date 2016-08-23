@@ -21,7 +21,6 @@ Features/Improvements
 -   Support of software list softwares clones — via the `cloneof` attribute
     — in order to download the reference version of a software if needed
     (see [issue #4](https://github.com/TiBeN/ia-mame/issues/4))
--   Officially support Mame and Mess starting to version 0.149
 
 Bugs/Checks
 -----------
