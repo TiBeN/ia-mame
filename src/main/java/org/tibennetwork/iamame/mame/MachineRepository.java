@@ -80,7 +80,7 @@ public class MachineRepository {
 
         for (Machine m: ms.getMachines()) {
 
-            if (m.getName().equals(machineName)) {
+            if (m.getName().equals(machineName.toLowerCase())) {
 
                 machine = m;
 

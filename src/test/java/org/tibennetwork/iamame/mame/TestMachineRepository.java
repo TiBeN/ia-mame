@@ -71,4 +71,28 @@ public class TestMachineRepository {
 
     }
 
+    @Test
+    public void testFindByNameWithNameHavingUppercaseLetters ()
+            throws FileNotFoundException,
+                IOException,
+                InterruptedException,
+                MachineDoesntExistException {
+        
+        FakeMameRuntime mame = new FakeMameRuntime();
+        mame.setVersion("0.149");
+        
+        List<InputStream> inputStreams = new ArrayList<>();
+
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/punisher0149.xml"));
+
+        mame.setInputStreamsToReturn(inputStreams);
+
+        MachineRepository mr = new MachineRepository(mame);
+        Machine m = mr.findByName("Punisher");
+        
+        // Testing two or three properties should suffice
+        assertThat(m.getName(), equalTo("punisher"));
+        assertThat(m.getDescription(), equalTo("The Punisher (World 930422)"));
+    }
 }
