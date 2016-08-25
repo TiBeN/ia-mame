@@ -253,35 +253,49 @@ public class Software {
     /**
      * Determine missing rom file on the given rom path
      */
-    public SoftwareFile getMissingRomFile (Set<File> romPaths) {
+    public Set<SoftwareFile> getMissingRomFiles (Set<File> romPaths) {
 
-        SoftwareFile sf = this.getNeededRomFile();
+        //Set<SoftwareFile> sf = this.getNeededRomFiles();
+        //if (sf.isEmpty ...return..)
 
-        if (sf == null) {
-            return null;
+        Set<SoftwareFile> missingRomFiles = new HashSet<>();
+        Set<SoftwareFile> neededRomFiles = new HashSet<>();
+        SoftwareFile nrf = this.getNeededRomFile();
+        if (nrf == null){
+            return missingRomFiles;         
         }
-            
-        for (File romPath: romPaths) {
-            
-            File zippedFileInRomPath 
-                = new File(romPath.getAbsolutePath()
-                    + File.separator
-                    + sf.getRelativeFilePathWithoutExtension()
-                    + ".zip");                                                         
 
-            File sevenZippedFileInRomPath 
-                = new File(romPath.getAbsolutePath()
-                    + File.separator
-                    + sf.getRelativeFilePathWithoutExtension()
-                    + ".7z");
+        neededRomFiles.add(nrf);
+        
+        softwareFilesLoop: for (SoftwareFile sf: neededRomFiles) {
 
-            if (zippedFileInRomPath.exists() 
-                    || sevenZippedFileInRomPath.exists()) {
-                return null;
+            for (File romPath: romPaths) {
+                
+                File zippedFileInRomPath 
+                    = new File(romPath.getAbsolutePath()
+                        + File.separator
+                        + sf.getRelativeFilePathWithoutExtension()
+                        + ".zip");
+
+                File sevenZippedFileInRomPath 
+                    = new File(romPath.getAbsolutePath()
+                        + File.separator
+                        + sf.getRelativeFilePathWithoutExtension()
+                        + ".7z");
+
+                if (zippedFileInRomPath.exists() 
+                        || sevenZippedFileInRomPath.exists()) {
+                    continue softwareFilesLoop;
+                }
+
             }
+
+            // Here we tried all rompaths and not found any file
+            missingRomFiles.add(sf);
+        
         }
 
-        return sf;
+        return missingRomFiles;
 
     }
 
@@ -290,7 +304,7 @@ public class Software {
      * romspaths to launch this software
      */
     public boolean areFilesAvailable (Set<File> romPaths) {
-        return this.getMissingRomFile(romPaths) == null
+        return this.getMissingRomFiles(romPaths) == null
             && this.getMissingChdFiles(romPaths) == null;
     }
 

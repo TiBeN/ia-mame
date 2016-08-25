@@ -1,7 +1,6 @@
 package org.tibennetwork.iamame.mame;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
@@ -227,12 +226,12 @@ public class TestSoftware {
         Set<File> romPaths = new HashSet<>();
         romPaths.add(new File("src/test/resources/empty-rompath"));
 
-        SoftwareFile missingRomFile = s.getMissingRomFile(romPaths);
+        Set<SoftwareFile> missingRomFiles = s.getMissingRomFiles(romPaths);
 
-        SoftwareFile expectedMissingRomFile 
-            = new SoftwareFile("sms/columns", false);
+        Set<SoftwareFile> expectedMissingRomFiles = new HashSet<>();
+        expectedMissingRomFiles.add(new SoftwareFile("sms/columns", false));
 
-        assertThat(missingRomFile, equalTo(expectedMissingRomFile));
+        assertThat(missingRomFiles, equalTo(expectedMissingRomFiles));
 
     }
 
@@ -270,7 +269,10 @@ public class TestSoftware {
         Set<File> romPaths = new HashSet<>();
         romPaths.add(new File("src/test/resources/full-rompath"));
 
-        assertNull(s.getMissingRomFile(romPaths));
+        Set<SoftwareFile> expectedMissingRomFiles = new HashSet<>();
+
+        assertThat(s.getMissingRomFiles(romPaths), 
+                equalTo(expectedMissingRomFiles));
 
     }
 
@@ -308,8 +310,10 @@ public class TestSoftware {
         Set<File> romPaths = new HashSet<>();
         romPaths.add(new File("src/test/resources/7z-rompath"));
 
-        assertNull(s.getMissingRomFile(romPaths));
+        Set<SoftwareFile> expectedMissingRomFiles = new HashSet<>();
 
+        assertThat(s.getMissingRomFiles(romPaths), 
+                equalTo(expectedMissingRomFiles));
     }
 
     @Test
@@ -346,7 +350,48 @@ public class TestSoftware {
         Set<File> romPaths = new HashSet<>();
         romPaths.add(new File("src/test/resources/full-rompath"));
 
-        assertNull(s.getMissingRomFile(romPaths));
+        Set<SoftwareFile> expectedMissingRomFiles = new HashSet<>();
+
+        assertThat(s.getMissingRomFiles(romPaths), 
+                equalTo(expectedMissingRomFiles));
             
     }
+
+    //@Test
+    //public void testGetMissingRomFilesForSoftwareClone ()
+            //throws FileNotFoundException,
+                //IOException,
+                //InterruptedException,
+                //MachineDoesntExistException,
+                //MachineHasNoSoftwareListException,
+                //SoftwareNotFoundInSoftwareListsException {
+
+        //FakeMameRuntime mame = new FakeMameRuntime();
+        
+        //List<InputStream> inputStreams = new ArrayList<>();
+
+        //// Add SMS Machine XML metadata
+        //inputStreams.add(
+                //new FileInputStream("src/test/resources/xml/snes.xml"));
+
+        //// Add SMS XML softwarelist
+        //inputStreams.add(
+                //new FileInputStream("src/test/resources/xml/snes-sl.xml"));
+        
+        //mame.setInputStreamsToReturn(inputStreams);
+
+        //MachineRepository mr = new MachineRepository(mame);
+
+        //Machine m = mr.findByName("snes");
+
+        //SoftwareRepository sr = new SoftwareRepository(mame);
+
+        //Software s = sr.findByMachineAndByName(m, "megamnx2u");
+
+        //Set<File> romPaths = new HashSet<>();
+        //romPaths.add(new File("src/test/resources/full-rompath"));
+
+        //assertNull(s.getMissingRomFiles(romPaths));
+
+    //}
 }
