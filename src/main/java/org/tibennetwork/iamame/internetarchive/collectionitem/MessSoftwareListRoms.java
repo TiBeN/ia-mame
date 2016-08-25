@@ -19,22 +19,19 @@ public class MessSoftwareListRoms extends SoftwareListCollectionItem {
     public void download (Software software) 
             throws FileNotFoundInCollectionItem {
         
-        SoftwareFile sf = software.getMissingRomFile(romsPaths);
+        for (SoftwareFile sf: software.getMissingRomFiles(romsPaths)) {
 
-        if (sf == null) {
-            return;
+            String softwareFileUrl = String.format(
+                this.softwareFileUrlPattern,
+                software.getMachine().getName(),
+                sf.getName());
+
+            String destinationPath = this.writableRomPath.getAbsolutePath()
+                + File.separator
+                + sf.getRelativeFilePath();
+
+            this.downloadFile(softwareFileUrl, destinationPath);
         }
-
-        String softwareFileUrl = String.format(
-            this.softwareFileUrlPattern,
-            software.getMachine().getName(),
-            sf.getName());
-
-        String destinationPath = this.writableRomPath.getAbsolutePath()
-            + File.separator
-            + sf.getRelativeFilePath();
-
-        this.downloadFile(softwareFileUrl, destinationPath);
 
     }
 
