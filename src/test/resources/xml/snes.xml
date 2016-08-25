@@ -1,0 +1,544 @@
+<?xml version="1.0"?>
+<!DOCTYPE mame [
+<!ELEMENT mame (machine+)>
+	<!ATTLIST mame build CDATA #IMPLIED>
+	<!ATTLIST mame debug (yes|no) "no">
+	<!ATTLIST mame mameconfig CDATA #REQUIRED>
+	<!ELEMENT machine (description, year?, manufacturer?, biosset*, rom*, disk*, device_ref*, sample*, chip*, display*, sound?, input?, dipswitch*, configuration*, port*, adjuster*, driver?, device*, slot*, softwarelist*, ramoption*)>
+		<!ATTLIST machine name CDATA #REQUIRED>
+		<!ATTLIST machine sourcefile CDATA #IMPLIED>
+		<!ATTLIST machine isbios (yes|no) "no">
+		<!ATTLIST machine isdevice (yes|no) "no">
+		<!ATTLIST machine ismechanical (yes|no) "no">
+		<!ATTLIST machine runnable (yes|no) "yes">
+		<!ATTLIST machine cloneof CDATA #IMPLIED>
+		<!ATTLIST machine romof CDATA #IMPLIED>
+		<!ATTLIST machine sampleof CDATA #IMPLIED>
+		<!ELEMENT description (#PCDATA)>
+		<!ELEMENT year (#PCDATA)>
+		<!ELEMENT manufacturer (#PCDATA)>
+		<!ELEMENT biosset EMPTY>
+			<!ATTLIST biosset name CDATA #REQUIRED>
+			<!ATTLIST biosset description CDATA #REQUIRED>
+			<!ATTLIST biosset default (yes|no) "no">
+		<!ELEMENT rom EMPTY>
+			<!ATTLIST rom name CDATA #REQUIRED>
+			<!ATTLIST rom bios CDATA #IMPLIED>
+			<!ATTLIST rom size CDATA #REQUIRED>
+			<!ATTLIST rom crc CDATA #IMPLIED>
+			<!ATTLIST rom sha1 CDATA #IMPLIED>
+			<!ATTLIST rom merge CDATA #IMPLIED>
+			<!ATTLIST rom region CDATA #IMPLIED>
+			<!ATTLIST rom offset CDATA #IMPLIED>
+			<!ATTLIST rom status (baddump|nodump|good) "good">
+			<!ATTLIST rom optional (yes|no) "no">
+		<!ELEMENT disk EMPTY>
+			<!ATTLIST disk name CDATA #REQUIRED>
+			<!ATTLIST disk sha1 CDATA #IMPLIED>
+			<!ATTLIST disk merge CDATA #IMPLIED>
+			<!ATTLIST disk region CDATA #IMPLIED>
+			<!ATTLIST disk index CDATA #IMPLIED>
+			<!ATTLIST disk writable (yes|no) "no">
+			<!ATTLIST disk status (baddump|nodump|good) "good">
+			<!ATTLIST disk optional (yes|no) "no">
+		<!ELEMENT device_ref EMPTY>
+			<!ATTLIST device_ref name CDATA #REQUIRED>
+		<!ELEMENT sample EMPTY>
+			<!ATTLIST sample name CDATA #REQUIRED>
+		<!ELEMENT chip EMPTY>
+			<!ATTLIST chip name CDATA #REQUIRED>
+			<!ATTLIST chip tag CDATA #IMPLIED>
+			<!ATTLIST chip type (cpu|audio) #REQUIRED>
+			<!ATTLIST chip clock CDATA #IMPLIED>
+		<!ELEMENT display EMPTY>
+			<!ATTLIST display tag CDATA #IMPLIED>
+			<!ATTLIST display type (raster|vector|lcd|unknown) #REQUIRED>
+			<!ATTLIST display rotate (0|90|180|270) #REQUIRED>
+			<!ATTLIST display flipx (yes|no) "no">
+			<!ATTLIST display width CDATA #IMPLIED>
+			<!ATTLIST display height CDATA #IMPLIED>
+			<!ATTLIST display refresh CDATA #REQUIRED>
+			<!ATTLIST display pixclock CDATA #IMPLIED>
+			<!ATTLIST display htotal CDATA #IMPLIED>
+			<!ATTLIST display hbend CDATA #IMPLIED>
+			<!ATTLIST display hbstart CDATA #IMPLIED>
+			<!ATTLIST display vtotal CDATA #IMPLIED>
+			<!ATTLIST display vbend CDATA #IMPLIED>
+			<!ATTLIST display vbstart CDATA #IMPLIED>
+		<!ELEMENT sound EMPTY>
+			<!ATTLIST sound channels CDATA #REQUIRED>
+		<!ELEMENT input (control*)>
+			<!ATTLIST input service (yes|no) "no">
+			<!ATTLIST input tilt (yes|no) "no">
+			<!ATTLIST input players CDATA #REQUIRED>
+			<!ATTLIST input buttons CDATA #IMPLIED>
+			<!ATTLIST input coins CDATA #IMPLIED>
+			<!ELEMENT control EMPTY>
+				<!ATTLIST control type CDATA #REQUIRED>
+				<!ATTLIST control minimum CDATA #IMPLIED>
+				<!ATTLIST control maximum CDATA #IMPLIED>
+				<!ATTLIST control sensitivity CDATA #IMPLIED>
+				<!ATTLIST control keydelta CDATA #IMPLIED>
+				<!ATTLIST control reverse (yes|no) "no">
+				<!ATTLIST control ways CDATA #IMPLIED>
+				<!ATTLIST control ways2 CDATA #IMPLIED>
+				<!ATTLIST control ways3 CDATA #IMPLIED>
+		<!ELEMENT dipswitch (dipvalue*)>
+			<!ATTLIST dipswitch name CDATA #REQUIRED>
+			<!ATTLIST dipswitch tag CDATA #REQUIRED>
+			<!ATTLIST dipswitch mask CDATA #REQUIRED>
+			<!ELEMENT dipvalue EMPTY>
+				<!ATTLIST dipvalue name CDATA #REQUIRED>
+				<!ATTLIST dipvalue value CDATA #REQUIRED>
+				<!ATTLIST dipvalue default (yes|no) "no">
+		<!ELEMENT configuration (confsetting*)>
+			<!ATTLIST configuration name CDATA #REQUIRED>
+			<!ATTLIST configuration tag CDATA #REQUIRED>
+			<!ATTLIST configuration mask CDATA #REQUIRED>
+			<!ELEMENT confsetting EMPTY>
+				<!ATTLIST confsetting name CDATA #REQUIRED>
+				<!ATTLIST confsetting value CDATA #REQUIRED>
+				<!ATTLIST confsetting default (yes|no) "no">
+		<!ELEMENT port (analog*)>
+			<!ATTLIST port tag CDATA #REQUIRED>
+			<!ELEMENT analog EMPTY>
+				<!ATTLIST analog mask CDATA #REQUIRED>
+		<!ELEMENT adjuster EMPTY>
+			<!ATTLIST adjuster name CDATA #REQUIRED>
+			<!ATTLIST adjuster default CDATA #REQUIRED>
+		<!ELEMENT driver EMPTY>
+			<!ATTLIST driver status (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver emulation (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver color (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver sound (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver graphic (good|imperfect|preliminary) #REQUIRED>
+			<!ATTLIST driver cocktail (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver protection (good|imperfect|preliminary) #IMPLIED>
+			<!ATTLIST driver savestate (supported|unsupported) #REQUIRED>
+		<!ELEMENT device (instance*, extension*)>
+			<!ATTLIST device type CDATA #REQUIRED>
+			<!ATTLIST device tag CDATA #IMPLIED>
+			<!ATTLIST device mandatory CDATA #IMPLIED>
+			<!ATTLIST device interface CDATA #IMPLIED>
+			<!ELEMENT instance EMPTY>
+				<!ATTLIST instance name CDATA #REQUIRED>
+				<!ATTLIST instance briefname CDATA #REQUIRED>
+			<!ELEMENT extension EMPTY>
+				<!ATTLIST extension name CDATA #REQUIRED>
+		<!ELEMENT slot (slotoption*)>
+			<!ATTLIST slot name CDATA #REQUIRED>
+			<!ELEMENT slotoption EMPTY>
+				<!ATTLIST slotoption name CDATA #REQUIRED>
+				<!ATTLIST slotoption devname CDATA #REQUIRED>
+				<!ATTLIST slotoption default (yes|no) "no">
+		<!ELEMENT softwarelist EMPTY>
+			<!ATTLIST softwarelist name CDATA #REQUIRED>
+			<!ATTLIST softwarelist status (original|compatible) #REQUIRED>
+			<!ATTLIST softwarelist filter CDATA #IMPLIED>
+		<!ELEMENT ramoption (#PCDATA)>
+			<!ATTLIST ramoption default CDATA #IMPLIED>
+]>
+
+<mame build="0.170 (Jun 16 2016)" debug="no" mameconfig="10">
+	<machine name="snes" sourcefile="snes.cpp">
+		<description>Super Nintendo Entertainment System / Super Famicom (NTSC)</description>
+		<year>1989</year>
+		<manufacturer>Nintendo</manufacturer>
+		<rom name="spc700.rom" size="64" crc="44bb3a40" sha1="97e352553e94242ae823547cd853eecda55c20f0" region="sound_ipl" offset="0"/>
+		<device_ref name="5a22"/>
+		<device_ref name="spc700"/>
+		<device_ref name="screen"/>
+		<device_ref name="snes_ppu"/>
+		<device_ref name="snes_control_port"/>
+		<device_ref name="snes_joypad"/>
+		<device_ref name="snes_control_port"/>
+		<device_ref name="snes_joypad"/>
+		<device_ref name="speaker"/>
+		<device_ref name="speaker"/>
+		<device_ref name="snes_sound"/>
+		<device_ref name="sns_cart_slot"/>
+		<device_ref name="software_list"/>
+		<device_ref name="software_list"/>
+		<device_ref name="software_list"/>
+		<chip type="cpu" tag="maincpu" name="5A22" clock="21477272"/>
+		<chip type="cpu" tag="soundcpu" name="SPC700" clock="1024000"/>
+		<chip type="audio" tag="lspeaker" name="Speaker"/>
+		<chip type="audio" tag="rspeaker" name="Speaker"/>
+		<chip type="audio" tag="spc700" name="SNES Custom DSP (SPC700)"/>
+		<display tag="screen" type="raster" rotate="0" width="512" height="225" refresh="60.098476" pixclock="10738636" htotal="682" hbend="0" hbstart="512" vtotal="262" vbend="0" vbstart="225" />
+		<sound channels="2"/>
+		<input players="1" buttons="6">
+			<control type="joy" ways="8"/>
+		</input>
+		<configuration name="Hi-Res pixels blurring (TV effect)" tag="OPTIONS" mask="1">
+			<confsetting name="Off" value="0" default="yes"/>
+			<confsetting name="On" value="1"/>
+		</configuration>
+		<port tag=":OPTIONS">
+		</port>
+		<port tag=":ctrl1:joypad:JOYPAD">
+		</port>
+		<port tag=":ctrl2:joypad:JOYPAD">
+		</port>
+		<driver status="imperfect" emulation="good" color="good" sound="imperfect" graphic="imperfect" savestate="supported"/>
+		<device type="cartridge" tag="snsslot" mandatory="1" interface="snes_cart">
+			<instance name="cartridge" briefname="cart"/>
+			<extension name="sfc"/>
+		</device>
+		<slot name="ctrl1">
+			<slotoption name="joypad" devname="snes_joypad" default="yes"/>
+			<slotoption name="mouse" devname="snes_mouse"/>
+			<slotoption name="multitap" devname="snes_multitap"/>
+			<slotoption name="pachinko" devname="snes_pachinko"/>
+			<slotoption name="sscope" devname="snes_sscope"/>
+			<slotoption name="twintap" devname="snes_twintap"/>
+			<slotoption name="barcode_battler" devname="snes_bcbattle"/>
+			<slotoption name="miracle_piano" devname="snes_miracle"/>
+		</slot>
+		<slot name="ctrl2">
+			<slotoption name="joypad" devname="snes_joypad" default="yes"/>
+			<slotoption name="mouse" devname="snes_mouse"/>
+			<slotoption name="multitap" devname="snes_multitap"/>
+			<slotoption name="pachinko" devname="snes_pachinko"/>
+			<slotoption name="sscope" devname="snes_sscope"/>
+			<slotoption name="twintap" devname="snes_twintap"/>
+			<slotoption name="barcode_battler" devname="snes_bcbattle"/>
+			<slotoption name="miracle_piano" devname="snes_miracle"/>
+		</slot>
+		<slot name="snsslot">
+		</slot>
+		<softwarelist name="snes" status="original" />
+		<softwarelist name="snes_bspack" status="original" />
+		<softwarelist name="snes_strom" status="original" />
+	</machine>
+	<machine name="5a22" sourcefile="src/devices/cpu/g65816/g65816.cpp" isdevice="yes" runnable="no">
+		<description>5A22</description>
+	</machine>
+	<machine name="spc700" sourcefile="src/devices/cpu/spc700/spc700.cpp" isdevice="yes" runnable="no">
+		<description>SPC700</description>
+	</machine>
+	<machine name="screen" sourcefile="src/emu/screen.cpp" isdevice="yes" runnable="no">
+		<description>Video Screen</description>
+	</machine>
+	<machine name="snes_ppu" sourcefile="src/devices/video/snes_ppu.cpp" isdevice="yes" runnable="no">
+		<description>SNES PPU</description>
+	</machine>
+	<machine name="snes_control_port" sourcefile="src/devices/bus/snes_ctrl/ctrl.cpp" isdevice="yes" runnable="no">
+		<description>Nintendo SNES / SFC control port</description>
+		<input players="1" buttons="6">
+			<control type="joy" ways="8"/>
+		</input>
+	</machine>
+	<machine name="snes_joypad" sourcefile="src/devices/bus/snes_ctrl/joypad.cpp" isdevice="yes" runnable="no">
+		<description>Nintendo SNES / SFC Control Pad</description>
+		<input players="1" buttons="6">
+			<control type="joy" ways="8"/>
+		</input>
+	</machine>
+	<machine name="speaker" sourcefile="src/emu/speaker.cpp" isdevice="yes" runnable="no">
+		<description>Speaker</description>
+		<sound channels="1"/>
+	</machine>
+	<machine name="snes_sound" sourcefile="src/mame/audio/snes_snd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Custom DSP (SPC700)</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="sns_cart_slot" sourcefile="src/devices/bus/snes/snes_slot.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cartridge Slot</description>
+	</machine>
+	<machine name="software_list" sourcefile="src/emu/softlist.cpp" isdevice="yes" runnable="no">
+		<description>Software list</description>
+	</machine>
+	<machine name="snes_mouse" sourcefile="src/devices/bus/snes_ctrl/mouse.cpp" isdevice="yes" runnable="no">
+		<description>Nintendo SNES / SFC Mouse Controller</description>
+		<input players="1" buttons="2">
+			<control type="lightgun" minimum="0" maximum="511" sensitivity="30" keydelta="5"/>
+		</input>
+	</machine>
+	<machine name="snes_multitap" sourcefile="src/devices/bus/snes_ctrl/multitap.cpp" isdevice="yes" runnable="no">
+		<description>Nintendo SNES / SFC Multitap Adapter</description>
+		<configuration name="Number of players" tag=":CONFIG" mask="1">
+			<confsetting name="3-5P" value="0" default="yes"/>
+			<confsetting name="2P" value="1"/>
+		</configuration>
+		<slot name=":port1">
+			<slotoption name="joypad" devname="snes_joypad" default="yes"/>
+			<slotoption name="twintap" devname="snes_twintap"/>
+		</slot>
+		<slot name=":port2">
+			<slotoption name="joypad" devname="snes_joypad" default="yes"/>
+			<slotoption name="twintap" devname="snes_twintap"/>
+		</slot>
+		<slot name=":port3">
+			<slotoption name="joypad" devname="snes_joypad" default="yes"/>
+			<slotoption name="twintap" devname="snes_twintap"/>
+		</slot>
+		<slot name=":port4">
+			<slotoption name="joypad" devname="snes_joypad" default="yes"/>
+			<slotoption name="twintap" devname="snes_twintap"/>
+		</slot>
+	</machine>
+	<machine name="snes_pachinko" sourcefile="src/devices/bus/snes_ctrl/pachinko.cpp" isdevice="yes" runnable="no">
+		<description>Sunsoft Pachinko Controller</description>
+		<input players="1" buttons="1">
+			<control type="paddle" minimum="24" maximum="127" sensitivity="25" keydelta="25"/>
+		</input>
+	</machine>
+	<machine name="snes_sscope" sourcefile="src/devices/bus/snes_ctrl/sscope.cpp" isdevice="yes" runnable="no">
+		<description>Nintendo SNES / SFC SuperScope</description>
+		<input players="1" buttons="4">
+			<control type="lightgun" minimum="0" maximum="255" sensitivity="25" keydelta="15"/>
+		</input>
+	</machine>
+	<machine name="snes_twintap" sourcefile="src/devices/bus/snes_ctrl/twintap.cpp" isdevice="yes" runnable="no">
+		<description>Yonezawa Twin Tap Controller</description>
+	</machine>
+	<machine name="snes_bcbattle" sourcefile="src/devices/bus/snes_ctrl/bcbattle.cpp" isdevice="yes" runnable="no">
+		<description>Epoch Barcode Battler (SFC)</description>
+	</machine>
+	<machine name="bcreader" sourcefile="src/devices/machine/bcreader.cpp" isdevice="yes" runnable="no">
+		<description>Barcode Reader</description>
+	</machine>
+	<machine name="snes_miracle" sourcefile="src/devices/bus/snes_ctrl/miracle.cpp" isdevice="yes" runnable="no">
+		<description>Miracle Piano SNES Cable</description>
+		<slot name=":mdin">
+			<slotoption name="midiin" devname="midiin_port" default="yes"/>
+		</slot>
+		<slot name=":mdout">
+			<slotoption name="midiout" devname="midiout_port" default="yes"/>
+		</slot>
+	</machine>
+	<machine name="midi_port" sourcefile="src/devices/bus/midi/midi.cpp" isdevice="yes" runnable="no">
+		<description>Midi Port</description>
+	</machine>
+	<machine name="sns_rom" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM)</description>
+	</machine>
+	<machine name="sns_rom_bsxlo" sourcefile="src/devices/bus/snes/bsx.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) +  BS-X slot</description>
+		<device type="cartridge" tag=":bs_slot" interface="bspack">
+			<instance name="cartridge2" briefname="cart2"/>
+			<extension name="bs"/>
+		</device>
+		<slot name=":bs_slot">
+		</slot>
+	</machine>
+	<machine name="sns_bsx_cart_slot" sourcefile="src/devices/bus/snes/snes_slot.cpp" isdevice="yes" runnable="no">
+		<description>SNES BS-X Cartridge Slot</description>
+	</machine>
+	<machine name="sns_rom_necdsp" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + NEC DSP</description>
+		<chip type="cpu" tag=":dsp" name="uPD7725" clock="8000000"/>
+	</machine>
+	<machine name="upd7725" sourcefile="src/devices/cpu/upd7725/upd7725.cpp" isdevice="yes" runnable="no">
+		<description>uPD7725</description>
+	</machine>
+	<machine name="sns_rom_obc1" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + OBC-1</description>
+	</machine>
+	<machine name="sns_rom_sa1" sourcefile="src/devices/bus/snes/sa1.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart + SA-1</description>
+		<chip type="cpu" tag=":sa1cpu" name="G65C816" clock="10000000"/>
+	</machine>
+	<machine name="g65c816" sourcefile="src/devices/cpu/g65816/g65816.cpp" isdevice="yes" runnable="no">
+		<description>G65C816</description>
+	</machine>
+	<machine name="sns_rom_sdd1" sourcefile="src/devices/bus/snes/sdd1.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart + S-DD1</description>
+	</machine>
+	<machine name="sns_rom_superfx" sourcefile="src/devices/bus/snes/sfx.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + SuperFX</description>
+		<chip type="cpu" tag=":superfx" name="SuperFX" clock="21480000"/>
+	</machine>
+	<machine name="superfx" sourcefile="src/devices/cpu/superfx/superfx.cpp" isdevice="yes" runnable="no">
+		<description>SuperFX</description>
+	</machine>
+	<machine name="sns_rom_sgb" sourcefile="src/devices/bus/snes/sgb.cpp" isdevice="yes" runnable="no">
+		<description>SNES Super Game Boy Cart</description>
+		<chip type="cpu" tag=":sgb_cpu" name="LR35902" clock="4295454"/>
+		<chip type="audio" tag=":sgb_snd" name="LR35902 Sound"/>
+		<sound channels="0"/>
+		<device type="cartridge" tag=":gb_slot" interface="gameboy_cart">
+			<instance name="cartridge2" briefname="cart2"/>
+			<extension name="bin"/>
+			<extension name="gb"/>
+			<extension name="gbc"/>
+		</device>
+		<slot name=":gb_slot">
+		</slot>
+	</machine>
+	<machine name="lr35902" sourcefile="src/devices/cpu/lr35902/lr35902.cpp" isdevice="yes" runnable="no">
+		<description>LR35902</description>
+	</machine>
+	<machine name="sgb_lcd" sourcefile="src/mame/video/gb_lcd.cpp" isdevice="yes" runnable="no">
+		<description>SGB LCD</description>
+	</machine>
+	<machine name="gameboy_sound" sourcefile="src/mame/audio/gb.cpp" isdevice="yes" runnable="no">
+		<description>LR35902 Sound</description>
+		<sound channels="0"/>
+	</machine>
+	<machine name="gb_cart_slot" sourcefile="src/devices/bus/gameboy/gb_slot.cpp" isdevice="yes" runnable="no">
+		<description>Game Boy Cartridge Slot</description>
+	</machine>
+	<machine name="sns_rom_seta10" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + Seta ST010 DSP</description>
+		<chip type="cpu" tag=":dsp" name="uPD96050" clock="10000000"/>
+	</machine>
+	<machine name="upd96050" sourcefile="src/devices/cpu/upd7725/upd7725.cpp" isdevice="yes" runnable="no">
+		<description>uPD96050</description>
+	</machine>
+	<machine name="sns_rom_seta11" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + Seta ST011 DSP</description>
+		<chip type="cpu" tag=":dsp" name="uPD96050" clock="15000000"/>
+	</machine>
+	<machine name="sns_rom_sufami" sourcefile="src/devices/bus/snes/sufami.cpp" isdevice="yes" runnable="no">
+		<description>SNES Sufami Turbo Cart</description>
+		<device type="cartridge" tag=":st_slot1" interface="st_cart">
+			<instance name="cartridge2" briefname="cart2"/>
+			<extension name="st"/>
+		</device>
+		<device type="cartridge" tag=":st_slot2" interface="st_cart">
+			<instance name="cartridge3" briefname="cart3"/>
+			<extension name="st"/>
+		</device>
+		<slot name=":st_slot1">
+		</slot>
+		<slot name=":st_slot2">
+		</slot>
+	</machine>
+	<machine name="sns_sufami_cart_slot" sourcefile="src/devices/bus/snes/snes_slot.cpp" isdevice="yes" runnable="no">
+		<description>SNES Sufami Turbo Cartridge Slot</description>
+	</machine>
+	<machine name="sns_rom21" sourcefile="src/devices/bus/snes/rom21.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (HiROM)</description>
+	</machine>
+	<machine name="sns_rom_bsxhi" sourcefile="src/devices/bus/snes/bsx.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (HiROM) +  BS-X slot</description>
+		<device type="cartridge" tag=":bs_slot" interface="bspack">
+			<instance name="cartridge2" briefname="cart2"/>
+			<extension name="bs"/>
+		</device>
+		<slot name=":bs_slot">
+		</slot>
+	</machine>
+	<machine name="sns_rom21_necdsp" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (HiROM) + NEC DSP</description>
+		<chip type="cpu" tag=":dsp" name="uPD7725" clock="8000000"/>
+	</machine>
+	<machine name="sns_rom_spc7110" sourcefile="src/devices/bus/snes/spc7110.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart + SPC-7110</description>
+	</machine>
+	<machine name="sns_rom_spc7110rtc" sourcefile="src/devices/bus/snes/spc7110.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart + SPC-7110 + RTC</description>
+	</machine>
+	<machine name="sns_rom21_srtc" sourcefile="src/devices/bus/snes/rom21.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (HiROM) + S-RTC</description>
+	</machine>
+	<machine name="sns_rom_bsx" sourcefile="src/devices/bus/snes/bsx.cpp" isdevice="yes" runnable="no">
+		<description>SNES BS-X Cart</description>
+		<device type="cartridge" tag=":bs_slot" interface="bspack">
+			<instance name="cartridge2" briefname="cart2"/>
+			<extension name="bs"/>
+		</device>
+		<slot name=":bs_slot">
+		</slot>
+	</machine>
+	<machine name="sns_pfest94" sourcefile="src/devices/bus/snes/event.cpp" isdevice="yes" runnable="no">
+		<description>SNES Powerfest '94</description>
+		<chip type="cpu" tag=":dsp" name="uPD7725" clock="8000000"/>
+		<dipswitch name="Unused" tag=":DIPSW" mask="3">
+			<dipvalue name="Off" value="0" default="yes"/>
+			<dipvalue name="On" value="3"/>
+		</dipswitch>
+		<dipswitch name="Test Mode" tag=":DIPSW" mask="4">
+			<dipvalue name="Off" value="0" default="yes"/>
+			<dipvalue name="On" value="4"/>
+		</dipswitch>
+		<dipswitch name="Unused" tag=":DIPSW" mask="8">
+			<dipvalue name="Off" value="8" default="yes"/>
+			<dipvalue name="On" value="0"/>
+		</dipswitch>
+		<dipswitch name="Timer" tag=":DIPSW" mask="240">
+			<dipvalue name="3 Minutes" value="0"/>
+			<dipvalue name="4 Minutes" value="16"/>
+			<dipvalue name="5 Minutes" value="32"/>
+			<dipvalue name="6 Minutes" value="48" default="yes"/>
+			<dipvalue name="7 Minutes" value="64"/>
+			<dipvalue name="8 Minutes" value="80"/>
+			<dipvalue name="9 Minutes" value="96"/>
+			<dipvalue name="10 Minutes" value="112"/>
+			<dipvalue name="11 Minutes" value="128"/>
+			<dipvalue name="12 Minutes" value="144"/>
+			<dipvalue name="13 Minutes" value="160"/>
+			<dipvalue name="14 Minutes" value="176"/>
+			<dipvalue name="15 Minutes" value="192"/>
+			<dipvalue name="16 Minutes" value="208"/>
+			<dipvalue name="17 Minutes" value="224"/>
+			<dipvalue name="18 Minutes" value="240"/>
+		</dipswitch>
+	</machine>
+	<machine name="sns_rom_pokemon" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES Pirate Carts with Protection</description>
+	</machine>
+	<machine name="sns_rom_tekken2" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES Tekken 2</description>
+	</machine>
+	<machine name="sns_rom_soulblad" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES Soul Blade</description>
+	</machine>
+	<machine name="sns_rom_mcpirate1" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES Pirate Multigame Carts Type 1</description>
+	</machine>
+	<machine name="sns_rom_mcpirate2" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES Pirate Multigame Carts Type 2</description>
+	</machine>
+	<machine name="sns_rom_20col" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES Super 20 Collection</description>
+	</machine>
+	<machine name="sns_rom_banana" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES Banana de Pijamas</description>
+	</machine>
+	<machine name="sns_rom_bugslife" sourcefile="src/devices/bus/snes/rom.cpp" isdevice="yes" runnable="no">
+		<description>SNES A Bug's Life</description>
+	</machine>
+	<machine name="dsp1leg" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + NEC DSP1 Legacy</description>
+		<rom name="dsp1.bin" size="10240" crc="2838f9f5" sha1="0a03ccb1fd2bea91151c745a4d1f217ae784f889" region="addon" offset="0"/>
+		<chip type="cpu" tag=":dsp" name="uPD7725" clock="8000000"/>
+	</machine>
+	<machine name="dsp1bleg" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + NEC DSP1B Legacy</description>
+		<rom name="dsp1b.bin" size="10240" crc="453557e0" sha1="3a218b0e4572a8eba6d0121b17fdac9529609220" region="addon" offset="0"/>
+		<chip type="cpu" tag=":dsp" name="uPD7725" clock="8000000"/>
+	</machine>
+	<machine name="dsp2leg" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + NEC DSP2 Legacy</description>
+		<rom name="dsp2.bin" size="10240" crc="8e9fbd9b" sha1="06dd9fcb118d18f6bbe234e013cb8780e06d6e63" region="addon" offset="0"/>
+		<chip type="cpu" tag=":dsp" name="uPD7725" clock="8000000"/>
+	</machine>
+	<machine name="dsp3leg" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + NEC DSP3 Legacy</description>
+		<rom name="dsp3.bin" size="10240" crc="6b86728a" sha1="1b133741fad810eb7320c21ecfdd427d25a46da1" region="addon" offset="0"/>
+		<chip type="cpu" tag=":dsp" name="uPD7725" clock="8000000"/>
+	</machine>
+	<machine name="dsp4leg" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + NEC DSP4 Legacy</description>
+		<rom name="dsp4.bin" size="10240" crc="ce0c7783" sha1="76fd25f7dc26c3b3f7868a3aa78c7684068713e5" region="addon" offset="0"/>
+		<chip type="cpu" tag=":dsp" name="uPD7725" clock="8000000"/>
+	</machine>
+	<machine name="dsp1leg_hi" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (HiROM) + NEC DSP1 Legacy</description>
+		<rom name="dsp1.bin" size="10240" crc="2838f9f5" sha1="0a03ccb1fd2bea91151c745a4d1f217ae784f889" region="addon" offset="0"/>
+		<chip type="cpu" tag=":dsp" name="uPD7725" clock="8000000"/>
+	</machine>
+	<machine name="seta10leg" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + Seta ST010 DSP Legacy</description>
+		<rom name="st010.bin" size="69632" crc="aa11ee2d" sha1="cc1984e989cb94e3dcbb5f99e085b5414e18a017" region="addon" offset="0"/>
+		<chip type="cpu" tag=":dsp" name="uPD96050" clock="10000000"/>
+	</machine>
+	<machine name="seta11leg" sourcefile="src/devices/bus/snes/upd.cpp" isdevice="yes" runnable="no">
+		<description>SNES Cart (LoROM) + Seta ST011 DSP Legacy</description>
+		<rom name="st011.bin" size="69632" crc="34d2952c" sha1="1375b8c1efc8cae4962b57dfe22f6b78e1ddacc8" region="addon" offset="0"/>
+		<chip type="cpu" tag=":dsp" name="uPD96050" clock="15000000"/>
+	</machine>
+</mame>

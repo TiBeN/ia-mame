@@ -357,41 +357,46 @@ public class TestSoftware {
             
     }
 
-    //@Test
-    //public void testGetMissingRomFilesForSoftwareClone ()
-            //throws FileNotFoundException,
-                //IOException,
-                //InterruptedException,
-                //MachineDoesntExistException,
-                //MachineHasNoSoftwareListException,
-                //SoftwareNotFoundInSoftwareListsException {
+    @Test
+    public void testGetMissingRomFilesForSoftwareClone ()
+            throws FileNotFoundException,
+                IOException,
+                InterruptedException,
+                MachineDoesntExistException,
+                MachineHasNoSoftwareListException,
+                SoftwareNotFoundInSoftwareListsException {
 
-        //FakeMameRuntime mame = new FakeMameRuntime();
+        FakeMameRuntime mame = new FakeMameRuntime();
         
-        //List<InputStream> inputStreams = new ArrayList<>();
+        List<InputStream> inputStreams = new ArrayList<>();
 
-        //// Add SMS Machine XML metadata
-        //inputStreams.add(
-                //new FileInputStream("src/test/resources/xml/snes.xml"));
+        // Add SMS Machine XML metadata
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/snes.xml"));
 
-        //// Add SMS XML softwarelist
-        //inputStreams.add(
-                //new FileInputStream("src/test/resources/xml/snes-sl.xml"));
+        // Add SMS XML softwarelist
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/snes-sl.xml"));
         
-        //mame.setInputStreamsToReturn(inputStreams);
+        mame.setInputStreamsToReturn(inputStreams);
 
-        //MachineRepository mr = new MachineRepository(mame);
+        MachineRepository mr = new MachineRepository(mame);
 
-        //Machine m = mr.findByName("snes");
+        Machine m = mr.findByName("snes");
 
-        //SoftwareRepository sr = new SoftwareRepository(mame);
+        SoftwareRepository sr = new SoftwareRepository(mame);
 
-        //Software s = sr.findByMachineAndByName(m, "megamnx2u");
+        Software s = sr.findByMachineAndByName(m, "megamnx2u");
 
-        //Set<File> romPaths = new HashSet<>();
-        //romPaths.add(new File("src/test/resources/full-rompath"));
+        Set<File> romPaths = new HashSet<>();
+        romPaths.add(new File("src/test/resources/full-rompath"));
 
-        //assertNull(s.getMissingRomFiles(romPaths));
+        Set<SoftwareFile> expectedMissingRomFiles = new HashSet<>();
+        expectedMissingRomFiles.add(new SoftwareFile("snes/megamnx2u", false));
+        expectedMissingRomFiles.add(new SoftwareFile("snes/megamnx2", false));
 
-    //}
+        assertThat(s.getMissingRomFiles(romPaths), 
+                equalTo(expectedMissingRomFiles));
+
+    }
 }
