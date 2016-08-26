@@ -91,6 +91,15 @@ public class SoftwareRepository {
                             .equals(mediaDevice.getMediaInterface())) {
                     s.setMachine(machine);
                     s.setSoftwareList(sl);
+                    //if (s.isAClone()) {
+                        //s.setOriginal(
+                            //this.findByMachineAndAndByMediaTypeAndByName(
+                                //machine,
+                                //mediaDevice,
+                                //s.getOriginalName()));
+                    //}
+
+                     
                     return s;                   
 
                 }

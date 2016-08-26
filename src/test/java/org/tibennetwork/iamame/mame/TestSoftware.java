@@ -317,7 +317,7 @@ public class TestSoftware {
     }
 
     @Test
-    public void testGetMissingRomFileOnChdFilesSystemShouldReturnNull () 
+    public void testGetMissingRomFilesOnChdFilesSystemShouldReturnEmptySet () 
             throws FileNotFoundException,
                 IOException,
                 InterruptedException,

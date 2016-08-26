@@ -57,7 +57,6 @@ public class Software {
         public String getDeviceInterface() {
             return deviceInterface;
         }
-
         
         public DiskArea getDiskarea () {
             return diskarea;
@@ -80,6 +79,9 @@ public class Software {
     @XmlElement(name="part")
     private List<Part> parts = new ArrayList<>();
 
+    @XmlAttribute(name="cloneof")
+    private String originalName;
+
     private Machine machine;
 
     private MediaDevice mediaDevice;
@@ -87,6 +89,11 @@ public class Software {
     private SoftwareList softwareList;
 
     private String regularFileName;
+
+    /**
+     * The software this software is a clone of
+     */
+    private Software original;
 
     public Software () {}
 
@@ -119,6 +126,14 @@ public class Software {
         return parts;
     }
 
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
+    }
+
     public Machine getMachine() {
         return machine;
     }
@@ -139,6 +154,14 @@ public class Software {
         this.softwareList = softwareList;
     }
 
+    public Software getOriginal() {
+        return original;
+    }
+
+    public void setOriginal(Software original) {
+        this.original = original;
+    }
+
     public boolean isRegularFile () {
         return this.regularFileName != null;
     }
@@ -154,6 +177,10 @@ public class Software {
         }
         
         return null;
+    }
+
+    public boolean isAClone () {
+        return this.originalName != null;
     }
     
     public String toString() {
@@ -232,21 +259,30 @@ public class Software {
      * If the software contains any chd files of cd-rom type, 
      * then it should not contain any rom file
      */
-    private SoftwareFile getNeededRomFile () {
+    public Set<SoftwareFile> getNeededRomFiles () {
 
         // Search for CD-ROM items on the software parts.
-        // If that is the case, return null
+        // If that is the case, return empty because
+        // it seems a cd-rom software doesn't contain 
+        // any rom files.
         for (Part p: this.parts) {
             if (p.getName().matches("^cdrom[0-9]+$")) {
-                return null;
+                return new HashSet<>();
             }
         }
+
+        Set<SoftwareFile> neededRomFiles = new HashSet<>();                   
 
         String romFileName = this.softwareList.getName()
             + File.separator
             + this.name;
 
-        return new SoftwareFile(romFileName, false);
+        neededRomFiles.add(new SoftwareFile(romFileName, false));
+        if (this.isAClone()) {
+            neededRomFiles.addAll(this.original.getNeededRomFiles());
+        }
+
+        return neededRomFiles;
 
     }
 
@@ -254,20 +290,10 @@ public class Software {
      * Determine missing rom file on the given rom path
      */
     public Set<SoftwareFile> getMissingRomFiles (Set<File> romPaths) {
-
-        //Set<SoftwareFile> sf = this.getNeededRomFiles();
-        //if (sf.isEmpty ...return..)
-
-        Set<SoftwareFile> missingRomFiles = new HashSet<>();
-        Set<SoftwareFile> neededRomFiles = new HashSet<>();
-        SoftwareFile nrf = this.getNeededRomFile();
-        if (nrf == null){
-            return missingRomFiles;         
-        }
-
-        neededRomFiles.add(nrf);
         
-        softwareFilesLoop: for (SoftwareFile sf: neededRomFiles) {
+        Set<SoftwareFile> missingRomFiles = new HashSet<>();
+
+        softwareFilesLoop: for (SoftwareFile sf: this.getNeededRomFiles()) {
 
             for (File romPath: romPaths) {
                 
@@ -301,6 +327,7 @@ public class Software {
 
     /**
      * Determines if some files are missing on the given set of 
+     * 
      * romspaths to launch this software
      */
     public boolean areFilesAvailable (Set<File> romPaths) {
