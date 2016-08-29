@@ -4,6 +4,8 @@ CHANGELOG
 Current
 -------
 
+-   Now support software list softwares clones 
+    (see [issue #4](https://github.com/TiBeN/ia-mame/issues/4))
 -   Fixed: Use Uppercase letters on command line throws exception (allowed by 
     Mame) (see [issue #5](https://github.com/TiBeN/ia-mame/issues/5))
 -   Fixed: ia-mame does not find the Machine data on the XML using 

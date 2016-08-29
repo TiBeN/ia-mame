@@ -18,9 +18,6 @@ Features/Improvements
 -   Add some kind of communication channel for frontends to read the
     download progress and activity data.
 -   Implements Collections 3DO, MacHDD,VsmileCD
--   [WIP] Support of software list softwares clones — via the `cloneof` attribute
-    — in order to download the reference version of a software if needed
-    (see [issue #4](https://github.com/TiBeN/ia-mame/issues/4))
 
 Bugs/Checks
 -----------
