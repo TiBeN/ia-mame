@@ -54,6 +54,12 @@ public class SoftwareRepository {
                 if(s.getName().equals(softwareName)) {
                     s.setMachine(machine);
                     s.setSoftwareList(sl);
+                    if (s.isAClone()) {
+                        s.setOriginal(
+                            this.findByMachineAndByName(
+                                machine,
+                                s.getCloneof()));
+                    }
                     return s;                    
                 }
             }
@@ -91,13 +97,13 @@ public class SoftwareRepository {
                             .equals(mediaDevice.getMediaInterface())) {
                     s.setMachine(machine);
                     s.setSoftwareList(sl);
-                    //if (s.isAClone()) {
-                        //s.setOriginal(
-                            //this.findByMachineAndAndByMediaTypeAndByName(
-                                //machine,
-                                //mediaDevice,
-                                //s.getOriginalName()));
-                    //}
+                    if (s.isAClone()) {
+                        s.setOriginal(
+                            this.findByMachineAndAndByMediaTypeAndByName(
+                                machine,
+                                mediaDevice,
+                                s.getCloneof()));
+                    }
 
                      
                     return s;                   

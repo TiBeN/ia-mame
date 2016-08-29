@@ -69,10 +69,12 @@ public class MachineRepository {
                     mameCommandLine);
             ms = JAXB.unmarshal(is, MameXmlContainer.class);
         } catch (MameExecutionException | DataBindingException e) {
-            throw new MachineDoesntExistException(
+
+            throw (MachineDoesntExistException) 
+                new MachineDoesntExistException(
                 String.format("The machine '%s' doesn't exist or is not " 
-                        + "supported by the provided Mame version",
-                    machineName));
+                        + "supported by the provided Mame version:",
+                    machineName)).initCause(e);
         }
 
         Machine machine = null;

@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Software used with a Machine
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Software {
 
     @XmlRootElement
@@ -80,7 +83,7 @@ public class Software {
     private List<Part> parts = new ArrayList<>();
 
     @XmlAttribute(name="cloneof")
-    private String originalName;
+    private String cloneof;
 
     private Machine machine;
 
@@ -126,12 +129,12 @@ public class Software {
         return parts;
     }
 
-    public String getOriginalName() {
-        return originalName;
+    public String getCloneof() {
+        return cloneof;
     }
 
-    public void setOriginalName(String originalName) {
-        this.originalName = originalName;
+    public void setCloneof(String cloneof) {
+        this.cloneof = cloneof;
     }
 
     public Machine getMachine() {
@@ -180,7 +183,7 @@ public class Software {
     }
 
     public boolean isAClone () {
-        return this.originalName != null;
+        return this.cloneof != null;
     }
     
     public String toString() {

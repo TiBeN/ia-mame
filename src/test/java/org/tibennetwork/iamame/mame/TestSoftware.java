@@ -377,6 +377,9 @@ public class TestSoftware {
         // Add SMS XML softwarelist
         inputStreams.add(
                 new FileInputStream("src/test/resources/xml/snes-sl.xml"));
+        // will be called twice to find the original from the clone
+        inputStreams.add(
+                new FileInputStream("src/test/resources/xml/snes-sl.xml"));
         
         mame.setInputStreamsToReturn(inputStreams);
 
