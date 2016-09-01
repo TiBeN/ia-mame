@@ -10,7 +10,7 @@ Features/Improvements
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
 -   ~~Support for auto-completion~~ This should be a separate project
--   Do support of news command line switchs since Groovymame merged with
+-   [WIP] Do support of news command line switchs since Groovymame merged with
     mame
 -   Support for torrents sources as up-to-date provider
 -   Check if possible to support olds collection source from archive.org:
@@ -29,4 +29,3 @@ Bugs/Checks
 -   Malformed XML "JAXB error". Mame or IaMame fault? can be reproduced
     with softwarelist of system "pippin" with Mame 0.162 . In any case, 
     better handle the error (avoid stack trace)
-
