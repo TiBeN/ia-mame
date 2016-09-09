@@ -23,7 +23,7 @@ public class MessSoftwareListRoms extends SoftwareListCollectionItem {
 
             String softwareFileUrl = String.format(
                 this.softwareFileUrlPattern,
-                software.getMachine().getName(),
+                software.getSoftwareList().getName(),
                 sf.getName());
 
             String destinationPath = this.writableRomPath.getAbsolutePath()

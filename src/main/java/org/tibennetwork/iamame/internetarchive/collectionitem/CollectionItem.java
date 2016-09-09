@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.tibennetwork.iamame.IaMame;
 
 /**
  * Item (ie subcollection) of the Internet Archive 
@@ -68,6 +69,8 @@ public abstract class CollectionItem {
 
         URL romFile = null;
         File destination = new File(destinationPath);
+
+        IaMame.debug("URL: " + romFileUrl);
 
         try {
             romFile = new URL(romFileUrl);
