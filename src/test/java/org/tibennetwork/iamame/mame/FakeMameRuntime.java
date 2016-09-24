@@ -1,8 +1,11 @@
 package org.tibennetwork.iamame.mame;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -55,12 +58,25 @@ public class FakeMameRuntime implements MameRuntime {
             String[] rawArgs, boolean mergeArgsWithDefaultOptions)
             throws IOException, InterruptedException, MameExecutionException {
     
-        return null;        
+        InputStream is = this.inputStreamsToReturn.get(this.inputStreamIndex);
+        this.inputStreamIndex++;
+
+        BufferedReader mameRuntimeStdout = new BufferedReader(
+            new InputStreamReader(is));
+
+        List<String> stdout = new ArrayList<>();
+        String s;
+        
+        while ((s = mameRuntimeStdout.readLine()) != null) {
+            stdout.add(s);
+        }
+
+        return stdout;        
     }
 
     public List<String> executeAndReturnStdout (String[] rawArgs) 
             throws IOException, InterruptedException, MameExecutionException {
-        return null;
+        return this.executeAndReturnStdout(rawArgs, true);
     }
 
     /**
