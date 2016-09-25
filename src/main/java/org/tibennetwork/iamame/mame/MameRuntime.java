@@ -6,11 +6,17 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.cli.ParseException;
 import org.tibennetwork.iamame.internetarchive.NoWritableRomPathException;
 
 public interface MameRuntime {
 
-    public Set<File> getRomsPaths();
+    public Set<File> getRomsPaths() 
+        throws IOException, 
+               InterruptedException,
+               ParseException;
+
+    public void setDefaultOptions (String[] defaultOptions);
 
     /**
      * Executes Mame using the given arguments.

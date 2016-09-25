@@ -82,7 +82,8 @@ public class CommandLineOptionsFactory {
         
         // Loop through the stdout content, line by line
 
-        Pattern showUsagePattern = Pattern.compile("^-([a-z0-9_]{1,20}) +(.*)?$");
+        Pattern showUsagePattern 
+            = Pattern.compile("^-([a-z0-9_]{1,20}) +(.*)?$");
         for (String stdoutLine: showUsageStdout) {
             Matcher m = showUsagePattern.matcher(stdoutLine);
             if (!m.matches()) {
@@ -100,7 +101,6 @@ public class CommandLineOptionsFactory {
                 continue;
             }
 
-            System.out.println(key);
             commands.addOption(key, false, "");
 
         }

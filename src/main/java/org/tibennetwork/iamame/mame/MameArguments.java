@@ -9,7 +9,6 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FilenameUtils;
 
@@ -28,7 +27,7 @@ public class MameArguments {
         private Machine machine = null;
 
         private List<Software> softwares = new ArrayList<>();
-        
+
         public boolean hasMachine () {
             return this.machine != null;
         }
@@ -51,33 +50,6 @@ public class MameArguments {
 
     }
         
-    private static Options mameOptions;
-
-    private static String[] commands = {
-        "showusage",
-        "showconfig",
-        "listmedia",
-        "createconfig",
-        "help",
-        "validate",
-        "listxml",
-        "listfull",
-        "listsource",
-        "listclones",
-        "listbrothers",
-        "listcrc",
-        "listroms",
-        "listsamples",
-        "verifyroms",
-        "verifysamples",
-        "romident",
-        "listdevices",
-        "listslots",
-        "listmedia",
-        "listsoftware",
-        "verifysoftware",
-        "getsoftlist",
-        "verifysoftlist"};
 
     private static String[] mediaTypes = {
         "bitb",
@@ -174,14 +146,16 @@ public class MameArguments {
         "serl"
     };
 
+    private CommandLineOptions mameOptions;
+
     private String[] rawArgs;
 
     private CommandLine commandLine = null;
 
-    public MameArguments (String[] rawArgs)
+    public MameArguments (CommandLineOptions mameOptions, String[] rawArgs)
             throws InvalidMameArgumentsException {
+        this.mameOptions = mameOptions;            
         this.rawArgs = rawArgs;
-        this.parseArgs();
     }
     
     public String[] getRawArgs () {
@@ -194,8 +168,8 @@ public class MameArguments {
      */
     public boolean containsCommand () {
 
-        for (String optionName: commands) {
-            if (this.commandLine.hasOption(optionName)) {
+        for (Option cmd: this.mameOptions.getCommands().getOptions()) {
+            if (this.commandLine.hasOption(cmd.getOpt())) {
                 return true;
             }
         }
@@ -211,8 +185,8 @@ public class MameArguments {
         optionsLoop: for (Option o: this.commandLine.getOptions()) {
             
             // Discard mame commands
-            for (String c: commands) {
-                if (o.getOpt().equals(c)) {
+            for (Option cmd: this.mameOptions.getCommands().getOptions()) {
+                if (o.getOpt().equals(cmd.getOpt())) {
                     continue optionsLoop;
                 }
             }
@@ -328,15 +302,16 @@ public class MameArguments {
     }
 
     /**
-     * Parse args in raw string and store usefull
-     * Arguments.
+     * Parse args in raw string and store usefull Arguments.
      */
-    private void parseArgs () 
+    public void validate () 
             throws InvalidMameArgumentsException {
         
         try {            
             CommandLineParser parser = new DefaultParser();
-            this.commandLine = parser.parse(mameOptions, rawArgs);
+            this.commandLine = parser.parse(
+                mameOptions.getMergedCommandsAndOptions(), 
+                rawArgs);
         } catch (ParseException e) {
             throw (InvalidMameArgumentsException) 
                 new InvalidMameArgumentsException(
@@ -355,380 +330,4 @@ public class MameArguments {
                 || new File(name).exists();
     }
 
-    /**
-     * Static constructor
-     * Prepares the mameOptions arguments specification
-     */
-    static {
-    
-        mameOptions = new Options();
-
-        mameOptions.addOption("readconfig", false, "");
-        mameOptions.addOption("noreadconfig", false, "");
-        mameOptions.addOption("writeconfig", false, "");
-        mameOptions.addOption("nowriteconfig", false, "");
-
-        mameOptions.addOption("rompath", true, "");
-        mameOptions.addOption("hashpath", true, "");
-        mameOptions.addOption("samplepath", true, "");
-        mameOptions.addOption("artpath", true, "");
-        mameOptions.addOption("ctrlrpath", true, "");
-        mameOptions.addOption("inipath", true, "");
-        mameOptions.addOption("fontpath", true, "");
-        mameOptions.addOption("cheatpath", true, "");
-        mameOptions.addOption("crosshairpath", true, "");
-        mameOptions.addOption("pluginspath", true, "");
-        mameOptions.addOption("languagepath", true, "");
-        mameOptions.addOption("cfg_directory", true, "");
-        mameOptions.addOption("nvram_directory", true, "");
-        mameOptions.addOption("input_directory", true, "");
-        mameOptions.addOption("state_directory", true, "");
-        mameOptions.addOption("snapshot_directory", true, "");
-        mameOptions.addOption("diff_directory", true, "");
-        mameOptions.addOption("comment_directory", true, "");
-        mameOptions.addOption("state", true, "");
-        mameOptions.addOption("autosave", false, "");
-        mameOptions.addOption("noautosave", false, "");
-        mameOptions.addOption("playback", true, "");
-        mameOptions.addOption("record", true, ""); //F
-        mameOptions.addOption("record_timecode", true, "");
-        mameOptions.addOption("exit_after_playback", false, "");
-        mameOptions.addOption("noexit_after_playback", false, "");
-        mameOptions.addOption("mngwrite", true, "");
-        mameOptions.addOption("aviwrite", true, "");
-        mameOptions.addOption("wavwrite", true, "");
-        mameOptions.addOption("snapname", true, "");
-        mameOptions.addOption("snapsize", true, "");
-        mameOptions.addOption("snapview", true, "");
-        mameOptions.addOption("snapbilinear", false, "");
-        mameOptions.addOption("nosnapbilinear", false, "");
-        mameOptions.addOption("statename", true, "");
-        mameOptions.addOption("burnin", false, ""); //F
-        mameOptions.addOption("noburnin", false, ""); //F
-
-        mameOptions.addOption("autoframeskip", false, "");
-        mameOptions.addOption("noautoframeskip", false, "");
-        mameOptions.addOption("frameskip", true, "");
-        mameOptions.addOption("seconds_to_run", true, "");
-        mameOptions.addOption("throttle", false, "");
-        mameOptions.addOption("nothrottle", false, "");
-        mameOptions.addOption("sleep", false, "");
-        mameOptions.addOption("nosleep", false, "");
-        mameOptions.addOption("speed", true, "");
-        mameOptions.addOption("refreshspeed", false, "");
-        mameOptions.addOption("norefreshspeed", false, "");
-        mameOptions.addOption("rotate", false, "");
-        mameOptions.addOption("norotate", false, "");
-        mameOptions.addOption("ror", false, "");
-        mameOptions.addOption("noror", false, "");
-        mameOptions.addOption("rol", false, "");
-        mameOptions.addOption("norol", false, "");
-        mameOptions.addOption("autoror", false, "");
-        mameOptions.addOption("noautoror", false, "");
-        mameOptions.addOption("autorol", false, "");
-        mameOptions.addOption("noautorol", false, "");
-        mameOptions.addOption("flipx", false, "");
-        mameOptions.addOption("noflipx", false, "");
-        mameOptions.addOption("flipy", false, "");
-        mameOptions.addOption("noflipy", false, "");
-
-        mameOptions.addOption("artwork_crop", false, "");
-        mameOptions.addOption("noartwork_crop", false, "");
-        mameOptions.addOption("use_backdrops", false, "");
-        mameOptions.addOption("nouse_backdrops", false, "");
-        mameOptions.addOption("use_overlays", false, "");
-        mameOptions.addOption("nouse_overlays", false, "");
-        mameOptions.addOption("use_bezels", false, "");
-        mameOptions.addOption("nouse_bezels", false, "");
-        mameOptions.addOption("use_cpanels", false, "");
-        mameOptions.addOption("nouse_cpanels", false, "");
-        mameOptions.addOption("use_marquees", false, "");
-        mameOptions.addOption("nouse_marquees", false, "");
-
-        mameOptions.addOption("brightness", true, "");
-        mameOptions.addOption("contrast", true, "");
-        mameOptions.addOption("gamma", true, "");
-        mameOptions.addOption("pause_brightness", true, "");
-        mameOptions.addOption("effect", true, "");
-
-        mameOptions.addOption("antialias", false, "");
-        mameOptions.addOption("noantialias", false, "");
-        mameOptions.addOption("beam_width_min", true, "");
-        mameOptions.addOption("beam_width_max", true, "");
-        mameOptions.addOption("beam_intensity_weightset", true, "");
-        mameOptions.addOption("flicker", false, "");
-        mameOptions.addOption("noflicker", false, "");
-        
-        mameOptions.addOption("samplerate", true, "");
-        mameOptions.addOption("samples", false, "");
-        mameOptions.addOption("nosamples", false, "");
-        mameOptions.addOption("volume", true, "");
-
-        mameOptions.addOption("coin_lockout", false, "");
-        mameOptions.addOption("nocoin_lockout", false, "");
-        mameOptions.addOption("ctrlr", false, ""); //F
-        mameOptions.addOption("noctrlr", false, ""); //F
-        mameOptions.addOption("mouse", false, "");
-        mameOptions.addOption("nomouse", false, "");
-        mameOptions.addOption("joystick", false, "");
-        mameOptions.addOption("nojoystick", false, "");
-        mameOptions.addOption("lightgun", false, "");
-        mameOptions.addOption("nolightgun", false, "");
-        mameOptions.addOption("multikeyboard", false, "");
-        mameOptions.addOption("nomultikeyboard", false, "");
-        mameOptions.addOption("multimouse", false, "");
-        mameOptions.addOption("nomultimouse", false, "");
-        mameOptions.addOption("steadykey", false, "");
-        mameOptions.addOption("nosteadykey", false, "");
-        mameOptions.addOption("ui_active", false, "");
-        mameOptions.addOption("noui_active", false, "");
-        mameOptions.addOption("offscreen_reload", false, "");
-        mameOptions.addOption("nooffscreen_reload", false, "");
-        mameOptions.addOption("joystick_map", true, ""); //F
-        mameOptions.addOption("joystick_deadzone", true, "");
-        mameOptions.addOption("joystick_saturation", true, "");
-        mameOptions.addOption("natural", false, "");
-        mameOptions.addOption("nonatural", false, "");
-        mameOptions.addOption("joystick_contradictoryenable", false, "");
-        mameOptions.addOption("nojoystick_contradictoryenable", false, "");
-        mameOptions.addOption("coin_impulse", true, "");
-
-        mameOptions.addOption("paddle_device", false, "");
-        mameOptions.addOption("nopaddle_device", false, "");
-        mameOptions.addOption("adstick_device", false, "");
-        mameOptions.addOption("noadstick_device", false, "");
-        mameOptions.addOption("pedal_device", false, "");
-        mameOptions.addOption("nopedal_device", false, "");
-        mameOptions.addOption("dial_device", false, "");
-        mameOptions.addOption("nodial_device", false, "");
-        mameOptions.addOption("trackball_device", false, "");
-        mameOptions.addOption("notrackball_device", false, "");
-        mameOptions.addOption("lightgun_device", false, "");
-        mameOptions.addOption("nolightgun_device", false, "");
-        mameOptions.addOption("positional_device", false, "");
-        mameOptions.addOption("nopositional_device", false, "");
-        mameOptions.addOption("mouse_device", false, "");
-        mameOptions.addOption("nomouse_device", false, "");
-
-        mameOptions.addOption("verbose", false, "");
-        mameOptions.addOption("noverbose", false, "");
-        mameOptions.addOption("log", true, ""); //F 
-        mameOptions.addOption("oslog", false, "");
-        mameOptions.addOption("nooslog", false, "");
-        mameOptions.addOption("debug", false, "");
-        mameOptions.addOption("nodebug", false, "");
-        mameOptions.addOption("update_in_pause", false, "");
-        mameOptions.addOption("noupdate_in_pause", false, "");
-        mameOptions.addOption("debugscript", true, "");
-
-        mameOptions.addOption("comm_localhost", true, "");
-        mameOptions.addOption("comm_localport", true, "");
-        mameOptions.addOption("comm_remotehost", true, "");
-        mameOptions.addOption("comm_remoteport", true, "");
-
-        mameOptions.addOption("drc", false, "");
-        mameOptions.addOption("nodrc", false, "");
-        mameOptions.addOption("drc_use_c", false, "");
-        mameOptions.addOption("nodrc_use_c", false, "");
-        mameOptions.addOption("drc_log_uml", true, ""); //F
-        mameOptions.addOption("drc_log_native", true, ""); //F
-        mameOptions.addOption("bios", true, ""); //F
-        mameOptions.addOption("cheat", false, "");
-        mameOptions.addOption("nocheat", false, "");
-        mameOptions.addOption("skip_gameinfo", false, "");
-        mameOptions.addOption("noskip_gameinfo", false, "");
-        mameOptions.addOption("uifont", true, "");
-        mameOptions.addOption("ui", true, "");
-        mameOptions.addOption("ramsize", true, "");
-        mameOptions.addOption("confirm_quit", false, "");
-        mameOptions.addOption("noconfirm_quit", false, "");
-        mameOptions.addOption("ui_mouse", false, "");
-        mameOptions.addOption("noui_mouse", false, "");
-        mameOptions.addOption("autoboot_command", true, "");
-        mameOptions.addOption("autoboot_delay", true, "");
-        mameOptions.addOption("autoboot_script", true, "");
-        mameOptions.addOption("console", false, "");
-        mameOptions.addOption("noconsole", false, "");
-        mameOptions.addOption("language", true, "");
-
-        mameOptions.addOption("help", false, "");
-        mameOptions.addOption("validate", false, "");
-
-        mameOptions.addOption("createconfig", false, "");
-        mameOptions.addOption("showconfig", false, "");
-        mameOptions.addOption("showusage", false, "");
-
-        mameOptions.addOption("listxml", false, "");
-        mameOptions.addOption("listfull", false, "");
-        mameOptions.addOption("listsource", false, "");
-        mameOptions.addOption("listclones", false, "");
-        mameOptions.addOption("listbrothers", false, "");
-        mameOptions.addOption("listcrc", false, "");
-        mameOptions.addOption("listroms", false, "");
-        mameOptions.addOption("listsamples", false, "");
-        mameOptions.addOption("verifyroms", false, "");
-        mameOptions.addOption("verifysamples", false, "");
-        mameOptions.addOption("romident", false, "");
-        mameOptions.addOption("listdevices", false, "");
-        mameOptions.addOption("listslots", false, "");
-        mameOptions.addOption("listmedia", false, "");
-        mameOptions.addOption("listsoftware", false, "");
-        mameOptions.addOption("verifysoftware", false, "");
-        mameOptions.addOption("getsoftlist", false, "");
-        mameOptions.addOption("verifysoftlist", false, "");
-
-        mameOptions.addOption("uimodekey", true, "");
-
-        mameOptions.addOption("uifontprovider", true, "");
-
-        mameOptions.addOption("listmidi", false, "");
-        mameOptions.addOption("listnetwork", false, "");
-
-        mameOptions.addOption("debugger", true, "");
-        mameOptions.addOption("debugger_font", true, "");
-        mameOptions.addOption("debugger_font_size", true, "");
-        mameOptions.addOption("watchdog", true, "");
-        
-        mameOptions.addOption("multithreading", false, "");
-        mameOptions.addOption("nomultithreading", false, "");
-        mameOptions.addOption("numprocessors", true, "");
-
-        mameOptions.addOption("bench", false, "");
-        mameOptions.addOption("nobench", false, "");
-
-        mameOptions.addOption("video", true, "");
-        mameOptions.addOption("numscreens", true, "");
-        mameOptions.addOption("window", false, "");
-        mameOptions.addOption("nowindow", false, "");
-        mameOptions.addOption("maximize", false, "");
-        mameOptions.addOption("nomaximize", false, "");
-        mameOptions.addOption("keepaspect", false, "");
-        mameOptions.addOption("nokeepaspect", false, "");
-        mameOptions.addOption("unevenstretch", false, "");
-        mameOptions.addOption("nounevenstretch", false, "");
-        mameOptions.addOption("waitvsync", false, "");
-        mameOptions.addOption("nowaitvsync", false, "");
-        mameOptions.addOption("syncrefresh", false, "");
-        mameOptions.addOption("nosyncrefresh", false, "");
-
-        mameOptions.addOption("screen", true, "");
-        mameOptions.addOption("aspect", true, "");
-        mameOptions.addOption("resolution", true, "");
-        mameOptions.addOption("view", true, "");
-        mameOptions.addOption("screen0", true, "");
-        mameOptions.addOption("aspect0", true, "");
-        mameOptions.addOption("resolution0", true, "");
-        mameOptions.addOption("view0", true, "");
-        mameOptions.addOption("screen1", true, "");
-        mameOptions.addOption("aspect1", true, "");
-        mameOptions.addOption("resolution1", true, "");
-        mameOptions.addOption("view1", true, "");
-        mameOptions.addOption("screen2", true, "");
-        mameOptions.addOption("aspect2", true, "");
-        mameOptions.addOption("resolution2", true, "");
-        mameOptions.addOption("view2", true, "");
-        mameOptions.addOption("screen3", true, "");
-        mameOptions.addOption("aspect3", true, "");
-        mameOptions.addOption("resolution3", true, "");
-        mameOptions.addOption("view3", true, "");
-        
-        mameOptions.addOption("switchres", false, "");
-        mameOptions.addOption("noswitchres", false, "");
-
-        mameOptions.addOption("filter", false, "");
-        mameOptions.addOption("nofilter", false, "");
-        mameOptions.addOption("prescale", true, "");
-
-        mameOptions.addOption("gl_forcepow2texture", false, "");
-        mameOptions.addOption("nogl_forcepow2texture", false, "");
-        mameOptions.addOption("gl_notexturerect", false, "");
-        mameOptions.addOption("nogl_notexturerect", false, "");
-        mameOptions.addOption("gl_vbo", false, "");
-        mameOptions.addOption("nogl_vbo", false, "");
-        mameOptions.addOption("gl_pbo", false, "");
-        mameOptions.addOption("nogl_pbo", false, "");
-        mameOptions.addOption("gl_glsl", false, "");
-        mameOptions.addOption("nogl_glsl", false, "");
-        mameOptions.addOption("gl_glsl_filter", false, "");
-        mameOptions.addOption("nogl_glsl_filter", false, "");
-
-        mameOptions.addOption("glsl_shader_mame0", true, "");
-        mameOptions.addOption("glsl_shader_mame1", true, "");
-        mameOptions.addOption("glsl_shader_mame2", true, "");
-        mameOptions.addOption("glsl_shader_mame3", true, "");
-        mameOptions.addOption("glsl_shader_mame4", true, "");
-        mameOptions.addOption("glsl_shader_mame5", true, "");
-        mameOptions.addOption("glsl_shader_mame6", true, "");
-        mameOptions.addOption("glsl_shader_mame7", true, "");
-        mameOptions.addOption("glsl_shader_mame8", true, "");
-        mameOptions.addOption("glsl_shader_mame9", true, "");
-        mameOptions.addOption("glsl_shader_screen0", true, "");
-        mameOptions.addOption("glsl_shader_screen1", true, "");
-        mameOptions.addOption("glsl_shader_screen2", true, "");
-        mameOptions.addOption("glsl_shader_screen3", true, "");
-        mameOptions.addOption("glsl_shader_screen4", true, "");
-        mameOptions.addOption("glsl_shader_screen5", true, "");
-        mameOptions.addOption("glsl_shader_screen6", true, "");
-        mameOptions.addOption("glsl_shader_screen7", true, "");
-        mameOptions.addOption("glsl_shader_screen8", true, "");
-        mameOptions.addOption("glsl_shader_screen9", true, "");
-
-        mameOptions.addOption("sound", false, "");
-        mameOptions.addOption("nosound", false, "");
-        mameOptions.addOption("audio_latency", true, "");
-
-        mameOptions.addOption("sdlvideofps", false, "");
-        mameOptions.addOption("nosdlvideofps", false, "");
-
-        mameOptions.addOption("centerh", false, "");
-        mameOptions.addOption("nocenterh", false, "");
-        mameOptions.addOption("centerv", false, "");
-        mameOptions.addOption("nocenterv", false, "");
-        mameOptions.addOption("scalemode", true, "");
-
-        mameOptions.addOption("useallheads", false, "");
-        mameOptions.addOption("nouseallheads", false, "");
-
-        mameOptions.addOption("keymap", false, "");
-        mameOptions.addOption("nokeymap", false, "");
-        mameOptions.addOption("keymap_file", true, "");
-
-        mameOptions.addOption("joy_idx1", true, "");
-        mameOptions.addOption("joy_idx2", true, "");
-        mameOptions.addOption("joy_idx3", true, "");
-        mameOptions.addOption("joy_idx4", true, "");
-        mameOptions.addOption("joy_idx5", true, "");
-        mameOptions.addOption("joy_idx6", true, "");
-        mameOptions.addOption("joy_idx7", true, "");
-        mameOptions.addOption("joy_idx8", true, "");
-        mameOptions.addOption("sixaxis", true, "");
-
-        mameOptions.addOption("mouse_index1", true, "");
-        mameOptions.addOption("mouse_index2", true, "");
-        mameOptions.addOption("mouse_index3", true, "");
-        mameOptions.addOption("mouse_index4", true, "");
-        mameOptions.addOption("mouse_index5", true, "");
-        mameOptions.addOption("mouse_index6", true, "");
-        mameOptions.addOption("mouse_index7", true, "");
-        mameOptions.addOption("mouse_index8", true, "");
-
-        mameOptions.addOption("keyb_idx1", true, "");
-        mameOptions.addOption("keyb_idx2", true, "");
-        mameOptions.addOption("keyb_idx3", true, "");
-        mameOptions.addOption("keyb_idx4", true, "");
-        mameOptions.addOption("keyb_idx5", true, "");
-        mameOptions.addOption("keyb_idx6", true, "");
-        mameOptions.addOption("keyb_idx7", true, "");
-        mameOptions.addOption("keyb_idx8", true, "");
-
-        mameOptions.addOption("videodriver", true, "");
-        mameOptions.addOption("renderdriver", true, "");
-        mameOptions.addOption("audiodriver", true, "");
-        mameOptions.addOption("gl_lib", true, "");
-
-        // Media specific option args
-        for (String mediaType: mediaTypes) {
-            mameOptions.addOption(mediaType, true, "");
-        }
-    } 
 }

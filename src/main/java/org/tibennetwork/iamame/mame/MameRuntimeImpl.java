@@ -50,7 +50,6 @@ public class MameRuntimeImpl implements MameRuntime {
 
     public MameRuntimeImpl (
             String binPath, 
-            String[] defaultOptions, 
             MameVersionParser mvp) 
             throws IOException, 
                 InterruptedException, 
@@ -58,16 +57,24 @@ public class MameRuntimeImpl implements MameRuntime {
                 UnhandledMameVersionPatternException {
         this.binPath = binPath;
         this.binDirectory = new File(binPath).getParent();
-        this.defaultOptions = defaultOptions;
-        this.mameVersionParser = mvp;
         IaMame.debug(String.format(
             "Mame binary directory: %s", 
             this.binDirectory));
-        this.getRomsPathsFromBinary();
+        this.mameVersionParser = mvp;
         this.getVersionFromBinary();
     }
+
+    public void setDefaultOptions (String[] defaultOptions) {
+        this.defaultOptions = defaultOptions;
+    }
   
-    public Set<File> getRomsPaths() {
+    public Set<File> getRomsPaths() 
+            throws IOException, 
+                   InterruptedException,
+                   ParseException {
+        if (this.romsPaths == null) {
+            this.getRomsPathsFromBinary();
+        }
         return this.romsPaths;
     }
 

@@ -31,6 +31,8 @@ public class FakeMameRuntime implements MameRuntime {
         return null;
     }
 
+    public void setDefaultOptions (String[] defaultOptions) {}
+
     public String getVersion () {
         return this.version;
     }

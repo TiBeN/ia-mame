@@ -4,17 +4,21 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.cli.ParseException;
 import org.tibennetwork.iamame.internetarchive.MachineRomFileNotFoundInCollection;
 import org.tibennetwork.iamame.internetarchive.MessAndMameCollection;
 import org.tibennetwork.iamame.internetarchive.NoWritableRomPathException;
 import org.tibennetwork.iamame.internetarchive.collectionitem.SoftwareFileNotFoundInCollectionException;
+import org.tibennetwork.iamame.mame.CommandLineOptions;
+import org.tibennetwork.iamame.mame.CommandLineOptionsFactory;
 import org.tibennetwork.iamame.mame.InvalidMameArgumentsException;
 import org.tibennetwork.iamame.mame.Machine;
 import org.tibennetwork.iamame.mame.MachineRepository;
 import org.tibennetwork.iamame.mame.MameArguments;
 import org.tibennetwork.iamame.mame.MameArguments.ExtractedMachineAndSoftwares;
+import org.tibennetwork.iamame.mame.MameExecutionException;
 import org.tibennetwork.iamame.mame.MameRuntime;
 import org.tibennetwork.iamame.mame.MameRuntimeImpl;
 import org.tibennetwork.iamame.mame.MameVersionParser;
@@ -31,18 +35,12 @@ public class IaMame
     public static void main (String[] args)
     {
 
-        MameArguments mameArgs = null;
+        // Search for Mame binary
 
-        try {
-            mameArgs = new MameArguments(args);
-        } catch (InvalidMameArgumentsException e) {
-            IaMame.errorAndExit(
-            "An error occured while trying to parse command line: " 
-                + e.getMessage());
-        }
-            
         MameRuntime mame = null;
         String mameBinary = null;
+        CommandLineOptions mameOptions = null;
+        MameArguments mameArgs = null;
 
         try {
             mameBinary = IaMame.findMameBinary();
@@ -50,27 +48,36 @@ public class IaMame
             IaMame.errorAndExit(e.getMessage());
         }
 
+        // Init MameRuntime
+
         try {
-            mame = new MameRuntimeImpl(
-                mameBinary, 
-                mameArgs.getRawOptionsArgs(), 
-                new MameVersionParser());
-            downloadFilesIfNeeded(mameArgs, mame);
+
+            mame = new MameRuntimeImpl(mameBinary, new MameVersionParser());
+
+            // Deduce mame command line options scheme
+           
+            mameOptions = new CommandLineOptionsFactory()
+                .deduceFromMameRuntime(mame);
+
         } catch (IOException 
                 | InterruptedException 
                 | ParseException 
+                | MameExecutionException
                 | UnhandledMameVersionPatternException e) {
             IaMame.errorAndExit(
                 "An error occured while trying to execute Mame: " 
                     + e.getMessage());
+        }
+
+        try {
+            mameArgs = new MameArguments(mameOptions, args);
+            mameArgs.validate();
+            mame.setDefaultOptions(mameArgs.getRawOptionsArgs());
+            downloadFilesIfNeeded(mameArgs, mame);
         } catch (InvalidMameArgumentsException e) {
-            // In case of an InvalidMameArgumentsException, the execution of
-            // Mame is maintained to have more precise logs from Mame
-            // about the error, like software names suggestions.
-            IaMame.warn(
-                "An error occured while trying to parse the command-line: " 
-                    + e.getMessage());
-        
+            IaMame.errorAndExit(
+            "An error occured while trying to parse command line: " 
+                + e.getMessage());
         }
 
         // Launch Mame if not in dry-run mode
@@ -188,19 +195,30 @@ public class IaMame
             Machine machine = ems.getMachine();
 
             MessAndMameCollection mamc = null;
+
+            Set<File> romsPaths = null;
+            File writableRomPath = null;
+
             try {
-                mamc = new MessAndMameCollection(
-                    mame.getRomsPaths(),
-                    mame.getWritableRomPath());
+                romsPaths = mame.getRomsPaths();
+                writableRomPath = mame.getWritableRomPath();
+            } catch (IOException 
+                    | InterruptedException 
+                    | ParseException e) {
+                IaMame.errorAndExit(
+                    "An error occured while trying to execute Mame: " 
+                        + e.getMessage());
             } catch (NoWritableRomPathException e) {
                 IaMame.errorAndExit(e.getMessage());
-            }
+            } 
+            
+            mamc = new MessAndMameCollection(romsPaths, writableRomPath);
 
-            if (!machine.areRomFilesAvailable(mame.getRomsPaths())) {
+            if (!machine.areRomFilesAvailable(romsPaths)) {
 
                 IaMame.info(String.format(
                     "Download missing rom files: %s", 
-                    machine.getMissingRomFiles(mame.getRomsPaths())));
+                    machine.getMissingRomFiles(romsPaths)));
 
                 IaMame.info(String.format("Machine: %s", 
                     machine.getDescription()));
@@ -218,7 +236,7 @@ public class IaMame
 
                 for (Software s: softwares) {
                     if (!s.isRegularFile()
-                           && !s.areFilesAvailable(mame.getRomsPaths())) {
+                           && !s.areFilesAvailable(romsPaths)) {
 
                         IaMame.info(String.format(
                             "Download missing software file: %s",

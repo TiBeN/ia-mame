@@ -1,5 +1,6 @@
 package org.tibennetwork.iamame.mame;
 
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 /**
@@ -16,7 +17,7 @@ public class CommandLineOptions {
         this.options = options;        
     }
 
-    /**
+   /**
      * Return "command" type Mame options.
      * Mame commands are options which does not execute Mame normally but 
      * do a specific task such as -listxml, -help, -showusage etc.
@@ -30,6 +31,17 @@ public class CommandLineOptions {
      */
     public Options getOptions() {
         return options;
+    }
+
+    public Options getMergedCommandsAndOptions () {
+        Options mergedOpts = new Options();
+        for (Option opt: this.getOptions().getOptions()) {
+            mergedOpts.addOption(opt);
+        }
+        for (Option cmd: this.getCommands().getOptions()) {
+            mergedOpts.addOption(cmd);
+        }
+        return mergedOpts;
     }
 
 }
