@@ -177,7 +177,6 @@ public class IaMame
             MameArguments mameArgs, 
             MameRuntime mame)
             throws InvalidMameArgumentsException {
-
     
         if (!mameArgs.containsCommand() ) {
 
@@ -190,7 +189,7 @@ public class IaMame
             } catch (IOException | InterruptedException e) {
                 IaMame.errorAndExit(
                     "An error occured " + e.getMessage());
-            }  
+            }
 
             Machine machine = ems.getMachine();
 

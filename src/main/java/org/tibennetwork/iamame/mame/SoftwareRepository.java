@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.xml.bind.DataBindingException;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -141,9 +142,16 @@ public class SoftwareRepository {
                         + "supported by the provided Mame version",
                     m.getName()));
         }
-        
-        SoftwareListsXmlContainer slxc 
-            = JAXB.unmarshal(is, SoftwareListsXmlContainer.class);
+
+        SoftwareListsXmlContainer slxc;
+
+        try {
+            slxc = JAXB.unmarshal(is, SoftwareListsXmlContainer.class);
+        } catch (DataBindingException e) {
+            throw new MachineHasNoSoftwareListException(
+                "Can't extract software list data from Mame runtime. "
+                + "It usually occurs by a misconfigured hashpath parameter");
+        }
         if(slxc.getSoftwareLists().isEmpty()) {
             throw new MachineHasNoSoftwareListException(String.format(
                 "The machine '%s' has no software lists",

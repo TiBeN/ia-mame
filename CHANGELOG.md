@@ -4,6 +4,9 @@ CHANGELOG
 Current
 -------
 
+-   Now discover the Mame runtime command line options scheme dynamically 
+    instead of storing a static list internally. This greatly improves the
+    accuracy of options regardless of the Mame version.
 -   Now support software list softwares clones 
     (see [issue #4](https://github.com/TiBeN/ia-mame/issues/4))
 -   Fixed: Use Uppercase letters on command line throws exception (allowed by 

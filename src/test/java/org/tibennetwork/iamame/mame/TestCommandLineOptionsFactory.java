@@ -22,6 +22,7 @@ import org.junit.Test;
  * - Non boolean options
  * - Non boolean options, but default value like boolean
  * - Commands (non options)
+ * - Media types
  */
 public class TestCommandLineOptionsFactory {
 
@@ -172,6 +173,32 @@ public class TestCommandLineOptionsFactory {
             = clof.deduceFromMameRuntime(mame).getCommands();
 
         assertFalse(commands.hasOption("waitvsync"));
+
+    }
+
+    @Test
+    public void testDeduceFromMameRuntimeWithMediaTypeOption ()
+            throws FileNotFoundException,
+                   IOException,
+                   InterruptedException,
+                   MameExecutionException {
+        
+        FakeMameRuntime mame = new FakeMameRuntime();
+        List<InputStream> inputStreams = new ArrayList<>();
+        inputStreams.add(
+            new FileInputStream("src/test/resources/showconfig.txt"));
+        inputStreams.add(
+            new FileInputStream("src/test/resources/showusage.txt"));
+        mame.setInputStreamsToReturn(inputStreams);
+        CommandLineOptionsFactory clof = new CommandLineOptionsFactory ();
+        Options mediaTypes 
+            = clof.deduceFromMameRuntime(mame).getMediaTypes();
+
+        assertTrue(mediaTypes.hasOption("cart"));
+
+        Option opt = mediaTypes.getOption("cart");
+
+        assertTrue(opt.hasArg());
 
     }
 }

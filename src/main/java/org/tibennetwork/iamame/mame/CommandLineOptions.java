@@ -12,9 +12,15 @@ public class CommandLineOptions {
 
     private Options options;
 
-    public CommandLineOptions (Options commands, Options options) {
+    private Options mediaTypes;
+
+    public CommandLineOptions (
+            Options commands, 
+            Options options, 
+            Options mediaTypes) {
         this.commands = commands;
         this.options = options;        
+        this.mediaTypes = mediaTypes;
     }
 
    /**
@@ -33,13 +39,29 @@ public class CommandLineOptions {
         return options;
     }
 
-    public Options getMergedCommandsAndOptions () {
+    /**
+     * Return media type specific options. 
+     * Theses are system specific options targeting an image file specific 
+     * to a system media type (cartridge, floppy drive etc.)
+     */
+    public Options getMediaTypes() {
+        return mediaTypes;
+    }
+
+    /**
+     * Return a bag of all the options available (command, options and
+     * media types)
+     */
+    public Options getAllOptions () {
         Options mergedOpts = new Options();
         for (Option opt: this.getOptions().getOptions()) {
             mergedOpts.addOption(opt);
         }
         for (Option cmd: this.getCommands().getOptions()) {
             mergedOpts.addOption(cmd);
+        }
+        for (Option mtype: this.getMediaTypes().getOptions()) {
+            mergedOpts.addOption(mtype);
         }
         return mergedOpts;
     }

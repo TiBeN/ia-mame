@@ -206,6 +206,8 @@ public class MameRuntimeImpl implements MameRuntime {
             args.addAll(Arrays.asList(this.defaultOptions));
         }
         args.addAll(Arrays.asList(rawArgs));
+
+        IaMame.debug("Executes Mame with: " + args);
         
         ProcessBuilder builder = new ProcessBuilder(args);
         if (inheritIO) {
@@ -226,7 +228,7 @@ public class MameRuntimeImpl implements MameRuntime {
         List<String> mameStdout = null;
 
         try {
-            mameStdout = this.executeAndReturnStdout(rawArgs);
+            mameStdout = this.executeAndReturnStdout(rawArgs, false);
         } catch( MameExecutionException e) {
             throw (RuntimeException) 
                 new RuntimeException("Unhandled error occured while " 

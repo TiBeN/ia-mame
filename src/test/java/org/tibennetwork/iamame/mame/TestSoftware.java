@@ -5,8 +5,6 @@ import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,12 +17,7 @@ public class TestSoftware {
 
     @Test
     public void testGetMissingChdFilesWithEmptyRomPath () 
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException,
-                MachineHasNoSoftwareListException,
-                SoftwareNotFoundInSoftwareListsException {
+            throws Exception {
 
         FakeMameRuntime mame = new FakeMameRuntime();
         
@@ -65,12 +58,7 @@ public class TestSoftware {
 
     @Test
     public void testGetMissingChdFileForSoftwareNeedingOnlyOneChdWithEmptyRomPath () 
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException,
-                MachineHasNoSoftwareListException,
-                SoftwareNotFoundInSoftwareListsException {
+            throws Exception {
 
         FakeMameRuntime mame = new FakeMameRuntime();
         
@@ -108,12 +96,7 @@ public class TestSoftware {
 
     @Test
     public void testGetMissingChdFilesWithMissingPartsRomPath () 
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException,
-                MachineHasNoSoftwareListException,
-                SoftwareNotFoundInSoftwareListsException {
+            throws Exception {
 
         FakeMameRuntime mame = new FakeMameRuntime();
         
@@ -152,12 +135,7 @@ public class TestSoftware {
 
     @Test
     public void testGetMissingChdFilesWithFullRomPath () 
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException,
-                MachineHasNoSoftwareListException,
-                SoftwareNotFoundInSoftwareListsException {
+            throws Exception {
 
         FakeMameRuntime mame = new FakeMameRuntime();
         
@@ -194,12 +172,7 @@ public class TestSoftware {
 
     @Test
     public void testGetMissingRomFileWithEmptyRomPath ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException,
-                MachineHasNoSoftwareListException,
-                SoftwareNotFoundInSoftwareListsException {
+            throws Exception {
 
         FakeMameRuntime mame = new FakeMameRuntime();
         
@@ -237,12 +210,7 @@ public class TestSoftware {
 
     @Test
     public void testGetMissingRomFileWithFullRomPath ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException,
-                MachineHasNoSoftwareListException,
-                SoftwareNotFoundInSoftwareListsException {
+            throws Exception {
 
         FakeMameRuntime mame = new FakeMameRuntime();
         
@@ -278,12 +246,7 @@ public class TestSoftware {
 
     @Test
     public void testGetMissingRomFileWith7zRomPath ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException,
-                MachineHasNoSoftwareListException,
-                SoftwareNotFoundInSoftwareListsException {
+            throws Exception {
 
         FakeMameRuntime mame = new FakeMameRuntime();
         
@@ -318,12 +281,7 @@ public class TestSoftware {
 
     @Test
     public void testGetMissingRomFilesOnChdFilesSystemShouldReturnEmptySet () 
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException,
-                MachineHasNoSoftwareListException,
-                SoftwareNotFoundInSoftwareListsException {
+            throws Exception {
 
         FakeMameRuntime mame = new FakeMameRuntime();
         
@@ -359,12 +317,7 @@ public class TestSoftware {
 
     @Test
     public void testGetMissingRomFilesForSoftwareClone ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException,
-                MachineHasNoSoftwareListException,
-                SoftwareNotFoundInSoftwareListsException {
+            throws Exception {
 
         FakeMameRuntime mame = new FakeMameRuntime();
         

@@ -10,8 +10,6 @@ Features/Improvements
 -   Do some pretty basic GUI to ease the use on Windows or by users not 
     confortable with command line
 -   ~~Support for auto-completion~~ This should be a separate project
--   [WIP] Do support of news command line switchs since Groovymame merged with
-    mame
 -   Support for torrents sources as up-to-date provider
 -   Check if possible to support olds collection source from archive.org:
     https://archive.org/details/MAME0.78-MAME2003-ROMs-CHDs-Samples

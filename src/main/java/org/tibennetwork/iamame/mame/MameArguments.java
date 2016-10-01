@@ -49,102 +49,6 @@ public class MameArguments {
         }
 
     }
-        
-
-    private static String[] mediaTypes = {
-        "bitb",
-        "brief",
-        "card",
-        "card1",
-        "card10",
-        "card11",
-        "card12",
-        "card13",
-        "card14",
-        "card15",
-        "card16",
-        "card2",
-        "card3",
-        "card4",
-        "card5",
-        "card6",
-        "card7",
-        "card8",
-        "card9",
-        "cart",
-        "cart1",
-        "cart10",
-        "cart11",
-        "cart12",
-        "cart13",
-        "cart14",
-        "cart15",
-        "cart16",
-        "cart17",
-        "cart18",
-        "cart2",
-        "cart3",
-        "cart4",
-        "cart5",
-        "cart6",
-        "cart7",
-        "cart8",
-        "cart9",
-        "cass",
-        "cass1",
-        "cass2",
-        "cdrm",
-        "cdrm1",
-        "cdrm2",
-        "cdrm3",
-        "ct",
-        "cyln",
-        "disk1",
-        "disk2",
-        "dump",
-        "flop",
-        "flop1",
-        "flop2",
-        "flop3",
-        "flop4",
-        "flop5",
-        "flop6",
-        "hard",
-        "hard1",
-        "hard2",
-        "hard3",
-        "hard4",
-        "hard5",
-        "hard6",
-        "hard7",
-        "incart60p",
-        "magt",
-        "magt1",
-        "magt2",
-        "magt3",
-        "magt4",
-        "mc1",
-        "mc2",
-        "memc",
-        "min",
-        "mout",
-        "mout1",
-        "mout2",
-        "ni",
-        "p1",
-        "p2",
-        "prin",
-        "prin1",
-        "prin2",
-        "prin3",
-        "ptap1",
-        "ptap2",
-        "quik",
-        "quik1",
-        "quik2",
-        "sasi",
-        "serl"
-    };
 
     private CommandLineOptions mameOptions;
 
@@ -192,8 +96,8 @@ public class MameArguments {
             }
 
             // Discard media types options (ex -cart mario)
-            for (String mt: mediaTypes) {
-                if (o.getOpt().equals(mt)) {
+            for (Option mt: this.mameOptions.getMediaTypes().getOptions()) {
+                if (o.getOpt().equals(mt.getOpt())) {
                     continue optionsLoop;
                 }
             } 
@@ -310,7 +214,7 @@ public class MameArguments {
         try {            
             CommandLineParser parser = new DefaultParser();
             this.commandLine = parser.parse(
-                mameOptions.getMergedCommandsAndOptions(), 
+                mameOptions.getAllOptions(),
                 rawArgs);
         } catch (ParseException e) {
             throw (InvalidMameArgumentsException) 
