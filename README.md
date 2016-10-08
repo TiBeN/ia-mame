@@ -73,7 +73,7 @@ Installation
 ### Windows
 
 - Download
-  [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/0.7/ia-mame.exe) and place it on the folder where is your mame.exe
+  [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/0.8/ia-mame.exe) and place it on the folder where is your mame.exe
 
 You can alternatively place it somewhere else and use the $MAME\_EXEC env
 variable:
