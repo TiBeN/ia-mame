@@ -1,4 +1,4 @@
-package org.tibennetwork.iamame.mame;
+package org.tibennetwork.iamame;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.not;
@@ -12,8 +12,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+import org.tibennetwork.iamame.CommandLineArguments;
+import org.tibennetwork.iamame.mame.CommandLineOptions;
+import org.tibennetwork.iamame.mame.CommandLineOptionsFactory;
+import org.tibennetwork.iamame.mame.FakeMameRuntime;
+import org.tibennetwork.iamame.mame.InvalidMameArgumentsException;
+import org.tibennetwork.iamame.mame.MameExecutionException;
 
-public class TestMameArguments {
+public class TestCommandLineArguments {
 
     @Test 
     public void testGetRawOptionsArgsDoesntReturnMediaArgument () 
@@ -35,7 +41,7 @@ public class TestMameArguments {
             = clof.deduceFromMameRuntime(mame);
         
         String[] args = {"-rompath", "/tmp/roms", "snes", "-cart", "dkongca"};
-        MameArguments ma = new MameArguments(mameOpts, args);
+        CommandLineArguments ma = new CommandLineArguments(mameOpts, args);
 
         ma.validate();
 

@@ -1,4 +1,4 @@
-package org.tibennetwork.iamame.mame;
+package org.tibennetwork.iamame;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +11,21 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FilenameUtils;
+import org.tibennetwork.iamame.mame.CommandLineOptions;
+import org.tibennetwork.iamame.mame.InvalidMameArgumentsException;
+import org.tibennetwork.iamame.mame.Machine;
+import org.tibennetwork.iamame.mame.MachineDoesntExistException;
+import org.tibennetwork.iamame.mame.MachineHasNoSoftwareListException;
+import org.tibennetwork.iamame.mame.MachineRepository;
+import org.tibennetwork.iamame.mame.MediaDevice;
+import org.tibennetwork.iamame.mame.Software;
+import org.tibennetwork.iamame.mame.SoftwareNotFoundInSoftwareListsException;
+import org.tibennetwork.iamame.mame.SoftwareRepository;
 
 /**
  * Set of Mame command line arguments
  */
-public class MameArguments {
+public class CommandLineArguments {
     
     /**
      * Object-value which contains Machine and Software 
@@ -56,9 +66,9 @@ public class MameArguments {
 
     private CommandLine commandLine = null;
 
-    public MameArguments (CommandLineOptions mameOptions, String[] rawArgs)
+    public CommandLineArguments (CommandLineOptions mameOptions, String[] rawArgs)
             throws InvalidMameArgumentsException {
-        this.mameOptions = mameOptions;            
+        this.mameOptions = mameOptions;
         this.rawArgs = rawArgs;
     }
     
@@ -211,7 +221,7 @@ public class MameArguments {
     public void validate () 
             throws InvalidMameArgumentsException {
         
-        try {            
+        try {
             CommandLineParser parser = new DefaultParser();
             this.commandLine = parser.parse(
                 mameOptions.getAllOptions(),

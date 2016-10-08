@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.cli.ParseException;
+import org.tibennetwork.iamame.CommandLineArguments.ExtractedMachineAndSoftwares;
 import org.tibennetwork.iamame.internetarchive.MachineRomFileNotFoundInCollection;
 import org.tibennetwork.iamame.internetarchive.MessAndMameCollection;
 import org.tibennetwork.iamame.internetarchive.NoWritableRomPathException;
@@ -16,8 +17,6 @@ import org.tibennetwork.iamame.mame.CommandLineOptionsFactory;
 import org.tibennetwork.iamame.mame.InvalidMameArgumentsException;
 import org.tibennetwork.iamame.mame.Machine;
 import org.tibennetwork.iamame.mame.MachineRepository;
-import org.tibennetwork.iamame.mame.MameArguments;
-import org.tibennetwork.iamame.mame.MameArguments.ExtractedMachineAndSoftwares;
 import org.tibennetwork.iamame.mame.MameExecutionException;
 import org.tibennetwork.iamame.mame.MameRuntime;
 import org.tibennetwork.iamame.mame.MameRuntimeImpl;
@@ -35,13 +34,14 @@ public class IaMame
     public static void main (String[] args)
     {
 
-        // Search for Mame binary
 
         MameRuntime mame = null;
         String mameBinary = null;
         CommandLineOptions mameOptions = null;
-        MameArguments mameArgs = null;
+        CommandLineArguments mameArgs = null;
 
+        // Search for Mame binary
+        
         try {
             mameBinary = IaMame.findMameBinary();
         } catch (MameBinaryNotFoundException e) {
@@ -70,7 +70,7 @@ public class IaMame
         }
 
         try {
-            mameArgs = new MameArguments(mameOptions, args);
+            mameArgs = new CommandLineArguments(mameOptions, args);
             mameArgs.validate();
             mame.setDefaultOptions(mameArgs.getRawOptionsArgs());
             downloadFilesIfNeeded(mameArgs, mame);
@@ -174,7 +174,7 @@ public class IaMame
     }
 
     private static void downloadFilesIfNeeded (
-            MameArguments mameArgs, 
+            CommandLineArguments mameArgs, 
             MameRuntime mame)
             throws InvalidMameArgumentsException {
     
