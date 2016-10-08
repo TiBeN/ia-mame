@@ -9,6 +9,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FilenameUtils;
 import org.tibennetwork.iamame.mame.CommandLineOptions;
@@ -28,9 +29,8 @@ import org.tibennetwork.iamame.mame.SoftwareRepository;
 public class CommandLineArguments {
     
     /**
-     * Object-value which contains Machine and Software 
-     * objects extracted and instanciated from the 
-     * parsed command line arguments
+     * Object-value which contains Machine and Software objects extracted 
+     * and instanciated from the parsed command line arguments
      */
     public static class ExtractedMachineAndSoftwares {
         
@@ -60,6 +60,14 @@ public class CommandLineArguments {
 
     }
 
+    /**
+     * IaMmame specific options
+     */            
+    private Options iaMameOptions;
+
+    /**
+     * Mame specific options
+     */
     private CommandLineOptions mameOptions;
 
     private String[] rawArgs;
@@ -69,18 +77,22 @@ public class CommandLineArguments {
     public CommandLineArguments (CommandLineOptions mameOptions, String[] rawArgs)
             throws InvalidMameArgumentsException {
         this.mameOptions = mameOptions;
+        this.iaMameOptions = buildIaMameOptions();
         this.rawArgs = rawArgs;
     }
-    
-    public String[] getRawArgs () {
-        return this.rawArgs;
-    }
 
+    /**
+     * Tell whether the command line contains the given option
+     */
+    public boolean contains (String optionName) {
+        return this.commandLine.hasOption(optionName);
+    }
+    
     /**
      * Tell whether the command line contains a 
      * Mame command (-listxml, -createconfig etc.)
      */
-    public boolean containsCommand () {
+    public boolean containsMameCommand () {
 
         for (Option cmd: this.mameOptions.getCommands().getOptions()) {
             if (this.commandLine.hasOption(cmd.getOpt())) {
@@ -92,25 +104,73 @@ public class CommandLineArguments {
     }
 
     /**
-     * Return non command options args
+     * Return Mame only args
      */
-    public String[] getRawOptionsArgs () {
+    public String[] getMameRawArgs () {
+
+        List<String> mra = new ArrayList<>();
+
+        optionsLoop: for (Option o: this.commandLine.getOptions()) {
+
+            // Discard IaMame options
+
+            for (Option ia: this.iaMameOptions.getOptions()) {
+                if (o.getOpt().equals(ia.getOpt())) {
+                    continue optionsLoop;
+                }
+            } 
+            
+            mra.add('-' + o.getOpt());
+
+            if (o.hasArg() || o.hasArgs()) {
+                for (String a: this.commandLine.getOptionValues(o.getOpt())) {
+                    mra.add(a);
+                }
+            }
+        }
+
+        // Add non option args
+
+        for (String arg: this.commandLine.getArgs()) {
+            mra.add(arg);
+        }
+
+        return mra.toArray(new String[mra.size()]);
+
+    }
+
+    /**
+     * Return non command Mame options args
+     */
+    public String[] getMameOptionsRawArgs () {
+
         List<String> roa = new ArrayList<>();
         optionsLoop: for (Option o: this.commandLine.getOptions()) {
             
             // Discard mame commands
+            
             for (Option cmd: this.mameOptions.getCommands().getOptions()) {
                 if (o.getOpt().equals(cmd.getOpt())) {
                     continue optionsLoop;
                 }
             }
 
-            // Discard media types options (ex -cart mario)
+            // Discard media types Mame options (ex -cart mario)
+
             for (Option mt: this.mameOptions.getMediaTypes().getOptions()) {
                 if (o.getOpt().equals(mt.getOpt())) {
                     continue optionsLoop;
                 }
             } 
+
+            // Discard IaMame options
+
+            for (Option ia: this.iaMameOptions.getOptions()) {
+                if (o.getOpt().equals(ia.getOpt())) {
+                    continue optionsLoop;
+                }
+            } 
+            
             
             roa.add('-' + o.getOpt());
 
@@ -221,10 +281,20 @@ public class CommandLineArguments {
     public void validate () 
             throws InvalidMameArgumentsException {
         
+        // Merge IaMame and Mame options
+
+        Options mergedOptions = new Options();
+        for (Option o: mameOptions.getAllOptions().getOptions()) {
+            mergedOptions.addOption(o);
+        }
+        for (Option o: iaMameOptions.getOptions()) {
+            mergedOptions.addOption(o);
+        } 
+
         try {
             CommandLineParser parser = new DefaultParser();
             this.commandLine = parser.parse(
-                mameOptions.getAllOptions(),
+                mergedOptions,
                 rawArgs);
         } catch (ParseException e) {
             throw (InvalidMameArgumentsException) 
@@ -242,6 +312,21 @@ public class CommandLineArguments {
     private boolean isRegularSoftwareFile (String name) {
         return !FilenameUtils.getExtension(name).isEmpty()
                 || new File(name).exists();
+    }
+
+    /**
+     * Create Options bag for ia-mame specific options
+     */
+    private Options buildIaMameOptions () {
+
+        // Build IaMame specific options
+
+        Options opts = new Options();
+        
+        opts.addOption("dryrun", false, "");
+
+        return opts;
+
     }
 
 }

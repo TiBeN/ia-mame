@@ -4,6 +4,8 @@ CHANGELOG
 Current
 -------
 
+-   Added a "-dryrun" option to prevent ia-mame to launch mame after its own
+    execution.
 -   Now discover the Mame runtime command line options scheme dynamically 
     instead of storing a static list internally. This greatly improves the
     accuracy of options regardless of the Mame version.

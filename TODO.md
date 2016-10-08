@@ -16,10 +16,6 @@ Features/Improvements
 -   Add some kind of communication channel for frontends to read the
     download progress and activity data.
 -   Implements Collections 3DO, MacHDD,VsmileCD
--   [WIP] Make "dry-run" option accessible for end-users. This could be 
-    usefull for users which use ia-mame as a tool to fix their roms 
-    collections (using it in a bash script by iterating in every rom files in 
-    their collection)
 
 Bugs/Checks
 -----------

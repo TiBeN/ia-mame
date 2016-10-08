@@ -38,7 +38,7 @@ public class IaMame
         MameRuntime mame = null;
         String mameBinary = null;
         CommandLineOptions mameOptions = null;
-        CommandLineArguments mameArgs = null;
+        CommandLineArguments cliArgs = null;
 
         // Search for Mame binary
         
@@ -70,10 +70,10 @@ public class IaMame
         }
 
         try {
-            mameArgs = new CommandLineArguments(mameOptions, args);
-            mameArgs.validate();
-            mame.setDefaultOptions(mameArgs.getRawOptionsArgs());
-            downloadFilesIfNeeded(mameArgs, mame);
+            cliArgs = new CommandLineArguments(mameOptions, args);
+            cliArgs.validate();
+            mame.setDefaultOptions(cliArgs.getMameOptionsRawArgs());
+            downloadFilesIfNeeded(cliArgs, mame);
         } catch (InvalidMameArgumentsException e) {
             IaMame.errorAndExit(
             "An error occured while trying to parse command line: " 
@@ -81,10 +81,10 @@ public class IaMame
         }
 
         // Launch Mame if not in dry-run mode
-        String dryRun = System.getProperty("iamame.dryrun");
-        if (dryRun == null || !dryRun.equals("1")) {
+
+        if (!cliArgs.contains("dryrun")) {
             try {
-                mame.execute(args, false);
+                mame.execute(cliArgs.getMameRawArgs(), false);
             } catch (IOException | InterruptedException e) {
                 IaMame.errorAndExit(
                     "An error occured while trying to execute Mame: " 
@@ -178,7 +178,7 @@ public class IaMame
             MameRuntime mame)
             throws InvalidMameArgumentsException {
     
-        if (!mameArgs.containsCommand() ) {
+        if (!mameArgs.containsMameCommand() ) {
 
             ExtractedMachineAndSoftwares ems = null;
             
