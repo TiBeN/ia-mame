@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Current
--------
+0.8
+---
 
 -   Added a "-noexecmame" option to prevent ia-mame to launch mame after its 
     own execution.

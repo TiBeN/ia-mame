@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.tibennetwork</groupId>
     <artifactId>ia-mame</artifactId>
-    <version>0.7</version>
+    <version>0.8</version>
     <packaging>jar</packaging>
     <name>ia-mame</name>
     <url>https://github.com/TiBeN/ia-mame</url>
