@@ -56,7 +56,7 @@ Installation
 - Install ia-mame and make it executable: 
 
   ```bash 
-  $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/0.7/ia-mame
+  $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/0.8/ia-mame
   $ sudo chmod +x /usr/local/bin/ia-mame
   ```
 
@@ -145,7 +145,7 @@ INFO: Downloading 25kB / ??kB, progress: ??
 
 Alternatively, the provided 
 [executable
-jar](https://github.com/TiBeN/ia-mame/releases/download/0.7/ia-mame.jar) 
+jar](https://github.com/TiBeN/ia-mame/releases/download/0.8/ia-mame.jar) 
 can be used directly:
 
 ```
