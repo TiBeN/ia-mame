@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+Current
+-------
+
+-   Added support for MESS 0.149 CHD: Vsmile CD collection (to be used with
+    "vsmilpro" driver)
+
 0.8
 ---
 

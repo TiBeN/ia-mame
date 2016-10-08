@@ -23,6 +23,7 @@ import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPippin;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdPsx;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdSaturn;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdSegaCd;
+import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdVsmileCd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessSoftwareListRoms;
 import org.tibennetwork.iamame.internetarchive.collectionitem.SoftwareFileNotFoundInCollectionException;
 import org.tibennetwork.iamame.internetarchive.collectionitem.SoftwareListCollectionItem;
@@ -104,6 +105,10 @@ public class MessAndMameCollection {
         this.softwareCollectionItems.put(
             "cdtv", 
             new MessChdCdTv(romsPaths, writableRomPath));
+
+        this.softwareCollectionItems.put(
+            "vsmile_cd", 
+            new MessChdVsmileCd(romsPaths, writableRomPath));
     }
 
     /**
