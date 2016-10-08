@@ -8,6 +8,8 @@ Current
     "vsmilpro" driver)
 -   Added support for MESS 0.149 CHD: Mac HDD collection (to be used with
     "macclasc" driver)
+-   Added support for MESS 0.149 CHD: 3DO M2 collection (to be used with
+    "3do_m2" driver)
 
 0.8
 ---

@@ -12,6 +12,7 @@ import org.tibennetwork.iamame.internetarchive.collectionitem.MachineRomsCollect
 import org.tibennetwork.iamame.internetarchive.collectionitem.MameChds;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MameRoms;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessBios;
+import org.tibennetwork.iamame.internetarchive.collectionitem.MessChd3doM2;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCd32;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCdTv;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCdi;
@@ -114,6 +115,10 @@ public class MessAndMameCollection {
         this.softwareCollectionItems.put(
             "mac_hdd", 
             new MessChdMacHdd(romsPaths, writableRomPath));
+
+        this.softwareCollectionItems.put(
+            "3do_m2", 
+            new MessChd3doM2(romsPaths, writableRomPath));
     }
 
     /**
