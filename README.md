@@ -162,14 +162,15 @@ Mame options given as command-line arguments aswell:
 $ ia-mame -rompath /tmp sms sonic
 ```
 
-### Dry run 
+### Disable Mame execution
 
-It is possible to run ia-mame without running Mame in the end. This can be
+It is possible to run ia-mame without running Mame in the end using the 
+"-noexecmame". This can be
 useful if you only want to download a rom file without execute that game.
 If the rom is already available, ia-mame simply does nothing.
 
 ```
-$ ia-mame -dryrun sms sonic
+$ ia-mame -noexecmame sms sonic
 ```
 
 Don't like command line ?

@@ -80,9 +80,9 @@ public class IaMame
                 + e.getMessage());
         }
 
-        // Launch Mame if not in dry-run mode
+        // Launch Mame if there is no "noexecmame"
 
-        if (!cliArgs.contains("dryrun")) {
+        if (!cliArgs.contains("noexecmame")) {
             try {
                 mame.execute(cliArgs.getMameRawArgs(), false);
             } catch (IOException | InterruptedException e) {
@@ -120,6 +120,7 @@ public class IaMame
 
         // Search for mame binary on the directory containing the
         // containing jar.         
+
         try {
             containingJarPath = new File(
                 IaMame.class

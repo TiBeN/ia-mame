@@ -75,14 +75,14 @@ public class TestCommandLineArguments {
         CommandLineOptions mameOpts 
             = clof.deduceFromMameRuntime(mame);
         
-        String[] args = {"-dryrun", "-rompath", "/tmp/roms", "punisher"};
+        String[] args = {"-noexecmame", "-rompath", "/tmp/roms", "punisher"};
         CommandLineArguments ma = new CommandLineArguments(mameOpts, args);
 
         ma.validate();
 
         String[] optionsArgs = ma.getMameOptionsRawArgs();
 
-        assertThat(Arrays.asList(optionsArgs), not(hasItems("-dryrun")));
+        assertThat(Arrays.asList(optionsArgs), not(hasItems("-noexecmame")));
 
     }
 
@@ -106,14 +106,14 @@ public class TestCommandLineArguments {
         CommandLineOptions mameOpts 
             = clof.deduceFromMameRuntime(mame);
         
-        String[] args = {"-dryrun", "-rompath", "/tmp/roms", "punisher"};
+        String[] args = {"-noexecmame", "-rompath", "/tmp/roms", "punisher"};
         CommandLineArguments ma = new CommandLineArguments(mameOpts, args);
 
         ma.validate();
 
         String[] optionsArgs = ma.getMameRawArgs();
 
-        assertThat(Arrays.asList(optionsArgs), not(hasItems("-dryrun")));
+        assertThat(Arrays.asList(optionsArgs), not(hasItems("-noexecmame")));
 
     }
 
@@ -137,14 +137,14 @@ public class TestCommandLineArguments {
         CommandLineOptions mameOpts 
             = clof.deduceFromMameRuntime(mame);
         
-        String[] args = {"-dryrun", "-rompath", "/tmp/roms", "genesis", "-cart", "sonic"};
+        String[] args = {"-noexecmame", "-rompath", "/tmp/roms", "genesis", "-cart", "sonic"};
         CommandLineArguments ma = new CommandLineArguments(mameOpts, args);
 
         ma.validate();
 
         String[] optionsArgs = ma.getMameRawArgs();
 
-        assertThat(Arrays.asList(optionsArgs), not(hasItems("-dryrun")));
+        assertThat(Arrays.asList(optionsArgs), not(hasItems("-noexecmame")));
         assertThat(Arrays.asList(optionsArgs), hasItems("-rompath", "/tmp/roms", 
             "genesis", "-cart", "sonic"));
 
@@ -170,12 +170,12 @@ public class TestCommandLineArguments {
         CommandLineOptions mameOpts 
             = clof.deduceFromMameRuntime(mame);
         
-        String[] args = {"-dryrun", "-rompath", "/tmp/roms", "punisher"};
+        String[] args = {"-noexecmame", "-rompath", "/tmp/roms", "punisher"};
         CommandLineArguments ma = new CommandLineArguments(mameOpts, args);
 
         ma.validate();
 
-        assertTrue(ma.contains("dryrun"));
+        assertTrue(ma.contains("noexecmame"));
         assertTrue(ma.contains("rompath"));
         assertFalse(ma.contains("punisher"));
         assertFalse(ma.contains("waitvsync"));
