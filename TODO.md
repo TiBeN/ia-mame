@@ -16,6 +16,8 @@ Features/Improvements
 -   Add some kind of communication channel for frontends to read the
     download progress and activity data.
 -   Implements Collections 3DO, MacHDD,VsmileCD
+-   Add "dry-run" option to not trigger the download but simulate just to 
+    know if rom is available or not
 
 Bugs/Checks
 -----------
