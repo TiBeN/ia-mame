@@ -15,7 +15,7 @@ CHANGELOG
     Mame) (see [issue #5](https://github.com/TiBeN/ia-mame/issues/5))
 -   Fixed: ia-mame does not find the Machine data on the XML using 
     Mame < 0.16[2|1] because "machine" tag was previously named "game", 
-    which now makes ia-mame support olders versions of Mame (tested with 0.149)    
+    which now makes ia-mame support olders versions of Mame (tested from 0.149)    
 -   Handle software having many cd-rom/chd parts
 -   7z support implemented
 
