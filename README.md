@@ -191,6 +191,23 @@ environment.
 I have not tested now but IaMame should be compatible with frontends, the
 usage command line beeing the same as the original Mame.
 
+Contact and contribution
+------------------------
+
+If you want to contribute or simply share your thoughs about ia-mame feel free
+to send your pull requests here at github or join me on 
+[reddit](https://www.reddit.com/user/tiben_/). 
+
+Discussions
+-----------
+
+Releases announces on reddit triggered some good discussions: 
+
+- [0.5 on
+/r/MAME](https://www.reddit.com/r/MAME/comments/4fruod/iamame_05_mame_thin_wrapper_which_downloads/)
+- [0.7 on
+  /r/emulation](https://www.reddit.com/r/emulation/comments/4tkrqb/iamame_07_released/)
+
 Some screenshots
 ----------------
 
