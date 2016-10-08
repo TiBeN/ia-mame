@@ -15,6 +15,7 @@ import org.tibennetwork.iamame.internetarchive.collectionitem.MessBios;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCd32;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCdTv;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdCdi;
+import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdMacHdd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdMegaCd;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdMegaCdJpn;
 import org.tibennetwork.iamame.internetarchive.collectionitem.MessChdNeoCd;
@@ -109,6 +110,10 @@ public class MessAndMameCollection {
         this.softwareCollectionItems.put(
             "vsmile_cd", 
             new MessChdVsmileCd(romsPaths, writableRomPath));
+
+        this.softwareCollectionItems.put(
+            "mac_hdd", 
+            new MessChdMacHdd(romsPaths, writableRomPath));
     }
 
     /**

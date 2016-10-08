@@ -209,10 +209,12 @@ public class Software {
 
         Set<SoftwareFile> neededFiles = new HashSet<>();
 
-        // Search for CD-ROM items on the software parts.
+        // Search for CD-ROM or HDD items on the software parts.
         // Theses media types are stored on chd files.
+
         for (Part p: this.parts) {
-            if (p.getName().matches("^cdrom[0-9]*$")) {
+            if (p.getName().matches("^cdrom[0-9]*$")
+                    | p.getName().matches("^hdd[0-9]*$")) {
                 String chdFileName = this.softwareList.getName()
                     + File.separator
                     + this.name

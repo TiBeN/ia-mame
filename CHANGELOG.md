@@ -6,6 +6,8 @@ Current
 
 -   Added support for MESS 0.149 CHD: Vsmile CD collection (to be used with
     "vsmilpro" driver)
+-   Added support for MESS 0.149 CHD: Mac HDD collection (to be used with
+    "macclasc" driver)
 
 0.8
 ---
