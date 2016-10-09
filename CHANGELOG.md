@@ -4,6 +4,10 @@ CHANGELOG
 Current
 -------
 
+-   Upgraded the Windows executable generator "Launch4J Maven Plugin" 
+    dependency to latest version (1.7.12) as an attempt to fix reported 
+    Avast antivirus flagging ia-mame.exe as a threat. If the issue persist
+    let me now
 -   Added support for MESS 0.149 CHD: Vsmile CD collection (to be used with
     "vsmilpro" driver)
 -   Added support for MESS 0.149 CHD: Mac HDD collection (to be used with
