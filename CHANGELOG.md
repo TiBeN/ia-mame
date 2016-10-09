@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Current
--------
+0.9
+---
 
 -   Upgraded the Windows executable generator "Launch4J Maven Plugin" 
     dependency to latest version (1.7.12) as an attempt to fix reported 
