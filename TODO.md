@@ -21,6 +21,7 @@ Features/Improvements
 Bugs/Checks
 -----------
 
+-   Switch to standalone version of java.xml.bind because of future removal
 -   File length for Mame roms is not fetched at all
 -   Check the 32/64bits compatibility on Windows (see reddit post:
     https://www.reddit.com/r/emulation/comments/4tkrqb/iamame_07_released/)
