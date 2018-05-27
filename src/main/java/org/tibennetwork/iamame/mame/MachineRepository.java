@@ -73,7 +73,7 @@ public class MachineRepository {
             throw (MachineDoesntExistException) 
                 new MachineDoesntExistException(
                 String.format("The machine '%s' doesn't exist or is not " 
-                        + "supported by the provided Mame version:",
+                        + "supported by the provided Mame version",
                     machineName)).initCause(e);
         }
 
