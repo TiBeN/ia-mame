@@ -152,7 +152,7 @@ can be used directly:
 $ java -jar ia-mame.jar sf2
 ```
 
-### Use a different rompath
+### Use a different rompath
 
 If you want to try ia-mame using a different rompath than your Mame's default,
 you can use the Mame option `-rompath` on the command-line; ia-mame supports 
