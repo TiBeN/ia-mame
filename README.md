@@ -1,5 +1,5 @@
-IaMame
-======
+ia-mame
+=======
 
 [![Build
 Status](https://travis-ci.org/TiBeN/ia-mame.svg?branch=master)](https://travis-ci.org/TiBeN/ia-mame)
