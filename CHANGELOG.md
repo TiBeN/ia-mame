@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Current
+-------
+
+-   Fix JDK 9+ "java.lang.NoClassDefFoundError" errors (issue #10)
+
 0.9
 ---
 
