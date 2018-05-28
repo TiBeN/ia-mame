@@ -4,6 +4,10 @@ TODO
 Features/Improvements
 ---------------------
 
+-   Integrate new updated archive.org collections
+-   Reformat and update the content of this todo file
+-   Remove ?? in download display
+-   Cache somewhere the zipview HTML file to speed up getting file length
 -   Improve the compatibility of CHD software Collections when used with 
     a different version of Mame than the collection 
     (embed software list hashs matching the version?)
@@ -21,7 +25,6 @@ Features/Improvements
 Bugs/Checks
 -----------
 
--   Switch to standalone version of java.xml.bind because of future removal
 -   File length for Mame roms is not fetched at all
 -   Check the 32/64bits compatibility on Windows (see reddit post:
     https://www.reddit.com/r/emulation/comments/4tkrqb/iamame_07_released/)
