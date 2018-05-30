@@ -20,7 +20,6 @@ import org.tibennetwork.iamame.mame.MachineRepository;
 import org.tibennetwork.iamame.mame.MameExecutionException;
 import org.tibennetwork.iamame.mame.MameRuntime;
 import org.tibennetwork.iamame.mame.MameRuntimeImpl;
-import org.tibennetwork.iamame.mame.MameVersionParser;
 import org.tibennetwork.iamame.mame.Software;
 import org.tibennetwork.iamame.mame.SoftwareRepository;
 import org.tibennetwork.iamame.mame.UnhandledMameVersionPatternException;
@@ -52,7 +51,7 @@ public class IaMame
 
         try {
 
-            mame = new MameRuntimeImpl(mameBinary, new MameVersionParser());
+            mame = new MameRuntimeImpl(mameBinary);
 
             // Deduce mame command line options scheme
            

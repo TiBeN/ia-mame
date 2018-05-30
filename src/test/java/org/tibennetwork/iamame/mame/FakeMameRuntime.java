@@ -25,7 +25,7 @@ public class FakeMameRuntime implements MameRuntime {
 
     private int inputStreamIndex = 0;
 
-    private String version;
+    private MameVersion version;
 
     public Set<File> getRomsPaths () {
         return null;
@@ -33,11 +33,11 @@ public class FakeMameRuntime implements MameRuntime {
 
     public void setDefaultOptions (String[] defaultOptions) {}
 
-    public String getVersion () {
+    public MameVersion getVersion () {
         return this.version;
     }
 
-    public void setVersion (String v) {
+    public void setVersion (MameVersion v) {
         this.version = v;
     }
 

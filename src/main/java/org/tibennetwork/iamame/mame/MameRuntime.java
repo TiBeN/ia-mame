@@ -73,6 +73,6 @@ public interface MameRuntime {
     /**
      * Determine and return the Mame version of the binary
      */
-    public String getVersion ();
+    public MameVersion getVersion ();
 
 }

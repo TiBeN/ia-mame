@@ -44,13 +44,9 @@ public class MameRuntimeImpl implements MameRuntime {
 
     private Set<File> romsPaths;
 
-    private MameVersionParser mameVersionParser;
+    private MameVersion version;
 
-    private String version;
-
-    public MameRuntimeImpl (
-            String binPath, 
-            MameVersionParser mvp) 
+    public MameRuntimeImpl (String binPath) 
             throws IOException, 
                 InterruptedException, 
                 ParseException,
@@ -60,7 +56,6 @@ public class MameRuntimeImpl implements MameRuntime {
         IaMame.debug(String.format(
             "Mame binary directory: %s", 
             this.binDirectory));
-        this.mameVersionParser = mvp;
         this.getVersionFromBinary();
     }
 
@@ -190,8 +185,8 @@ public class MameRuntimeImpl implements MameRuntime {
             "No writable path to write roms into");
     }
 
-    public String getVersion () {
-        return this.version;
+    public MameVersion getVersion () {
+        return version;
     }
 
     private Process initMameProcess (
@@ -236,7 +231,7 @@ public class MameRuntimeImpl implements MameRuntime {
                     .initCause(e);
         }
 
-        this.version = this.mameVersionParser.parse(mameStdout.get(0));
+        version = MameVersion.parseFromHelpOutput(mameStdout.get(0));
 
     }
 

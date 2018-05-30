@@ -25,7 +25,7 @@ public class TestMachineRepository {
                 MachineDoesntExistException {
         
         FakeMameRuntime mame = new FakeMameRuntime();
-        mame.setVersion("0.149");
+        mame.setVersion(new MameVersion("0.149"));
         
         List<InputStream> inputStreams = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class TestMachineRepository {
                 MachineDoesntExistException {
 
         FakeMameRuntime mame = new FakeMameRuntime();
-        mame.setVersion("0.170");
+        mame.setVersion(new MameVersion("0.170"));
 
         List<InputStream> inputStreams = new ArrayList<>();
 
@@ -79,7 +79,7 @@ public class TestMachineRepository {
                 MachineDoesntExistException {
         
         FakeMameRuntime mame = new FakeMameRuntime();
-        mame.setVersion("0.149");
+        mame.setVersion(new MameVersion("0.149"));
         
         List<InputStream> inputStreams = new ArrayList<>();
 
