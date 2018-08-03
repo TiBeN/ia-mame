@@ -18,7 +18,7 @@ supported.
 Prerequisites
 -------------
 
-- [Java](https://www.java.com/fr/download/) 1.7+. 
+- [Java](https://www.java.com/fr/download/) 1.8+. 
 
   Mac OS x Users: Some users reported issues to install Java Superior to 6. 
   If it is you case, read this [Stack Overflow 
