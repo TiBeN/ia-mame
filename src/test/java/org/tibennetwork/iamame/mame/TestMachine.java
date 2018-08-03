@@ -2,7 +2,6 @@ package org.tibennetwork.iamame.mame;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,241 +11,217 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.Test;
+import org.tibennetwork.iamame.internetarchive.MachineRomSet.MachineRomSetFormat;
 
 public class TestMachine {
 
-    @Test 
-    public void testGetMissingRomsFilesWithEmptyRomPath () 
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
+  @Test
+  public void testGetMissingRomsFilesWithEmptyRomPath()
+      throws FileNotFoundException, IOException, InterruptedException,
+      MachineDoesntExistException {
 
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
+    FakeMameRuntime mame = new FakeMameRuntime();
 
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neomrdo.xml"));
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neogeo.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
+    List<InputStream> inputStreams = new ArrayList<>();
 
-        MachineRepository mr = new MachineRepository(mame);
+    inputStreams.add(new FileInputStream("src/test/resources/xml/neomrdo.xml"));
+    inputStreams.add(new FileInputStream("src/test/resources/xml/neogeo.xml"));
 
-        Machine m = mr.findByName("neomrdo");
+    mame.setInputStreamsToReturn(inputStreams);
 
-        Set<File> romPaths = new HashSet<>();
-        romPaths.add(new File("src/test/resources/empty-rompath"));
+    MachineRepository mr = new MachineRepository(mame);
 
-        Set<String> missingFiles = m.getMissingRomFiles(romPaths);
+    Machine m = mr.findByName("neomrdo");
 
-        Set<String> expectedMissingFiles = new HashSet<>();
-        expectedMissingFiles.add("neogeo");
-        expectedMissingFiles.add("neomrdo");
+    Set<File> romPaths = new HashSet<>();
+    romPaths.add(new File("src/test/resources/empty-rompath"));
 
-        assertThat(missingFiles, equalTo(expectedMissingFiles));
-    
-    }
+    Set<String> missingFiles =
+        m.getMissingRomFiles(MachineRomSetFormat.SPLIT, romPaths);
 
-    @Test
-    public void testGetMissingRomsFilesWithMissingPartsRomPath () 
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
+    Set<String> expectedMissingFiles = new HashSet<>();
+    expectedMissingFiles.add("neogeo");
+    expectedMissingFiles.add("neomrdo");
 
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
+    assertThat(missingFiles, equalTo(expectedMissingFiles));
 
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neomrdo.xml"));
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neogeo.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
+  }
 
-        MachineRepository mr = new MachineRepository(mame);
+  @Test
+  public void testGetMissingRomsFilesWithMissingPartsRomPath()
+      throws FileNotFoundException, IOException, InterruptedException,
+      MachineDoesntExistException {
 
-        Machine m = mr.findByName("neomrdo");
+    FakeMameRuntime mame = new FakeMameRuntime();
 
-        Set<File> romPaths = new HashSet<>();
-        romPaths.add(new File("src/test/resources/missing-parts-rompath"));
+    List<InputStream> inputStreams = new ArrayList<>();
 
-        Set<String> missingFiles = m.getMissingRomFiles(romPaths);
+    inputStreams.add(new FileInputStream("src/test/resources/xml/neomrdo.xml"));
+    inputStreams.add(new FileInputStream("src/test/resources/xml/neogeo.xml"));
 
-        Set<String> expectedMissingFiles = new HashSet<>();
-        expectedMissingFiles.add("neomrdo");
+    mame.setInputStreamsToReturn(inputStreams);
 
-        assertThat(missingFiles, equalTo(expectedMissingFiles));
-    }
+    MachineRepository mr = new MachineRepository(mame);
 
-    @Test 
-    public void testGetMissingRomsFilesWithFullRomPath ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
+    Machine m = mr.findByName("neomrdo");
 
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
+    Set<File> romPaths = new HashSet<>();
+    romPaths.add(new File("src/test/resources/missing-parts-rompath"));
 
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neomrdo.xml"));
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neogeo.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
+    Set<String> missingFiles =
+        m.getMissingRomFiles(MachineRomSetFormat.SPLIT, romPaths);
 
-        MachineRepository mr = new MachineRepository(mame);
+    Set<String> expectedMissingFiles = new HashSet<>();
+    expectedMissingFiles.add("neomrdo");
 
-        Machine m = mr.findByName("neomrdo");
+    assertThat(missingFiles, equalTo(expectedMissingFiles));
+  }
 
-        Set<File> romPaths = new HashSet<>();
-        romPaths.add(new File("src/test/resources/full-rompath"));
+  @Test
+  public void testGetMissingRomsFilesWithFullRomPath()
+      throws FileNotFoundException, IOException, InterruptedException,
+      MachineDoesntExistException {
 
-        Set<String> missingFiles = m.getMissingRomFiles(romPaths);
+    FakeMameRuntime mame = new FakeMameRuntime();
 
-        Set<String> expectedMissingFiles = new HashSet<>();
+    List<InputStream> inputStreams = new ArrayList<>();
 
-        assertThat(missingFiles, equalTo(expectedMissingFiles));
-    }
+    inputStreams.add(new FileInputStream("src/test/resources/xml/neomrdo.xml"));
+    inputStreams.add(new FileInputStream("src/test/resources/xml/neogeo.xml"));
 
-    @Test 
-    public void testGetMissingRomsFilesWith7ZipFilesRomPath ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
+    mame.setInputStreamsToReturn(inputStreams);
 
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
+    MachineRepository mr = new MachineRepository(mame);
 
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neomrdo.xml"));
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/neogeo.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
+    Machine m = mr.findByName("neomrdo");
 
-        MachineRepository mr = new MachineRepository(mame);
+    Set<File> romPaths = new HashSet<>();
+    romPaths.add(new File("src/test/resources/full-rompath"));
 
-        Machine m = mr.findByName("neomrdo");
+    Set<String> missingFiles =
+        m.getMissingRomFiles(MachineRomSetFormat.SPLIT, romPaths);
 
-        Set<File> romPaths = new HashSet<>();
-        romPaths.add(new File("src/test/resources/7z-rompath"));
+    Set<String> expectedMissingFiles = new HashSet<>();
 
-        Set<String> missingFiles = m.getMissingRomFiles(romPaths);
+    assertThat(missingFiles, equalTo(expectedMissingFiles));
+  }
 
-        Set<String> expectedMissingFiles = new HashSet<>();
+  @Test
+  public void testGetMissingRomsFilesWith7ZipFilesRomPath()
+      throws FileNotFoundException, IOException, InterruptedException,
+      MachineDoesntExistException {
 
-        assertThat(missingFiles, equalTo(expectedMissingFiles));
-    }
+    FakeMameRuntime mame = new FakeMameRuntime();
 
-    @Test 
-    public void testGetMissingChdsFilesWithEmptyRomPath () 
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
+    List<InputStream> inputStreams = new ArrayList<>();
 
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
+    inputStreams.add(new FileInputStream("src/test/resources/xml/neomrdo.xml"));
+    inputStreams.add(new FileInputStream("src/test/resources/xml/neogeo.xml"));
 
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/drmn10m.xml"));
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/sys573.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
+    mame.setInputStreamsToReturn(inputStreams);
 
-        MachineRepository mr = new MachineRepository(mame);
+    MachineRepository mr = new MachineRepository(mame);
 
-        Machine m = mr.findByName("drmn10m");
+    Machine m = mr.findByName("neomrdo");
 
-        Set<File> romPaths = new HashSet<>();
-        romPaths.add(new File("src/test/resources/empty-rompath"));
+    Set<File> romPaths = new HashSet<>();
+    romPaths.add(new File("src/test/resources/7z-rompath"));
 
-        Set<String> missingFiles = m.getMissingChdFiles(romPaths);
+    Set<String> missingFiles =
+        m.getMissingRomFiles(MachineRomSetFormat.SPLIT, romPaths);
 
-        Set<String> expectedMissingFiles = new HashSet<>();
-        expectedMissingFiles.add("d40jaa02");
-        expectedMissingFiles.add("d40jba02");
+    Set<String> expectedMissingFiles = new HashSet<>();
 
-        assertThat(missingFiles, equalTo(expectedMissingFiles));
-    
-    }
+    assertThat(missingFiles, equalTo(expectedMissingFiles));
+  }
 
-    @Test
-    public void testGetMissingChdsFilesWithMissingPartsRomPath () 
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
+  @Test
+  public void testGetMissingChdsFilesWithEmptyRomPath()
+      throws FileNotFoundException, IOException, InterruptedException,
+      MachineDoesntExistException {
 
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
+    FakeMameRuntime mame = new FakeMameRuntime();
 
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/drmn10m.xml"));
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/sys573.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
+    List<InputStream> inputStreams = new ArrayList<>();
 
-        MachineRepository mr = new MachineRepository(mame);
+    inputStreams.add(new FileInputStream("src/test/resources/xml/drmn10m.xml"));
+    inputStreams.add(new FileInputStream("src/test/resources/xml/sys573.xml"));
 
-        Machine m = mr.findByName("drmn10m");
+    mame.setInputStreamsToReturn(inputStreams);
 
-        Set<File> romPaths = new HashSet<>();
-        romPaths.add(new File("src/test/resources/missing-parts-rompath"));
+    MachineRepository mr = new MachineRepository(mame);
 
-        Set<String> missingFiles = m.getMissingChdFiles(romPaths);
+    Machine m = mr.findByName("drmn10m");
 
-        Set<String> expectedMissingFiles = new HashSet<>();
-        expectedMissingFiles.add("d40jaa02");
+    Set<File> romPaths = new HashSet<>();
+    romPaths.add(new File("src/test/resources/empty-rompath"));
 
-        assertThat(missingFiles, equalTo(expectedMissingFiles));
-    }
+    Set<String> missingFiles = m.getMissingChdFiles(romPaths);
 
-    @Test 
-    public void testGetMissingChdsFilesWithFullRomPath ()
-            throws FileNotFoundException,
-                IOException,
-                InterruptedException,
-                MachineDoesntExistException {
+    Set<String> expectedMissingFiles = new HashSet<>();
+    expectedMissingFiles.add("d40jaa02.chd");
+    expectedMissingFiles.add("d40jba02.chd");
 
-        FakeMameRuntime mame = new FakeMameRuntime();
-        
-        List<InputStream> inputStreams = new ArrayList<>();
+    assertThat(missingFiles, equalTo(expectedMissingFiles));
 
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/drmn10m.xml"));
-        inputStreams.add(
-                new FileInputStream("src/test/resources/xml/sys573.xml"));
-        
-        mame.setInputStreamsToReturn(inputStreams);
+  }
 
-        MachineRepository mr = new MachineRepository(mame);
+  @Test
+  public void testGetMissingChdsFilesWithMissingPartsRomPath()
+      throws FileNotFoundException, IOException, InterruptedException,
+      MachineDoesntExistException {
 
-        Machine m = mr.findByName("drmn10m");
+    FakeMameRuntime mame = new FakeMameRuntime();
 
-        Set<File> romPaths = new HashSet<>();
-        romPaths.add(new File("src/test/resources/full-rompath"));
+    List<InputStream> inputStreams = new ArrayList<>();
 
-        Set<String> missingFiles = m.getMissingChdFiles(romPaths);
+    inputStreams.add(new FileInputStream("src/test/resources/xml/drmn10m.xml"));
+    inputStreams.add(new FileInputStream("src/test/resources/xml/sys573.xml"));
 
-        Set<String> expectedMissingFiles = new HashSet<>();
+    mame.setInputStreamsToReturn(inputStreams);
 
-        assertThat(missingFiles, equalTo(expectedMissingFiles));
-    }
+    MachineRepository mr = new MachineRepository(mame);
+
+    Machine m = mr.findByName("drmn10m");
+
+    Set<File> romPaths = new HashSet<>();
+    romPaths.add(new File("src/test/resources/missing-parts-rompath"));
+
+    Set<String> missingFiles = m.getMissingChdFiles(romPaths);
+
+    Set<String> expectedMissingFiles = new HashSet<>();
+    expectedMissingFiles.add("d40jaa02.chd");
+
+    assertThat(missingFiles, equalTo(expectedMissingFiles));
+  }
+
+  @Test
+  public void testGetMissingChdsFilesWithFullRomPath()
+      throws FileNotFoundException, IOException, InterruptedException,
+      MachineDoesntExistException {
+
+    FakeMameRuntime mame = new FakeMameRuntime();
+
+    List<InputStream> inputStreams = new ArrayList<>();
+
+    inputStreams.add(new FileInputStream("src/test/resources/xml/drmn10m.xml"));
+    inputStreams.add(new FileInputStream("src/test/resources/xml/sys573.xml"));
+
+    mame.setInputStreamsToReturn(inputStreams);
+
+    MachineRepository mr = new MachineRepository(mame);
+
+    Machine m = mr.findByName("drmn10m");
+
+    Set<File> romPaths = new HashSet<>();
+    romPaths.add(new File("src/test/resources/full-rompath"));
+
+    Set<String> missingFiles = m.getMissingChdFiles(romPaths);
+
+    Set<String> expectedMissingFiles = new HashSet<>();
+
+    assertThat(missingFiles, equalTo(expectedMissingFiles));
+  }
 
 }

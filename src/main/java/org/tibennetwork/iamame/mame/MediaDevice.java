@@ -31,8 +31,16 @@ public class MediaDevice {
     @XmlElement(name="instance")
     Instance instance;
 
+    public boolean hasInstance() {
+        return instance != null;    
+    }
+
+    public boolean hasMediaInterface() {
+        return mediaInterface != null;    
+    }
+
     public String getBriefname() {
-        return instance.getBriefname();
+        return hasInstance() ? instance.getBriefname() : null;
     }
 
     public String getMediaInterface() {

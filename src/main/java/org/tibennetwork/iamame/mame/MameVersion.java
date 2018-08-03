@@ -3,9 +3,12 @@ package org.tibennetwork.iamame.mame;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 /**
  * Version of Mame binary
  */
+  @XmlJavaTypeAdapter(MameVersionXmlAdapter.class)
 public class MameVersion implements Comparable<MameVersion> {
 
   private String version;
@@ -32,8 +35,8 @@ public class MameVersion implements Comparable<MameVersion> {
    * Factory method that create a new MameVersion by parsing the version of Mame
    * from the first line of the output of the -help command
    */
-  public static MameVersion parseFromHelpOutput(
-      String helpCommandFirstLine) throws UnhandledMameVersionPatternException {
+  public static MameVersion parseFromHelpOutput(String helpCommandFirstLine)
+      throws UnhandledMameVersionPatternException {
     Pattern p = Pattern.compile("^.*v([0-9]+)\\.([0-9]+).*$");
     Matcher m = p.matcher(helpCommandFirstLine);
     if (!m.matches()) {
@@ -71,7 +74,7 @@ public class MameVersion implements Comparable<MameVersion> {
 
   public int compareTo(MameVersion version) {
     if (major == version.getMajor()) {
-        return minor - version.getMinor();
+      return minor - version.getMinor();
     }
     return major - version.getMajor();
   }
@@ -79,6 +82,5 @@ public class MameVersion implements Comparable<MameVersion> {
   public String toString() {
     return version;
   }
-
 
 }

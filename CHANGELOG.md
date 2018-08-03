@@ -4,6 +4,7 @@ CHANGELOG
 Current
 -------
 
+-   Now support all romsets collections available at archive.org since 0.149
 -   Fix JDK 9+ "java.lang.NoClassDefFoundError" errors (issue #10)
 
 0.9
