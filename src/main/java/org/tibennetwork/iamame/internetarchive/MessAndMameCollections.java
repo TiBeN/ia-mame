@@ -3,6 +3,7 @@ package org.tibennetwork.iamame.internetarchive;
 import java.io.File;
 import java.util.Iterator;
 import java.util.Set;
+import org.tibennetwork.iamame.IaMame;
 import org.tibennetwork.iamame.mame.Machine;
 import org.tibennetwork.iamame.mame.MameVersion;
 import org.tibennetwork.iamame.mame.Software;
@@ -46,6 +47,12 @@ public class MessAndMameCollections {
 
       MachineRomSet romSet = iterator.next();
 
+      StringBuilder builder =
+          new StringBuilder("Search for machine roms into romset ");
+      builder.append(romSet.getVersion());
+
+      IaMame.info(builder.toString());
+
       Set<String> missingRoms =
           machine.getMissingRomFiles(romSet.getFormat(), romsPaths);
 
@@ -60,6 +67,8 @@ public class MessAndMameCollections {
       for (String rom : missingRoms) {
         romSet.download(writableRomPath, rom);
       }
+
+      break;
 
     }
 
@@ -77,19 +86,24 @@ public class MessAndMameCollections {
 
     Set<String> missingChds = machine.getMissingChdFiles(romsPaths);
 
-    for (String chd : missingChds) {
+    if (!missingChds.isEmpty()) {
+
       MachineChdSet chdSet = MachineChdSet.findBest(version);
-      if (chdSet.contains(machineName, chd)) {
-        chdSet.download(writableRomPath, machineName, chd);
-      } else {
-        StringBuilder builder = new StringBuilder("Required CHD file '");
-        builder.append(chd);
-        builder.append("' for machine '");
-        builder.append(machineName);
-        builder.append("' can\'t be found in IA romset collections ");
-        builder.append(chdSet.getVersion());
-        throw new FileNotFoundInCollectionException(builder.toString());
+
+      for (String chd : missingChds) {
+        if (chdSet.contains(machineName, chd)) {
+          chdSet.download(writableRomPath, machineName, chd);
+        } else {
+          StringBuilder builder = new StringBuilder("Required CHD file '");
+          builder.append(chd);
+          builder.append("' for machine '");
+          builder.append(machineName);
+          builder.append("' can\'t be found in IA romset collections ");
+          builder.append(chdSet.getVersion());
+          throw new FileNotFoundInCollectionException(builder.toString());
+        }
       }
+
     }
 
   }
@@ -110,7 +124,6 @@ public class MessAndMameCollections {
 
     // 1. Download missing ROM files
 
-
     Set<SoftwareRomFile> missingRomFiles =
         software.getMissingRomFiles(romsPaths);
 
@@ -119,6 +132,7 @@ public class MessAndMameCollections {
       SoftwareListRomSet romSet = SoftwareListRomSet.findBest(version);
 
       for (SoftwareRomFile rom : missingRomFiles) {
+
         if (romSet.contains(rom.getListName(), rom.getName())) {
           romSet.download(writableRomPath, rom.getListName(), rom.getName());
         } else {
@@ -136,11 +150,12 @@ public class MessAndMameCollections {
 
     // 2. Download missing CHD files
 
+
     Set<SoftwareChdFile> missingFiles = software.getMissingChdFiles(romsPaths);
 
     if (!missingFiles.isEmpty()) {
 
-      SoftwareListChdSet chdSet = SoftwareListChdSet.findBest(version);
+    SoftwareListChdSet chdSet = SoftwareListChdSet.findBest(version);
 
       for (SoftwareChdFile chd : missingFiles) {
         if (chdSet.contains(chd.getListName(), chd.getSoftwareName(),
