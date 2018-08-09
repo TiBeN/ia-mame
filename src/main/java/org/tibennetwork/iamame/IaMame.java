@@ -46,6 +46,8 @@ public class IaMame {
 
       mame = new MameRuntimeImpl(mameBinary);
 
+      IaMame.info("Mame version: " + mame.getVersion());
+
       // Deduce mame command line options scheme
 
       mameOptions = new CommandLineOptionsFactory().deduceFromMameRuntime(mame);

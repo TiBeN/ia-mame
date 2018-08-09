@@ -32,14 +32,8 @@ public class SoftwareListChdSet extends RomSet {
       bestVersion = version;
     } else {
       bestVersion = versions.floor(version);
-      StringBuilder builder = new StringBuilder("Your Mame version (");
-      builder.append(version);
-      builder.append(") does not match any of available softwarelist CHD sets"
-          + " available at archive.org");
-      IaMame.warn(builder.toString());
-      IaMame.warn(
-          "IaMame will try to download files on the closest CHD set.");
-      IaMame.warn("Some files might not be available");
+      IaMame.warn("No archive.org softlist CHD set matches your Mame version");
+      IaMame.warn("Some files might not be available.");
     }
 
     // Unmarshal SoftwareListChdSet from XML data stored in classpath
@@ -98,11 +92,14 @@ public class SoftwareListChdSet extends RomSet {
 
     builder = new StringBuilder("Found ");
     builder.append(chd.getName());
-    builder.append(" on IA collection ");
+    IaMame.info(builder.toString());
+
+    builder = new StringBuilder("Collection: ");
     builder.append(col.getName());
-    builder.append(" (");
+    IaMame.info(builder.toString());
+
+    builder = new StringBuilder("URL: ");
     builder.append(col.getUrl());
-    builder.append(")");
 
     IaMame.info(builder.toString());
 

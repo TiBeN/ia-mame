@@ -47,14 +47,8 @@ public class MachineChdSet extends RomSet {
       bestVersion = version;
     } else {
       bestVersion = versions.floor(version);
-      StringBuilder builder = new StringBuilder("Your Mame version (");
-      builder.append(version);
-      builder.append(") does not match any of available machine CHD sets"
-          + " available at archive.org");
-      IaMame.warn(builder.toString());
-      IaMame.warn(
-          "IaMame will try to download files on the closest machine CHD set.");
-      IaMame.warn("Some files might not be available");
+      IaMame.warn("No archive.org machine CHD set matches your Mame version");
+      IaMame.warn("Some files might not be available.");
     }
 
     // Unmarshal MachineRomSet from XML data stored in classpath
@@ -93,12 +87,15 @@ public class MachineChdSet extends RomSet {
     StringBuilder builder;
 
     builder = new StringBuilder("Found ");
-    builder.append(chd.getChd());
-    builder.append(" on IA collection ");
+    builder.append(chd.getName());
+    IaMame.info(builder.toString());
+
+    builder = new StringBuilder("Collection: ");
     builder.append(col.getName());
-    builder.append(" (");
+    IaMame.info(builder.toString());
+
+    builder = new StringBuilder("URL: ");
     builder.append(col.getUrl());
-    builder.append(")");
 
     IaMame.info(builder.toString());
 

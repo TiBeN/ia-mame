@@ -77,15 +77,10 @@ public class MachineRomSet extends RomSet {
    */
   public static Iterator<MachineRomSet> getRomSets(MameVersion version) {
 
+    // No archive.org ROM set collection matches your Mame version (
     if (!MachineRomSet.versions.contains(version)) {
-      StringBuilder builder = new StringBuilder("Your Mame version (");
-      builder.append(version);
-      builder.append(") does not match any of available machine ROM sets"
-          + " available at archive.org");
-      IaMame.warn(builder.toString());
-      IaMame.warn(
-          "IaMame will try to download files on the closest ROM set.");
-      IaMame.warn("Some files might not be available");
+      IaMame.warn("No archive.org machine ROM set matches your Mame version");
+      IaMame.warn("Some files might not be available.");
     }
 
     final Iterator<MameVersion> iter =
@@ -128,11 +123,14 @@ public class MachineRomSet extends RomSet {
 
     builder = new StringBuilder("Found ");
     builder.append(file.getName());
-    builder.append(" on IA collection ");
+    IaMame.info(builder.toString());
+
+    builder = new StringBuilder("Collection: ");
     builder.append(col.getName());
-    builder.append(" (");
+    IaMame.info(builder.toString());
+
+    builder = new StringBuilder("URL: ");
     builder.append(col.getUrl());
-    builder.append(")");
 
     IaMame.info(builder.toString());
 

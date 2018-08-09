@@ -3,7 +3,7 @@ package org.tibennetwork.iamame.internetarchive;
 import java.io.File;
 import java.util.Iterator;
 import java.util.Set;
-import org.tibennetwork.iamame.IaMame;
+
 import org.tibennetwork.iamame.mame.Machine;
 import org.tibennetwork.iamame.mame.MameVersion;
 import org.tibennetwork.iamame.mame.Software;
@@ -32,7 +32,7 @@ public class MessAndMameCollections {
     // 1. Download missing ROM files
     //
     // Try to find needed roms into the romset version closest to or equal given
-    // version then iterate through romset anteriors to version until required
+    // version and iterate through romsets anterior to version until required
     // roms are found.
     //
     // This is required mainly because of ROMs collection version 0.161 doesn't
@@ -46,12 +46,6 @@ public class MessAndMameCollections {
     romsetsloop: while (iterator.hasNext()) {
 
       MachineRomSet romSet = iterator.next();
-
-      StringBuilder builder =
-          new StringBuilder("Search for machine roms into romset ");
-      builder.append(romSet.getVersion());
-
-      IaMame.info(builder.toString());
 
       Set<String> missingRoms =
           machine.getMissingRomFiles(romSet.getFormat(), romsPaths);
