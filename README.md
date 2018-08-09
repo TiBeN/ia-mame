@@ -4,22 +4,20 @@ ia-mame
 [![Build
 Status](https://travis-ci.org/TiBeN/ia-mame.svg?branch=master)](https://travis-ci.org/TiBeN/ia-mame)
 
-`ia-mame` allows you to play with the [Mame](http://mamedev.org/)
+`ia-mame` allows you to play with the [MAME](http://mamedev.org/)
 emulator without bothering to find roms: `ia-mame` searchs and downloads
 them automatically for you!
 
 Machines ROMs/CHDs and software lists ROMs/CHDs are supported. Files are
 downloaded from [romset
 collections](https://archive.org/details/messmame) hosted at
-[archive.org](https://archive.org).
-
-`ia-mame` is really handy for casual gamers or others Mame users that
-don't want to spend time, energy or HDD space in collecting perfect full
-romsets but simply want to play or quickly test some games.
-
-As a nice side effect, `ia-mame` allows the download of only parts of
-bigs zipped romsets files available at archive.org. Some users
-complained about issues in downloading theses big files.
+[archive.org](https://archive.org). `ia-mame` is really handy for casual
+gamers or others Mame users that don't want to spend time, energy or HDD
+space in collecting perfect full romsets but simply want to play or
+quickly test some games. As a nice side effect, `ia-mame` allows the
+download of only parts of bigs zipped romsets files available at
+archive.org. Some users complained about issues in downloading theses
+big files.
 
 ![preview](./doc/screenshot.png)
 
@@ -66,12 +64,13 @@ Installation
 -   Make your rompath writable or add another writable one on the
     'rompath' directive of `mame.ini`
 
-    $ chmod +w /path/to/mame/roms
+    \$ chmod +w /path/to/mame/roms
 
 -   Install ia-mame and make it executable:
 
-    $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame   
-    $ sudo chmod +x /usr/local/bin/ia-mame
+    \$ sudo curl -fsSLo /usr/local/bin/ia-mame
+    https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame\
+    \$ sudo chmod +x /usr/local/bin/ia-mame
 
 -   Tell `ia-mame` where is your Mame executable by making it available
     on your \$PATH environment variable — its name must match
@@ -79,14 +78,17 @@ Installation
     \~/.bash\_profile or somewhere else, the \$MAME\_EXEC environment
     variable:
 
-    $ vim ~/.bashrc   
-    export MAME_EXEC=/path/to/mame64
+    \$ vim \~/.bashrc\
+    export MAME\_EXEC=/path/to/mame64
 
 ### Windows
 
--   Download [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame.exe) and place it on the folder where is your mame.exe
+-   Download
+    [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame.exe)
+    and place it on the folder where is your mame.exe
 
-You can alternatively place it somewhere else and use the \$MAME\_EXEC env variable:
+You can alternatively place it somewhere else and use the \$MAME\_EXEC
+env variable:
 
     C:\> SET MAME_EXEC=C:\Users\tiben\mame\mame.exe
 
@@ -96,12 +98,11 @@ The compilation requires Maven.
 
 -   git clone this repository:
 
-    $ git clone https://github.com/TiBeN/ia-mame
+    \$ git clone https://github.com/TiBeN/ia-mame
 
 -   Build and package using maven:
 
-    $ cd /path/to/ia-mame
-    $ mvn package
+    \$ cd /path/to/ia-mame \$ mvn package
 
 The binary files ia-mame (Linux/OS X) and ia-mame.exe (Windows) and the
 executable jar are available on the `target` directory.
@@ -119,7 +120,7 @@ and downloads them before launching Mame.
 Let's try Street Fighter 2 arcade board. Type:
 
     $ ia-mame sf2
-    
+
     INFO: Download missing rom files: [sf2]
     INFO: Machine: Street Fighter II: The World Warrior (World 910522)
     INFO: Downloading 3468kB / ??kB, progress: ??
@@ -132,7 +133,7 @@ Open a console `cmd` then type:
 
     C:\> cd \path\to\mame
     C:\> ia-mame.exe sms columns
-    
+
     INFO: Download missing rom files: [sms]
     INFO: Machine: Master System II
     INFO: Downloading 78kB / ??kB, progress: ??
