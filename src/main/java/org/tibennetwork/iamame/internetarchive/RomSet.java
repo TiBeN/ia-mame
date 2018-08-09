@@ -87,7 +87,10 @@ public abstract class RomSet {
 
       // Download the file
 
-      String downloadPrefix = "[ia-mame info]: Downloading " + dest.getName();
+      String destName = dest.getName();
+      String ellipsisedName =
+          destName.length() > 18 ? destName.substring(0, 15) + "..." : destName;
+      String downloadPrefix = "[ia-mame info]: Downloading " + ellipsisedName;
 
       while ((readBytes = urlStream.read(bytes)) != -1) {
         destStream.write(bytes, 0, readBytes);
@@ -98,8 +101,8 @@ public abstract class RomSet {
         downloadedPercent =
             (int) ((float) ((float) (downloadedBytes / 1024) / size) * 100);
 
-        System.out.print(
-            String.format("%s - %skB / %skB, progress: %s\r", downloadPrefix,
+        System.out
+            .print(String.format("%s - %skB / %skB (%s)\r", downloadPrefix,
                 (downloadedBytes / 1024), size, (downloadedPercent + "%")));
 
         downloadingMessageDisplayed = true;
