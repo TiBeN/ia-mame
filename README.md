@@ -64,13 +64,12 @@ Installation
 -   Make your rompath writable or add another writable one on the
     'rompath' directive of `mame.ini`
 
-    \$ chmod +w /path/to/mame/roms
+        $ chmod +w /path/to/mame/roms
 
 -   Install ia-mame and make it executable:
 
-    \$ sudo curl -fsSLo /usr/local/bin/ia-mame
-    https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame\
-    \$ sudo chmod +x /usr/local/bin/ia-mame
+        $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame
+        $ sudo chmod +x /usr/local/bin/ia-mame
 
 -   Tell `ia-mame` where is your Mame executable by making it available
     on your \$PATH environment variable — its name must match
@@ -78,8 +77,8 @@ Installation
     \~/.bash\_profile or somewhere else, the \$MAME\_EXEC environment
     variable:
 
-    \$ vim \~/.bashrc\
-    export MAME\_EXEC=/path/to/mame64
+        $ vim ~/.bashrc
+        export MAME\_EXEC=/path/to/mame64
 
 ### Windows
 
@@ -90,7 +89,7 @@ Installation
 You can alternatively place it somewhere else and use the \$MAME\_EXEC
 env variable:
 
-    C:\> SET MAME_EXEC=C:\Users\tiben\mame\mame.exe
+        C:\> SET MAME_EXEC=C:\Users\tiben\mame\mame.exe
 
 ### Compilation from the sources
 
@@ -98,11 +97,12 @@ The compilation requires Maven.
 
 -   git clone this repository:
 
-    \$ git clone https://github.com/TiBeN/ia-mame
+        $ git clone https://github.com/TiBeN/ia-mame
 
 -   Build and package using maven:
 
-    \$ cd /path/to/ia-mame \$ mvn package
+        $ cd /path/to/ia-mame
+        $ mvn package
 
 The binary files ia-mame (Linux/OS X) and ia-mame.exe (Windows) and the
 executable jar are available on the `target` directory.
