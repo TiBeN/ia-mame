@@ -185,7 +185,7 @@ with the frontend [attract-mode](http://attractmode.org/).
 
 `ia-mame` relies on [romsets
 available](https://archive.org/details/messmame?&sort=publicdate) at
-archive.org\]. Not all romsets for all Mame versions are hosted and some
+archive.org. Not all romsets for all Mame versions are hosted and some
 versions miss parts like softwarelist or chd sets. `ia-mame` tries to
 find missing roms in previous collections but olders roms may not work
 with a more recent version of Mame.
