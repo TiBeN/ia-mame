@@ -203,13 +203,3 @@ Releases announces on reddit triggered some good discussions:
 -   [0.7 on
     /r/emulation](https://www.reddit.com/r/emulation/comments/4tkrqb/%60ia-mame%60_07_released/)
 
-Some screenshots
-----------------
-
-![preview2](./doc/screenshot2.png)
-
-![preview3](./doc/screenshot3.png)
-
-![preview4](./doc/screenshot4.png)
-
-![preview5](./doc/screenshot5.png)
