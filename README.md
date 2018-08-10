@@ -76,7 +76,7 @@ Installation
 
 -   Install `ia-mame` and make it executable:
 
-        $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame
+        $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/1.0/ia-mame
         $ sudo chmod +x /usr/local/bin/ia-mame
 
 -   Tell `ia-mame` where is your Mame executable by making it available
@@ -91,7 +91,7 @@ Installation
 ### Windows
 
 -   Download
-    [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame.exe)
+    [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/1.0/ia-mame.exe)
     and place it on the folder where is your mame.exe
 
 You can alternatively place it somewhere else and use the \$MAME\_EXEC
@@ -148,7 +148,7 @@ Open a console `cmd` then type:
 ### Executable JAR
 
 Alternatively, the provided [executable
-jar](https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame.jar)
+jar](https://github.com/TiBeN/ia-mame/releases/download/1.0/ia-mame.jar)
 can be used directly:
 
     $ java -jar ia-mame.jar sf2
