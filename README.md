@@ -37,7 +37,7 @@ Prerequisites
     archive.org](https://archive.org/details/messmame?&sort=publicdate).
     As of now, available romsets range from 0.149 to 0.197. If your Mame
     version does not match exactly a romset version, ia-mame searchs for
-    roms in greatest romsets version less than the Mame version. In this
+    roms in greatest romsets version less than your Mame version. In this
     case, some required files may be missing. Its a hit or miss but
     works pretty well if the version delta between Mame and romsets is
     not too high.
