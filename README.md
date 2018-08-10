@@ -22,10 +22,9 @@ big files.
 ![preview](./doc/screenshot.png)
 
 Watch the following screencast made by [Geoff
-Yuen](https://vimeo.com/user51410922) to see `ia-mame` in action!
+Yuen](https://vimeo.com/user51410922) to see `ia-mame` in action!:
 
-<span style="display:block;text-align:center">[![ia-mame on OS X
-demo](https://i.vimeocdn.com/video/567335844.jpg)](https://vimeo.com/163855518)</span>
+[![ia-mame on OS X demo](https://i.vimeocdn.com/video/567335844.jpg)](https://vimeo.com/163855518)
 
 Prerequisites
 -------------
@@ -123,13 +122,12 @@ and downloads them before launching Mame.
 
 ### Linux, Os X
 
-Let's try Street Fighter 2 arcade board. Type:
+Let's try Silpheed on the Sega Mega CD. Simply type what you would have
+typed with the original Mame to launch the game:
 
-    $ ia-mame sf2
+    $ ia-mame segacd silpheed
 
-    INFO: Download missing rom files: [sf2]
-    INFO: Machine: Street Fighter II: The World Warrior (World 910522)
-    INFO: Downloading 3468kB / ??kB, progress: ??
+![Silpheed Mega CD](./doc/screenshot2.png)
 
 ### Windows
 
