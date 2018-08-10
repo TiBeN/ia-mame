@@ -178,7 +178,7 @@ Known limitations
 `ia-mame` does not work when used with the included Mame GUI. However it
 should work with frontends using some tweaks. Reddit user `jstefa`
 managed to make [`ia-mame` work in his
-cab](https://www.reddit.com/r/MAME/comments/4fruod/iamame_05_mame_thin_wrapper_which_downloads/d4tn8ed/)
+cab](https://www.reddit.com/r/MAME/comments/4fruod/iamame_05_mame_thin_wrapper_which_downloads/d4xqj0l/)
 with the frontend [attract-mode](http://attractmode.org/).
 
 ### Some ROMs/CHDs are missing
