@@ -53,16 +53,16 @@ Prerequisites
 Warning
 -------
 
-Despite ia-mame can be considered safe, it is for now a beta software.
-It should not affect your roms collection and will not overwrite
-your existing files. But if you take care of your collection, it would
-be safer to try ia-mame with another rompath. See
+Despite `ia-mame` can be considered safe, it is for now a beta software.
+It should not affect your roms collection and will not overwrite your
+existing files. But if you take care of your collection, it would be
+safer to try `ia-mame` with another rompath. See
 [below](https://github.com/TiBeN/ia-mame#use-a-different-rompath)
 
-If you change your version of Mame, i recommend you to use another
-empty rompath to prevent a `mixed versions romset`. Some roms could have
-been changed from a romset version to another so it is safer to download
-them again.
+If you change your version of Mame, i recommend you to use another empty
+rompath to prevent a `mixed versions romset`. Some roms could have been
+changed from a romset version to another so it is safer to download them
+again.
 
 Installation
 ------------
@@ -74,7 +74,7 @@ Installation
 
         $ chmod +w /path/to/mame/roms
 
--   Install ia-mame and make it executable:
+-   Install `ia-mame` and make it executable:
 
         $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/0.9/ia-mame
         $ sudo chmod +x /usr/local/bin/ia-mame
@@ -101,7 +101,7 @@ env variable:
 
 ### Compilation from the sources
 
-The compilation requires Maven.
+The compilation requires `Maven`.
 
 -   git clone this repository:
 
@@ -112,27 +112,27 @@ The compilation requires Maven.
         $ cd /path/to/ia-mame
         $ mvn package
 
-The binary files ia-mame (Linux/OS X) and ia-mame.exe (Windows) and the
-executable jar are available on the `target` directory.
+The binary files `ia-mame` (Linux/OS X) and `ia-mame.exe` (Windows) and
+the executable jar are available on the `target` directory.
 
 Usage
 -----
 
-`ia-mame` acts like a `command wrapper` of the original Mame executable.  Use
-it exactly like the original Mame command line. When you launch a game or a
-system, `ia-mame` looks at your rompath to determine what ROM/CHD files are
-missing and downloads them from archive.org into your rompath. Once the files
-are downloaded, it returns control to original Mame which launches the
-game/system.
+`ia-mame` acts like a `command wrapper` of the original Mame executable.
+Use it exactly like the original Mame command line. When you launch a
+game or a system, `ia-mame` looks at your rompath to determine what
+ROM/CHD files are missing and downloads them from archive.org into your
+rompath. Once the files are downloaded, it returns control to original
+Mame executable which launches the game/system.
 
 ### Linux, Os X
 
-Let's try `King Of Fighters '98`. Simply type what you would have
+Let's try `The King Of Fighters '98`. Simply type what you would have
 typed with the original Mame to launch the game:
 
     $ ia-mame kof98
 
-![King Of Fighters 98 launched using ia-mame](./doc/screenshot3.png)
+![King Of Fighters 98 launched on Linux using ia-mame](./doc/screenshot3.png)
 
 ### Windows
 
@@ -142,6 +142,8 @@ Open a console `cmd` then type:
 
     C:\> cd \path\to\mame
     C:\> ia-mame.exe sms columns
+
+![Columns launched on Windows using ia-mame](./doc/screenshot4.png)
 
 ### Executable JAR
 
@@ -153,18 +155,18 @@ can be used directly:
 
 ### Use a different rompath
 
-If you want to try ia-mame using a different rompath than your Mame's
-default, you can use the Mame option `-rompath` on the command-line;
-ia-mame supports Mame options given as command-line arguments aswell:
+If you want to try `ia-mame` using a different rompath than your Mame's
+default, you can use the original Mame option `-rompath` on the
+command-line.
 
     $ ia-mame -rompath /tmp sms sonic
 
 ### Disable Mame execution
 
-It is possible to run ia-mame without running Mame in the end using the
-"-noexecmame". This can be useful if you only want to download a rom
-file without execute that game. If the rom is already available, ia-mame
-simply does nothing.
+It is possible to run `ia-mame` without running Mame afterward using the
+`-noexecmame` option. This can be useful if you only want to download a
+rom file without execute the game. If the rom is already available,
+`ia-mame` simply does nothing.
 
     $ ia-mame -noexecmame sms sonic
 
@@ -174,9 +176,10 @@ Known limitations
 ### No GUI support
 
 `ia-mame` does not work when used with the included Mame GUI. However it
-can work with frontend with the use of tweaks. Reddit user `jstefa`
-managed to make `ia-mame` work in his cab with the frontend
-[attract-mode](http://attractmode.org/).
+should work with frontends using some tweaks. Reddit user `jstefa`
+managed to make [`ia-mame` work in his
+cab](https://www.reddit.com/r/MAME/comments/4fruod/iamame_05_mame_thin_wrapper_which_downloads/d4tn8ed/)
+with the frontend [attract-mode](http://attractmode.org/).
 
 ### Some ROMs/CHDs are missing
 
