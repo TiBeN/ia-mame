@@ -89,7 +89,7 @@ Installation
 You can alternatively place it somewhere else and use the \$MAME\_EXEC
 env variable:
 
-        C:\> SET MAME_EXEC=C:\Users\tiben\mame\mame.exe
+    C:\> SET MAME_EXEC=C:\Users\tiben\mame\mame.exe
 
 ### Compilation from the sources
 
