@@ -98,7 +98,7 @@ public class IaMame {
       }
     }
 
-    String[] possibleBinaryNames = {"mame", "mame64", "mame.exe"};
+    String[] possibleBinaryNames = {"mame", "mame64", "mame.exe", "mame64.exe"};
     String candidateMameBinaryPath;
     File candidateMameBinary;
     String containingJarPath = null;
