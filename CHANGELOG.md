@@ -4,6 +4,9 @@ CHANGELOG
 Current
 -------
 
+-   Fix ia-mame does not find Window mame64.exe binary by itself
+-   Improve readability of logs 
+-   Fix Download progress counter
 -   Now support all romsets collections available at archive.org since 0.149
 -   Fix JDK 9+ "java.lang.NoClassDefFoundError" errors (issue #10)
 
