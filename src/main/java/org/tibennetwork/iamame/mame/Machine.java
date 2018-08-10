@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.tibennetwork.iamame.internetarchive.MachineRomSet.MachineRomSetFormat;
 
 /**
@@ -63,6 +61,9 @@ public class Machine {
   @XmlAttribute(name = "romof")
   private String romof = null;
 
+  @XmlAttribute(name = "cloneof")
+  private String cloneof = null;
+
   @XmlElement(name = "softwarelist")
   private List<SoftwareList> softwareLists;
 
@@ -80,7 +81,9 @@ public class Machine {
    */
   private Set<Machine> subMachines = new HashSet<>();
 
-  private Machine parentMachine;
+  private Machine clonedMachine;
+
+  private Machine romOfMachine;
 
   public Boolean IsRunnable() {
     return isRunnable;
@@ -92,6 +95,10 @@ public class Machine {
 
   public String getDescription() {
     return description;
+  }
+
+  public String getCloneof() {
+    return cloneof;
   }
 
   public String getRomof() {
@@ -114,12 +121,20 @@ public class Machine {
     this.subMachines = subMachines;
   }
 
-  public Machine getParentMachine() {
-    return parentMachine;
+  public Machine getClonedMachine() {
+    return clonedMachine;
   }
 
-  public void setParentMachine(Machine parentMachine) {
-    this.parentMachine = parentMachine;
+  public void setClonedMachine(Machine clonedMachine) {
+    this.clonedMachine = clonedMachine;
+  }
+
+  public Machine getRomOfMachine() {
+    return romOfMachine;
+  }
+
+  public void setRomOfMachine(Machine romOfMachine) {
+    this.romOfMachine = romOfMachine;
   }
 
   /**
@@ -145,25 +160,35 @@ public class Machine {
   private Set<String> getNeededRomFiles(MachineRomSetFormat format) {
     Set<String> romSets = new HashSet<>();
 
-    // This machine needs Roms ?
+    // If this machine is a clone of another, only include cloned machine roms
+    // if format is merged (clones are included in parent roms on merged
+    // romsets)
 
-    // If this machine is a child of another, only include parent if format
-    // is merged (clones are included in parent roms on merged romsets)
-
-    if (!this.roms.isEmpty() && (this.parentMachine == null || format.equals(MachineRomSetFormat.SPLIT))) {
+    if (!this.roms.isEmpty() && (this.clonedMachine == null
+        || format.equals(MachineRomSetFormat.SPLIT))) {
       romSets.add(this.name);
+    }
+
+    // This machine is a clone of another which needs roms ?
+
+    if (this.clonedMachine != null) {
+      Set<String> psRomSets = this.clonedMachine.getNeededRomFiles(format);
+      if (!psRomSets.isEmpty()) {
+        romSets.addAll(psRomSets);
       }
+    }
 
-    // This machine is a child of another which needs roms ?
+    // This machine if a "rom" of another (ex neogeo) ?
 
-    if (this.parentMachine != null) {
-      Set<String> psRomSets = this.parentMachine.getNeededRomFiles(format);
+    if (this.romOfMachine != null) {
+      Set<String> psRomSets = this.romOfMachine.getNeededRomFiles(format);
       if (!psRomSets.isEmpty()) {
         romSets.addAll(psRomSets);
       }
     }
 
     // Any sub machine componants of this machine need roms ?
+
     for (Machine subm : this.getSubMachines()) {
       Set<String> submRomSets = subm.getNeededRomFiles(format);
       if (!submRomSets.isEmpty()) {
