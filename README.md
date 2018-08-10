@@ -4,7 +4,7 @@ ia-mame
 [![Build
 Status](https://travis-ci.org/TiBeN/ia-mame.svg?branch=master)](https://travis-ci.org/TiBeN/ia-mame)
 
-`ia-mame` allows you to play with the [MAME](http://mamedev.org/)
+ia-mame` allows you to play with the [MAME](http://mamedev.org/)
 emulator without bothering to find roms: `ia-mame` searchs and downloads
 them automatically for you!
 
@@ -20,6 +20,12 @@ archive.org. Some users complained about issues in downloading theses
 big files.
 
 ![preview](./doc/screenshot.png)
+
+Watch the following screencast made by [Geoff
+Yuen](https://vimeo.com/user51410922) to see `ia-mame` in action!
+
+[![ia-mame on OS X
+demo](https://i.vimeocdn.com/video/567335844.jpg)](https://vimeo.com/163855518)
 
 Prerequisites
 -------------
