@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Current
--------
+1.0
+---
 
 -   Fix ia-mame does not find Window mame64.exe binary by itself
 -   Improve readability of logs 
