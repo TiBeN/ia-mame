@@ -21,8 +21,8 @@ big files.
 
 ![preview](./doc/screenshot.png)
 
-Watch the following screencast made by [Geoff
-Yuen](https://vimeo.com/user51410922) to see `ia-mame` in action!:
+Watch `ia-mame` in action with the following screencast made by [Geoff
+Yuen](https://vimeo.com/user51410922):
 
 [![ia-mame on OS X
 demo](https://i.vimeocdn.com/video/567335844.jpg)](https://vimeo.com/163855518)
