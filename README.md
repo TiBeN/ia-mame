@@ -24,8 +24,8 @@ big files.
 Watch the following screencast made by [Geoff
 Yuen](https://vimeo.com/user51410922) to see `ia-mame` in action!
 
-[![ia-mame on OS X
-demo](https://i.vimeocdn.com/video/567335844.jpg)](https://vimeo.com/163855518)
+<span style="display:block;text-align:center">[![ia-mame on OS X
+demo](https://i.vimeocdn.com/video/567335844.jpg)](https://vimeo.com/163855518)</span>
 
 Prerequisites
 -------------
