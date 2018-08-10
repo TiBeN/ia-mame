@@ -4,7 +4,7 @@ ia-mame
 [![Build
 Status](https://travis-ci.org/TiBeN/ia-mame.svg?branch=master)](https://travis-ci.org/TiBeN/ia-mame)
 
-ia-mame` allows you to play with the [MAME](http://mamedev.org/)
+`ia-mame` allows you to play with the [MAME](http://mamedev.org/)
 emulator without bothering to find roms: `ia-mame` searchs and downloads
 them automatically for you!
 
@@ -24,7 +24,8 @@ big files.
 Watch the following screencast made by [Geoff
 Yuen](https://vimeo.com/user51410922) to see `ia-mame` in action!:
 
-[![ia-mame on OS X demo](https://i.vimeocdn.com/video/567335844.jpg)](https://vimeo.com/163855518)
+[![ia-mame on OS X
+demo](https://i.vimeocdn.com/video/567335844.jpg)](https://vimeo.com/163855518)
 
 Prerequisites
 -------------
@@ -40,24 +41,26 @@ Prerequisites
     and works as expected before trying `ia-mame`. Recommended version
     is one that match exactly one of the [available romsets at
     archive.org](https://archive.org/details/messmame?&sort=publicdate).
-    As of now, available romsets range from 0.149 to 0.197. If your Mame
-    version does not match exactly a romset version, ia-mame searchs for
-    roms in greatest romsets version less than your Mame version. In this
-    case, some required files may be missing. Its a hit or miss but
-    works pretty well if the version delta between Mame and romsets is
-    not too high.
+    As of now, available romsets range from 0.149 to 0.197. So
+    recommended version is 0.197. If your Mame version does not match
+    exactly a romset version, `ia-mame` searchs for roms in greatest
+    romsets version less than your Mame version. In this case, some
+    required files may be missing. Its a hit or miss but works pretty
+    well if the version delta between Mame and romsets is not too high.
+    Previous versions of Mame are available
+    [here](http://mamedev.org/oldrel.html).
 
 Warning
 -------
 
 Despite ia-mame can be considered safe, it is for now a beta software.
-It should not affect your beloved roms collection and will not overwrite
+It should not affect your roms collection and will not overwrite
 your existing files. But if you take care of your collection, it would
 be safer to try ia-mame with another rompath. See
 [below](https://github.com/TiBeN/ia-mame#use-a-different-rompath)
 
-If you change your version of Mame, it is recommended to use another
-empty rompath to prevent a mixed versions romset. Some roms can have
+If you change your version of Mame, i recommend you to use another
+empty rompath to prevent a `mixed versions romset`. Some roms could have
 been changed from a romset version to another so it is safer to download
 them again.
 
@@ -115,19 +118,21 @@ executable jar are available on the `target` directory.
 Usage
 -----
 
-ia-mame acts like a `command wrapper` of the original Mame executable.
-Use it exactly like the original Mame command line. Simply launch a
-game. ia-mame takes care to see what files are missing on your rompath
-and downloads them before launching Mame.
+`ia-mame` acts like a `command wrapper` of the original Mame executable.  Use
+it exactly like the original Mame command line. When you launch a game or a
+system, `ia-mame` looks at your rompath to determine what ROM/CHD files are
+missing and downloads them from archive.org into your rompath. Once the files
+are downloaded, it returns control to original Mame which launches the
+game/system.
 
 ### Linux, Os X
 
-Let's try Silpheed on the Sega Mega CD. Simply type what you would have
+Let's try `King Of Fighters '98`. Simply type what you would have
 typed with the original Mame to launch the game:
 
-    $ ia-mame segacd silpheed
+    $ ia-mame kof98
 
-![Silpheed Mega CD](./doc/screenshot2.png)
+![King Of Fighters 98 launched using ia-mame](./doc/screenshot3.png)
 
 ### Windows
 
@@ -137,15 +142,6 @@ Open a console `cmd` then type:
 
     C:\> cd \path\to\mame
     C:\> ia-mame.exe sms columns
-
-    INFO: Download missing rom files: [sms]
-    INFO: Machine: Master System II
-    INFO: Downloading 78kB / ??kB, progress: ??
-    INFO: Download missing software file: columns
-    INFO: Name: Columns (Euro, USA, Bra, Kor)
-    INFO: Publisher: Sega
-    INFO: Media interface: sms_cart
-    INFO: Downloading 25kB / ??kB, progress: ??
 
 ### Executable JAR
 
@@ -172,30 +168,34 @@ simply does nothing.
 
     $ ia-mame -noexecmame sms sonic
 
-Don't like command line ?
+Known limitations
+-----------------
+
+### No GUI support
+
+`ia-mame` does not work when used with the included Mame GUI. However it
+can work with frontend with the use of tweaks. Reddit user `jstefa`
+managed to make `ia-mame` work in his cab with the frontend
+[attract-mode](http://attractmode.org/).
+
+### Some ROMs/CHDs are missing
+
+`ia-mame` relies on [romsets
+available](https://archive.org/details/messmame?&sort=publicdate) at
+archive.org\]. Not all romsets for all Mame versions are hosted and some
+versions miss parts like softwarelist or chd sets. `ia-mame` tries to
+find missing roms in previous collections but olders roms may not work
+with a more recent version of Mame.
+
+Contact and contributions
 -------------------------
 
-If you feels not confortable with the Mame command line, i suggest you
-to become familiar with it by reading the official
-[documentation](http://docs.mamedev.org/). The original [MESS
-documentation](http://www.mess.org/mess/howto) can be pretty useful too
-to better understand the softwarelist mechanism and knowing which
-`<system>` and `<software>` names to type. Mess is now merged with Mame
-but was previously the console/computer part of Mame.
-
-What's more, i'm planning to do a very rudimentary GUI to simplify
-things a little for users which do not like command line, especially on
-Windows environment.
-
-I have not tested now but `ia-mame` should be compatible with frontends,
-the usage command line beeing the same as the original Mame.
-
-Contact and contribution
-------------------------
-
-If you want to contribute or simply share your thoughs about ia-mame
+If you want to contribute or simply share your thoughs about `ia-mame`
 feel free to send your pull requests here at github or join me at
 [reddit](https://www.reddit.com/user/tiben_/).
+
+One really simple contribution is keep me informed when new romsets are
+hosted at archive.org.
 
 Discussions
 -----------
