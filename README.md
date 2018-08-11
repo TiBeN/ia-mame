@@ -190,6 +190,17 @@ versions miss parts like softwarelist or chd sets. `ia-mame` tries to
 find missing roms in previous collections but olders roms may not work
 with a more recent version of Mame.
 
+Legal
+-----
+
+`ia-mame` is the effort of one developper and is in any way associated with the
+official Mamedev team. 
+
+`ia-mame` uses archive.org as a service and does not host nor provide directly
+any rom file.
+
+Some rom files are the proprietary of copyright holders.
+
 Contact and contributions
 -------------------------
 
