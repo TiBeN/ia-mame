@@ -197,7 +197,7 @@ with a more recent version of Mame.
 Legal
 -----
 
-`ia-mame` is the effort of one developper and is in any way associated
+`ia-mame` is an independant project and is in any way associated
 with the official Mamedev team.
 
 `ia-mame` uses archive.org as a service and does not host nor provide
