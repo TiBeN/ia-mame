@@ -19,6 +19,9 @@ download of only parts of bigs zipped romsets files available at
 archive.org. Some users complained about issues in downloading theses
 big files.
 
+Before using `ia-mame` please read the [legal
+notes](https://github.com/TiBeN/ia-mame#legal) below.
+
 ![preview](./doc/screenshot.png)
 
 Watch `ia-mame` in action with the following screencast made by [Geoff
@@ -132,7 +135,8 @@ typed with the original Mame to launch the game:
 
     $ ia-mame kof98
 
-![King Of Fighters 98 launched on Linux using ia-mame](./doc/screenshot3.png)
+![King Of Fighters 98 launched on Linux using
+ia-mame](./doc/screenshot3.png)
 
 ### Windows
 
@@ -193,11 +197,11 @@ with a more recent version of Mame.
 Legal
 -----
 
-`ia-mame` is the effort of one developper and is in any way associated with the
-official Mamedev team. 
+`ia-mame` is the effort of one developper and is in any way associated
+with the official Mamedev team.
 
-`ia-mame` uses archive.org as a service and does not host nor provide directly
-any rom file.
+`ia-mame` uses archive.org as a service and does not host nor provide
+directly any rom file.
 
 Some rom files are the proprietary of copyright holders.
 
