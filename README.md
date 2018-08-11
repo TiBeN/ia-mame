@@ -12,7 +12,7 @@ Machines ROMs/CHDs and software lists ROMs/CHDs are supported. Files are
 downloaded from [romset
 collections](https://archive.org/details/messmame) hosted at
 [archive.org](https://archive.org). `ia-mame` is really handy for casual
-gamers or others Mame users that don't want to spend time, energy or HDD
+gamers or others MAME users that don't want to spend time, energy or HDD
 space in collecting perfect full romsets but simply want to play or
 quickly test some games. As a nice side effect, `ia-mame` allows the
 download of only parts of bigs zipped romsets files available at
@@ -86,7 +86,7 @@ Installation
     variable:
 
         $ vim ~/.bashrc
-        export MAME\_EXEC=/path/to/mame64
+        export MAME_EXEC=/path/to/mame64
 
 ### Windows
 
