@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Current
--------
+1.1
+---
 
 -   Change project name to `ia-arcade`
 
