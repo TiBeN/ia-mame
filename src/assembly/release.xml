@@ -20,9 +20,9 @@
 			<directory>${project.basedir}/target</directory>
 			<outputDirectory>${file.separator}bin</outputDirectory>
 			<includes>
-                <include>ia-mame</include>
-                <include>ia-mame.exe</include>
-                <include>ia-mame.jar</include>
+                <include>ia-rcade</include>
+                <include>ia-rcade.exe</include>
+                <include>ia-rcade.jar</include>
 			</includes>
 		</fileSet>
     </fileSets>

@@ -1,0 +1,78 @@
+package org.tibennetwork.iarcade.mame;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.cli.ParseException;
+import org.tibennetwork.iarcade.internetarchive.NoWritableRomPathException;
+
+public interface MameRuntime {
+
+    public Set<File> getRomsPaths() 
+        throws IOException, 
+               InterruptedException,
+               ParseException;
+
+    public void setDefaultOptions (String[] defaultOptions);
+
+    /**
+     * Executes Mame using the given arguments.
+     * The containing (java) process is locked until
+     * Mame terminates. cess so execution is transparent
+     * for the user.
+     */
+    public void execute (String[] rawArgs, boolean mergeArgsWithDefaultOptions) 
+            throws IOException, InterruptedException;
+
+    /**
+     * Same as MameRuntime.execute but merge rawArgs 
+     * with default options by default
+     */
+    public void execute (String[] rawArgs) 
+        throws IOException, InterruptedException;
+
+    /**
+     * Executes Mame using the given arguments and return
+     * the stdout of the command as a List of String
+     */
+    public List<String> executeAndReturnStdout (
+            String[] rawArgs, boolean mergeArgsWithDefaultOptions)
+            throws IOException, InterruptedException, MameExecutionException;
+    /**
+     * Same as MameRuntime.executeAndReturnStdout
+     * but merge rawArgs with default options by default
+     */
+    public List<String> executeAndReturnStdout (String[] rawArgs) 
+            throws IOException, InterruptedException, MameExecutionException;
+
+    /**
+     * Executes Mame using the given arguments and return
+     * an InputStream connected to the process to access to 
+     * std inputs/outputs
+     */
+    public InputStream executeAndReturnStdoutAsInputStream (
+            String[] rawArgs, boolean mergeArgsWithDefaultOptions)
+            throws IOException, InterruptedException, MameExecutionException;
+ 
+    /**
+     * Same as MameRuntime.executeAndReturnStdoutAsInputStream 
+     * but merge rawArgs with default options by default
+     */
+    public InputStream executeAndReturnStdoutAsInputStream (String[] rawArgs) 
+            throws IOException, InterruptedException, MameExecutionException;
+
+    /**
+     * Determines the path among the list of rom paths were roms 
+     * and software should be put.
+     */
+    public File getWritableRomPath () throws NoWritableRomPathException;
+
+    /**
+     * Determine and return the Mame version of the binary
+     */
+    public MameVersion getVersion ();
+
+}

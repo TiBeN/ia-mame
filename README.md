@@ -14,12 +14,6 @@ notes](https://github.com/TiBeN/ia-rcade#legal) below.
 
 ![preview](./doc/screenshot.png)
 
-Watch `ia-rcade` in action with the following screencast made by [Geoff
-Yuen](https://vimeo.com/user51410922):
-
-[![ia-rcade on OS X
-demo](https://i.vimeocdn.com/video/567335844.jpg)](https://vimeo.com/163855518)
-
 Prerequisites
 -------------
 
@@ -68,8 +62,8 @@ Installation
 
 -   Install `ia-rcade` and make it executable:
 
-        $ sudo curl -fsSLo /usr/local/bin/ia-mame https://github.com/TiBeN/ia-mame/releases/download/1.0/ia-mame
-        $ sudo chmod +x /usr/local/bin/ia-mame
+        $ sudo curl -fsSLo /usr/local/bin/ia-rcade https://github.com/TiBeN/ia-mame/releases/download/1.1/ia-rcade
+        $ sudo chmod +x /usr/local/bin/ia-rcade
 
 -   Tell `ia-rcade` where is your Mame executable by making it available
     on your \$PATH environment variable — its name must match
@@ -83,7 +77,7 @@ Installation
 ### Windows
 
 -   Download
-    [ia-mame.exe](https://github.com/TiBeN/ia-mame/releases/download/1.0/ia-mame.exe)
+    [ia-rcade.exe](https://github.com/TiBeN/ia-rcade/releases/download/1.1/ia-rcade.exe)
     and place it on the folder where is your mame.exe
 
 You can alternatively place it somewhere else and use the \$MAME\_EXEC
@@ -104,7 +98,7 @@ The compilation requires `Maven`.
         $ cd /path/to/ia-rcade
         $ mvn package
 
-The binary files `ia-mame` (Linux/OS X) and `ia-mame.exe` (Windows) and
+The binary files `ia-rcade` (Linux/OS X) and `ia-rcade.exe` (Windows) and
 the executable jar are available on the `target` directory.
 
 Usage
@@ -119,32 +113,25 @@ Mame executable which launches the game/system.
 
 ### Linux, Os X
 
-Let's try `The King Of Fighters '98`. Simply type what you would have
-typed with the original Mame to launch the game:
+Let's try `Galaxian`. Simply type what you would have typed with the original
+Mame to launch the game:
 
-    $ ia-mame kof98
-
-![King Of Fighters 98 launched on Linux using
-ia-rcade](./doc/screenshot3.png)
+    $ ia-rcade galaxian
 
 ### Windows
 
-Let's try Columns on the Sega Master System.
-
-Open a console `cmd` then type:
+Let's try Pacman. Open a console `cmd` then type:
 
     C:\> cd \path\to\mame
-    C:\> ia-mame.exe sms columns
-
-![Columns launched on Windows using ia-rcade](./doc/screenshot4.png)
+    C:\> ia-rcade.exe pacman
 
 ### Executable JAR
 
 Alternatively, the provided [executable
-jar](https://github.com/TiBeN/ia-rcade/releases/download/1.0/ia-mame.jar)
+jar](https://github.com/TiBeN/ia-rcade/releases/download/1.1/ia-rcade.jar)
 can be used directly:
 
-    $ java -jar ia-mame.jar sf2
+    $ java -jar ia-rcade.jar sf2
 
 ### Use a different rompath
 
@@ -152,7 +139,7 @@ If you want to try `ia-rcade` using a different rompath than your Mame's
 default, you can use the original Mame option `-rompath` on the
 command-line.
 
-    $ ia-mame -rompath /tmp sms sonic
+    $ ia-rcade -rompath /tmp sms sonic
 
 ### Disable Mame execution
 
@@ -161,7 +148,7 @@ It is possible to run `ia-rcade` without running Mame afterward using the
 rom file without execute the game. If the rom is already available,
 `ia-rcade` simply does nothing.
 
-    $ ia-mame -noexecmame sms sonic
+    $ ia-rcade -noexecmame sms sonic
 
 Known limitations
 -----------------
