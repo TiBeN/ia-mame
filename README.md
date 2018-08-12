@@ -4,20 +4,10 @@ ia-mame
 [![Build
 Status](https://travis-ci.org/TiBeN/ia-mame.svg?branch=master)](https://travis-ci.org/TiBeN/ia-mame)
 
-`ia-mame` allows you to play with the [MAME](http://mamedev.org/)
-emulator without bothering to find roms: `ia-mame` searchs and downloads
-them automatically for you!
+`ia-mame` allows you to use the emulator [MAME](http://mamedev.org/) with
+[roms hosted at archive.org](https://archive.org/details/messmame).
 
-Machines ROMs/CHDs and software lists ROMs/CHDs are supported. Files are
-downloaded from [romset
-collections](https://archive.org/details/messmame) hosted at
-[archive.org](https://archive.org). `ia-mame` is really handy for casual
-gamers or others MAME users that don't want to spend time, energy or HDD
-space in collecting perfect full romsets but simply want to play or
-quickly test some games. As a nice side effect, `ia-mame` allows the
-download of only parts of bigs zipped romsets files available at
-archive.org. Some users complained about issues in downloading theses
-big files.
+Machines ROMs/CHDs and software lists ROMs/CHDs are supported. 
 
 Before using `ia-mame` please read the [legal
 notes](https://github.com/TiBeN/ia-mame#legal) below.
@@ -56,10 +46,9 @@ Prerequisites
 Warning
 -------
 
-Despite `ia-mame` can be considered safe, it is for now a beta software.
-It should not affect your roms collection and will not overwrite your
-existing files. But if you take care of your collection, it would be
-safer to try `ia-mame` with another rompath. See
+Despite `ia-mame` can be considered safe, it is for now a beta software.  It
+should not affect the roms into your rompath. But if you take care of your
+collection, it would be safer to try `ia-mame` with another rompath. See
 [below](https://github.com/TiBeN/ia-mame#use-a-different-rompath)
 
 If you change your version of Mame, i recommend you to use another empty
@@ -124,7 +113,7 @@ Usage
 `ia-mame` acts like a `command wrapper` of the original Mame executable.
 Use it exactly like the original Mame command line. When you launch a
 game or a system, `ia-mame` looks at your rompath to determine what
-ROM/CHD files are missing and downloads them from archive.org into your
+ROM/CHD files are missing and fetch them from archive.org into your
 rompath. Once the files are downloaded, it returns control to original
 Mame executable which launches the game/system.
 
