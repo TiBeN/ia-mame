@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Current
+-------
+
+-   Fix "illegal reflective access operation" warnings with recent Java versions
+
 1.1
 ---
 
