@@ -25,369 +25,354 @@ import org.tibennetwork.iarcade.mame.MameVersion;
  */
 public class RomSetXmlGenerator {
 
-  public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-    String type = args[0];
-    String path = args[1];
+        String type = args[0];
+        String path = args[1];
 
-    String html = null;
+        String html = null;
 
-    BufferedReader br = new BufferedReader(new FileReader(path));
-    try {
-      StringBuilder sb = new StringBuilder();
-      String line = br.readLine();
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        try {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
 
-      while (line != null) {
-        sb.append(line);
-        sb.append(System.lineSeparator());
-        line = br.readLine();
-      }
-      html = sb.toString();
-    } finally {
-      br.close();
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            html = sb.toString();
+        } finally {
+            br.close();
+        }
+
+        Document zipView = Jsoup.parse(html);
+
+        switch (type) {
+
+        case "machine-rom":
+            generateMachineRomSetXml(zipView);
+            break;
+
+        case "softwarelist-rom":
+            generateSoftwareListRomSetXml(zipView);
+            break;
+
+        case "machine-chd":
+            generateMachineChdSetXml(zipView);
+            break;
+
+        case "softwarelist-chd":
+            generateSoftwareListChdSetXml(zipView);
+            break;
+
+        default:
+            System.err.println("ERROR: Unrecognized collection type argument");
+
+        }
     }
 
-    Document zipView = Jsoup.parse(html);
+    /**
+     * Generate XML data for MachineRomSet
+     */
+    public static void generateMachineRomSetXml(Document zipView) throws Exception {
 
-    switch (type) {
+        Pattern p;
+        Matcher m;
 
-      case "machine-rom":
-        generateMachineRomSetXml(zipView);
-        break;
+        // Scrap collection id
 
-      case "softwarelist-rom":
-        generateSoftwareListRomSetXml(zipView);
-        break;
+        Element caption = zipView.select("caption").first();
+        p = Pattern.compile("listing\\ of\\ (.+)\\.[ziptar]{3}");
+        m = p.matcher(caption.text());
+        if (!m.matches()) {
+            throw new RuntimeException("Can't parse collection id from caption. Regex does not match");
+        }
+        String id = m.group(1);
 
-      case "machine-chd":
-        generateMachineChdSetXml(zipView);
-        break;
+        Elements trs = zipView.select("table[class=archext]").first().select("tr:has(td:has(a))");
 
-      case "softwarelist-chd":
-        generateSoftwareListChdSetXml(zipView);
-        break;
+        Map<String, MachineRomSetFile> files = new HashMap<>();
 
-      default:
-        System.err.println("ERROR: Unrecognized collection type argument");
+        for (Element tr : trs) {
+
+            Element a = tr.child(0).child(0);
+
+            // Scrap URL
+
+            String url = "http:" + a.attr("href").toString();
+            p = Pattern.compile(".+/(.+)\\.zip");
+            m = p.matcher(a.text());
+
+            if (!m.matches()) {
+                System.err.println("Skip non rom file: " + url);
+                continue;
+            }
+
+            // Scrap machine name
+
+            String machineName = m.group(1);
+
+            // Scrap size
+            //
+            // There is scraping errors sometimes. To prevent this the size of
+            // the children of tr is tested. A warning to stderr is reported in case
+
+            String size;
+
+            if (tr.children().size() <= 3) {
+                System.err.println("Warning, can't parse size: " + tr);
+                size = "0";
+            } else {
+                size = tr.child(3).text();
+            }
+
+            MachineRomSetFile file = new MachineRomSetFile(id, machineName, new URL(url), Long.parseLong(size));
+
+            files.put(machineName, file);
+        }
+
+        MameVersion version = new MameVersion("0.150"); // Don't care
+        MachineRomSetFormat format = MachineRomSetFormat.MERGED;
+
+        MachineRomSet romSet = new MachineRomSet(version, new HashSet<Collection>(), format, files);
+
+        JAXB.marshal(romSet, System.out);
 
     }
-  }
 
-  /**
-   * Generate XML data for MachineRomSet
-   */
-  public static void generateMachineRomSetXml(Document zipView)
-      throws Exception {
+    public static void generateSoftwareListRomSetXml(Document zipView) throws Exception {
 
-    Pattern p;
-    Matcher m;
+        Pattern p;
+        Matcher m;
 
-    // Scrap collection id
+        // Scrap collection id
 
-    Element caption = zipView.select("caption").first();
-    p = Pattern.compile("listing\\ of\\ (.+)\\.[ziptar]{3}");
-    m = p.matcher(caption.text());
-    if (!m.matches()) {
-      throw new RuntimeException(
-          "Can't parse collection id from caption. Regex does not match");
-    }
-    String id = m.group(1);
+        Element caption = zipView.select("caption").first();
+        p = Pattern.compile("listing\\ of\\ (.+)\\.zip");
+        m = p.matcher(caption.text());
+        if (!m.matches()) {
+            throw new RuntimeException("Can't parse collection id from caption. Regex does not match");
+        }
+        String id = m.group(1);
 
-    Elements trs = zipView.select("table[class=archext]").first()
-        .select("tr:has(td:has(a))");
+        Elements trs = zipView.select("table[class=archext]").first().select("tr:has(td:has(a))");
 
-    Map<String, MachineRomSetFile> files = new HashMap<>();
+        Map<String, Map<String, SoftwareListRomSetFile>> files = new HashMap<>();
 
-    for (Element tr : trs) {
+        for (Element tr : trs) {
 
-      Element a = tr.child(0).child(0);
+            Element a = tr.child(0).child(0);
 
-      // Scrap URL
+            // Scrap URL
 
-      String url = "http:" + a.attr("href").toString();
-      p = Pattern.compile(".+/(.+)\\.zip");
-      m = p.matcher(a.text());
+            String url = "http:" + a.attr("href").toString();
+            p = Pattern.compile(".+/(.+)/(.+)\\.zip");
+            // p = Pattern.compile("(.+)/(.+)\\.zip"); // use this is collection is splited
+            // into separate zip files (like 0.202)
+            m = p.matcher(a.text());
 
-      if (!m.matches()) {
-        System.err.println("Skip non rom file: " + url);
-        continue;
-      }
+            if (!m.matches()) {
+                System.err.println("youpi");
+                System.err.println("Skip non rom file: " + url);
+                continue;
+            }
 
-      // Scrap machine name
+            // Scrap softwarelist name
 
-      String machineName = m.group(1);
+            String listName = m.group(1);
 
-      // Scrap size
-      //
-      // There is scraping errors sometimes. To prevent this the size of
-      // the children of tr is tested. A warning to stderr is reported in case
+            // Scrap software name
 
-      String size;
+            String softwareName = m.group(2);
 
-      if (tr.children().size() <= 3) {
-        System.err.println("Warning, can't parse size: " + tr);
-        size = "0";
-      } else {
-        size = tr.child(3).text();
-      }
+            // Scrap size
+            //
+            // There is scraping errors sometimes. To prevent this the size of
+            // the children of tr is tested. A warning to stderr is reported in case
 
-      MachineRomSetFile file = new MachineRomSetFile(id, machineName,
-          new URL(url), Long.parseLong(size));
+            String size;
 
-      files.put(machineName, file);
-    }
+            if (tr.children().size() <= 3) {
+                System.err.println("Warning, can't parse size: " + tr);
+                size = "0";
+            } else {
+                size = tr.child(3).text();
+            }
 
-    MameVersion version = new MameVersion("0.150"); // Don't care
-    MachineRomSetFormat format = MachineRomSetFormat.MERGED;
+            SoftwareListRomSetFile file = new SoftwareListRomSetFile(id, listName, softwareName, new URL(url),
+                    Long.parseLong(size));
 
-    MachineRomSet romSet =
-        new MachineRomSet(version, new HashSet<Collection>(), format, files);
+            if (!files.containsKey(listName)) {
+                files.put(listName, new HashMap<String, SoftwareListRomSetFile>());
+            }
+            files.get(listName).put(softwareName, file);
+        }
 
-    JAXB.marshal(romSet, System.out);
+        MameVersion version = new MameVersion("0.150"); // Don't care
 
-  }
+        SoftwareListRomSet romSet = new SoftwareListRomSet(version, new HashSet<Collection>(), files);
 
-  public static void generateSoftwareListRomSetXml(Document zipView)
-      throws Exception {
+        JAXB.marshal(romSet, System.out);
 
-    Pattern p;
-    Matcher m;
-
-    // Scrap collection id
-
-    Element caption = zipView.select("caption").first();
-    p = Pattern.compile("listing\\ of\\ (.+)\\.zip");
-    m = p.matcher(caption.text());
-    if (!m.matches()) {
-      throw new RuntimeException(
-          "Can't parse collection id from caption. Regex does not match");
-    }
-    String id = m.group(1);
-
-    Elements trs = zipView.select("table[class=archext]").first()
-        .select("tr:has(td:has(a))");
-
-    Map<String, Map<String, SoftwareListRomSetFile>> files = new HashMap<>();
-
-    for (Element tr : trs) {
-
-      Element a = tr.child(0).child(0);
-
-      // Scrap URL
-
-      String url = "http:" + a.attr("href").toString();
-      p = Pattern.compile(".+/(.+)/(.+)\\.zip");
-      m = p.matcher(a.text());
-
-      if (!m.matches()) {
-        System.err.println("Skip non rom file: " + url);
-        continue;
-      }
-
-      // Scrap softwarelist name
-
-      String listName = m.group(1);
-
-      // Scrap software name
-
-      String softwareName = m.group(2);
-
-      // Scrap size
-      //
-      // There is scraping errors sometimes. To prevent this the size of
-      // the children of tr is tested. A warning to stderr is reported in case
-
-      String size;
-
-      if (tr.children().size() <= 3) {
-        System.err.println("Warning, can't parse size: " + tr);
-        size = "0";
-      } else {
-        size = tr.child(3).text();
-      }
-
-      SoftwareListRomSetFile file = new SoftwareListRomSetFile(id, listName,
-          softwareName, new URL(url), Long.parseLong(size));
-
-      if (!files.containsKey(listName)) {
-        files.put(listName, new HashMap<String, SoftwareListRomSetFile>());
-      }
-      files.get(listName).put(softwareName, file);
     }
 
-    MameVersion version = new MameVersion("0.150"); // Don't care
+    /**
+     * Generate XML data for MachineRomSet
+     */
+    public static void generateMachineChdSetXml(Document zipView) throws Exception {
 
-    SoftwareListRomSet romSet =
-        new SoftwareListRomSet(version, new HashSet<Collection>(), files);
+        Pattern p;
+        Matcher m;
 
-    JAXB.marshal(romSet, System.out);
+        // Scrap collection id
 
-  }
+        Element caption = zipView.select("caption").first();
+        p = Pattern.compile("listing\\ of\\ (.+)\\.[tarzip]{3}");
+        m = p.matcher(caption.text());
+        if (!m.matches()) {
+            throw new RuntimeException("Can't parse collection id from caption. Regex does not match");
+        }
+        String id = m.group(1);
 
-  /**
-   * Generate XML data for MachineRomSet
-   */
-  public static void generateMachineChdSetXml(Document zipView)
-      throws Exception {
+        Elements trs = zipView.select("table[class=archext]").first().select("tr:has(td:has(a))");
 
-    Pattern p;
-    Matcher m;
+        Map<String, Map<String, MachineChdSetFile>> files = new HashMap<>();
 
-    // Scrap collection id
+        for (Element tr : trs) {
 
-    Element caption = zipView.select("caption").first();
-    p = Pattern.compile("listing\\ of\\ (.+)\\.[tarzip]{3}");
-    m = p.matcher(caption.text());
-    if (!m.matches()) {
-      throw new RuntimeException(
-          "Can't parse collection id from caption. Regex does not match");
-    }
-    String id = m.group(1);
+            Element a = tr.child(0).child(0);
 
-    Elements trs = zipView.select("table[class=archext]").first()
-        .select("tr:has(td:has(a))");
+            String url = "http:" + a.attr("href").toString();
+            p = Pattern.compile(".+/(.+)/(.+\\.chd)");
+            m = p.matcher(a.text());
 
-    Map<String, Map<String, MachineChdSetFile>> files = new HashMap<>();
+            if (!m.matches()) {
+                System.err.println("Skip non rom file: " + url);
+                continue;
+            }
 
-    for (Element tr : trs) {
+            // Scrap machine name
 
-      Element a = tr.child(0).child(0);
+            String machineName = m.group(1);
 
-      String url = "http:" + a.attr("href").toString();
-      p = Pattern.compile(".+/(.+)/(.+\\.chd)");
-      m = p.matcher(a.text());
+            // Scrap software name
 
-      if (!m.matches()) {
-        System.err.println("Skip non rom file: " + url);
-        continue;
-      }
+            String chd = m.group(2);
 
-      // Scrap machine name
+            // Scrap size
+            //
+            // There is scraping errors sometimes. To prevent this the size of
+            // the children of tr is tested. A warning to stderr is reported in case
 
-      String machineName = m.group(1);
+            String size;
 
-      // Scrap software name
+            if (tr.children().size() <= 3) {
+                System.err.println("Warning, can't parse size: " + tr);
+                size = "0";
+            } else {
+                size = tr.child(3).text();
+            }
 
-      String chd = m.group(2);
+            MachineChdSetFile file = new MachineChdSetFile(id, machineName, chd, new URL(url), Long.parseLong(size));
 
-      // Scrap size
-      //
-      // There is scraping errors sometimes. To prevent this the size of
-      // the children of tr is tested. A warning to stderr is reported in case
+            if (!files.containsKey(machineName)) {
+                files.put(machineName, new HashMap<String, MachineChdSetFile>());
+            }
 
-      String size;
+            files.get(machineName).put(chd, file);
+        }
 
-      if (tr.children().size() <= 3) {
-        System.err.println("Warning, can't parse size: " + tr);
-        size = "0";
-      } else {
-        size = tr.child(3).text();
-      }
+        MameVersion version = new MameVersion("0.150"); // Don't care
 
-      MachineChdSetFile file = new MachineChdSetFile(id, machineName, chd,
-          new URL(url), Long.parseLong(size));
+        MachineChdSet chdSet = new MachineChdSet(version, new HashSet<Collection>(), files);
 
-      if (!files.containsKey(machineName)) {
-        files.put(machineName, new HashMap<String, MachineChdSetFile>());
-      }
+        JAXB.marshal(chdSet, System.out);
 
-      files.get(machineName).put(chd, file);
     }
 
-    MameVersion version = new MameVersion("0.150"); // Don't care
+    /**
+     * Generate XML data for SoftwareListChdSet
+     */
+    public static void generateSoftwareListChdSetXml(Document zipView) throws Exception {
 
-    MachineChdSet chdSet =
-        new MachineChdSet(version, new HashSet<Collection>(), files);
+        Pattern p;
+        Matcher m;
 
-    JAXB.marshal(chdSet, System.out);
+        // Scrap collection id
 
-  }
+        Element caption = zipView.select("caption").first();
+        p = Pattern.compile("listing\\ of\\ (.+)\\.zip");
+        m = p.matcher(caption.text());
+        if (!m.matches()) {
+            throw new RuntimeException("Can't parse collection id from caption. Regex does not match");
+        }
+        String id = m.group(1);
 
-  /**
-   * Generate XML data for SoftwareListChdSet
-   */
-  public static void generateSoftwareListChdSetXml(Document zipView)
-      throws Exception {
+        Elements trs = zipView.select("table[class=archext]").first().select("tr:has(td:has(a))");
 
-    Pattern p;
-    Matcher m;
+        Map<String, Map<String, Map<String, SoftwareListChdSetFile>>> files = new HashMap<>();
 
-    // Scrap collection id
+        for (Element tr : trs) {
 
-    Element caption = zipView.select("caption").first();
-    p = Pattern.compile("listing\\ of\\ (.+)\\.zip");
-    m = p.matcher(caption.text());
-    if (!m.matches()) {
-      throw new RuntimeException(
-          "Can't parse collection id from caption. Regex does not match");
+            Element a = tr.child(0).child(0);
+
+            String url = "http:" + a.attr("href").toString();
+            p = Pattern.compile(".+_(.+)/(.+)/(.+)\\.chd");
+            m = p.matcher(a.text());
+
+            if (!m.matches()) {
+                System.err.println("Skip non rom file: " + url);
+                continue;
+            }
+
+            // Scrap softwarelist name
+
+            String listName = m.group(1);
+
+            // Scrap software name
+
+            String softwareName = m.group(2);
+
+            // Scrap chd name
+
+            String chdName = m.group(3);
+
+            // Scrap size
+            //
+            // There is scraping errors sometimes. To prevent this the size of
+            // the children of tr is tested. A warning to stderr is reported in case
+
+            String size;
+
+            if (tr.children().size() <= 3) {
+                System.err.println("Warning, can't parse size: " + tr);
+                size = "0";
+            } else {
+                size = tr.child(3).text();
+            }
+
+            SoftwareListChdSetFile file = new SoftwareListChdSetFile(id, listName, softwareName, chdName, new URL(url),
+                    Long.parseLong(size));
+
+            if (!files.containsKey(listName)) {
+                files.put(listName, new HashMap<String, Map<String, SoftwareListChdSetFile>>());
+            }
+
+            if (!files.get(listName).containsKey(softwareName)) {
+                files.get(listName).put(softwareName, new HashMap<String, SoftwareListChdSetFile>());
+            }
+
+            files.get(listName).get(softwareName).put(chdName, file);
+        }
+
+        MameVersion version = new MameVersion("0.150"); // Don't care
+
+        SoftwareListChdSet chdSet = new SoftwareListChdSet(version, new HashSet<Collection>(), files);
+
+        JAXB.marshal(chdSet, System.out);
+
     }
-    String id = m.group(1);
-
-    Elements trs = zipView.select("table[class=archext]").first()
-        .select("tr:has(td:has(a))");
-
-    Map<String, Map<String, Map<String, SoftwareListChdSetFile>>> files = new HashMap<>();
-
-    for (Element tr : trs) {
-
-      Element a = tr.child(0).child(0);
-
-      String url = "http:" + a.attr("href").toString();
-      p = Pattern.compile(".+_(.+)/(.+)/(.+)\\.chd");
-      m = p.matcher(a.text());
-
-      if (!m.matches()) {
-        System.err.println("Skip non rom file: " + url);
-        continue;
-      }
-
-      // Scrap softwarelist name
-
-      String listName = m.group(1);
-
-      // Scrap software name
-
-      String softwareName = m.group(2);
-
-      // Scrap chd name
-
-      String chdName = m.group(3);
-
-      // Scrap size
-      //
-      // There is scraping errors sometimes. To prevent this the size of
-      // the children of tr is tested. A warning to stderr is reported in case
-
-      String size;
-
-      if (tr.children().size() <= 3) {
-        System.err.println("Warning, can't parse size: " + tr);
-        size = "0";
-      } else {
-        size = tr.child(3).text();
-      }
-
-      SoftwareListChdSetFile file = new SoftwareListChdSetFile(id, listName, softwareName, chdName,
-          new URL(url), Long.parseLong(size));
-
-      if (!files.containsKey(listName)) {
-        files.put(listName, new HashMap<String, Map<String, SoftwareListChdSetFile>>());
-      }
-
-      if (!files.get(listName).containsKey(softwareName)) {
-        files.get(listName).put(softwareName, new HashMap<String, SoftwareListChdSetFile>());
-      }
-
-      files.get(listName).get(softwareName).put(chdName, file);
-    }
-
-    MameVersion version = new MameVersion("0.150"); // Don't care
-
-    SoftwareListChdSet chdSet =
-        new SoftwareListChdSet(version, new HashSet<Collection>(), files);
-
-    JAXB.marshal(chdSet, System.out);
-
-  }
 
 }
