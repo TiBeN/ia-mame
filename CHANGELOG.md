@@ -4,6 +4,7 @@ CHANGELOG
 Current
 -------
 
+-   Add support for 0.202 collections
 -   Fix "illegal reflective access operation" warnings with recent Java versions
 
 1.1
