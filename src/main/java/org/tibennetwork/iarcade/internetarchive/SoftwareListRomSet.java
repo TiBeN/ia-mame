@@ -23,6 +23,7 @@ public class SoftwareListRomSet extends RomSet {
     SoftwareListRomSet.versions.add(new MameVersion("0.151"));
     SoftwareListRomSet.versions.add(new MameVersion("0.185"));
     SoftwareListRomSet.versions.add(new MameVersion("0.193"));
+    SoftwareListRomSet.versions.add(new MameVersion("0.202"));
   }
 
   public static TreeSet<MameVersion> versions;

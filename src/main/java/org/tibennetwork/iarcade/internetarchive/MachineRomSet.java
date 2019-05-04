@@ -31,6 +31,7 @@ public class MachineRomSet extends RomSet {
     MachineRomSet.versions.add(new MameVersion("0.185"));
     MachineRomSet.versions.add(new MameVersion("0.193"));
     MachineRomSet.versions.add(new MameVersion("0.197"));
+    MachineRomSet.versions.add(new MameVersion("0.202"));
   }
 
   public static enum MachineRomSetFormat {
