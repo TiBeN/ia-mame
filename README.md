@@ -62,7 +62,7 @@ Installation
 
 -   Install `ia-rcade` and make it executable:
 
-        $ sudo curl -fsSLo /usr/local/bin/ia-rcade https://github.com/TiBeN/ia-mame/releases/download/1.1/ia-rcade
+        $ sudo curl -fsSLo /usr/local/bin/ia-rcade https://github.com/TiBeN/ia-mame/releases/download/1.2/ia-rcade
         $ sudo chmod +x /usr/local/bin/ia-rcade
 
 -   Tell `ia-rcade` where is your Mame executable by making it available
@@ -77,7 +77,7 @@ Installation
 ### Windows
 
 -   Download
-    [ia-rcade.exe](https://github.com/TiBeN/ia-rcade/releases/download/1.1/ia-rcade.exe)
+    [ia-rcade.exe](https://github.com/TiBeN/ia-rcade/releases/download/1.2/ia-rcade.exe)
     and place it on the folder where is your mame.exe
 
 You can alternatively place it somewhere else and use the \$MAME\_EXEC
@@ -128,7 +128,7 @@ Let's try Pacman. Open a console `cmd` then type:
 ### Executable JAR
 
 Alternatively, the provided [executable
-jar](https://github.com/TiBeN/ia-rcade/releases/download/1.1/ia-rcade.jar)
+jar](https://github.com/TiBeN/ia-rcade/releases/download/1.2/ia-rcade.jar)
 can be used directly:
 
     $ java -jar ia-rcade.jar sf2
